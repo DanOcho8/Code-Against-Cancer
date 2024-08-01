@@ -1,7 +1,7 @@
 <!-- base.html -->
 <!doctype html>
 <html>
-<head>
+  <head>
     {% load static %}
     <meta charset="utf-8" />
     <title>{% block title %}CodeAgainstCancer{% endblock %}</title>
@@ -12,91 +12,123 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<body>
+  <body>
     <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}">
-                <img src="{% static 'images/CACLOGO.jpg' %}" alt="Logo" width="35" height="32" class="d-inline-block align-text-top" />
-                CodeAgainstCancer
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">
+          <img
+            src="{% static 'images/CACLOGO.jpg' %}"
+            alt="Logo"
+            width="35"
+            height="32"
+            class="d-inline-block align-text-top"
+          />
+          CodeAgainstCancer
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Something</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">Something</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            {% if user.is_authenticated %}
+            <button
+              class="btn btn-outline-primary"
+              formaction="{% url 'logout' %}"
+            >
+              Logout
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Something</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Something</a>
-                    </li>
-                </ul>
-                <form class="d-flex">
-                    {% if user.is_authenticated %}
-                    <button class='btn btn-outline-primary' formaction="{% url 'logout' %}">Logout</button>
-                    {% else %}
-                    <a class="btn btn-outline-primary" href="{% url 'login' %}">Login/Signup</a>
-                    {% endif %}
-                </form>
-            </div>
+            {% else %}
+            <a class="btn btn-outline-primary" href="{% url 'login' %}"
+              >Login/Signup</a
+            >
+            {% endif %}
+          </form>
         </div>
+      </div>
     </nav>
 
     {% if user.is_authenticated %}
     <div class="container-fluid mt-5 pt-4">
-        <div class="row">
-            <button class="btn btn-primary d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle sidebar">
-                Toggle Sidebar
-            </button>
+      <div class="row">
+        <nav class="col-2 col-md-3 col-lg-2 d-none d-md-block sidebar">
+          <div class="position-sticky">
+            <div class="list-group mt-3">
+              <a
+                href="{% url 'home' %}"
+                class="list-group-item list-group-item-action"
+                >Home</a
+              >
+              <a href="#" class="list-group-item list-group-item-action"
+                >Diet Plan</a
+              >
+              <a href="#" class="list-group-item list-group-item-action"
+                >Bookmarks</a
+              >
+              <a href="#" class="list-group-item list-group-item-action"
+                >Community</a
+              >
+              <a href="#" class="list-group-item list-group-item-action"
+                >My Profile</a
+              >
+            </div>
+          </div>
+        </nav>
 
-            <nav class="col-md-2 d-none d-md-block sidebar">
-                <div class="position-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'home' %}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Diet Plan</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Bookmarks</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Community</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">My Profile</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-
-            <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4">
-
-            </main>
-        </div>
+        <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4"></main>
+      </div>
     </div>
-    {% endif %}
-
-    {% if user.is_authenticated %}
+    {% endif %} {% if user.is_authenticated %}
     <footer class="navbar navbar-expand-lg fixed-bottom bg-lightblue">
-        <div class="container-fluid justify-content-between">
-            <button class="btn btn-primary">Contact Your Nutritionist</button>
-            <a class="navbar-brand mx-auto" href="{% url 'home' %}">
-                <img src="{% static 'images/CACLOGO.jpg' %}" alt="Logo" width="100" height="95" class="d-inline-block align-text-top" />
-            </a>
-            <button class="btn btn-primary">Fund Research</button>
-        </div>
+      <div class="container-fluid justify-content-between">
+        <button class="btn btn-primary">Contact Your Nutritionist</button>
+        <a class="navbar-brand mx-auto" href="{% url 'home' %}">
+          <img
+            src="{% static 'images/CACLOGO.jpg' %}"
+            alt="Logo"
+            width="100"
+            height="95"
+            class="d-inline-block align-text-top"
+          />
+        </a>
+        <button class="btn btn-primary">Fund Research</button>
+      </div>
     </footer>
     {% endif %}
     <main>{% block content %} {% endblock %}</main>
     <script src="{% static 'sidebar.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
-</body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+      integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
