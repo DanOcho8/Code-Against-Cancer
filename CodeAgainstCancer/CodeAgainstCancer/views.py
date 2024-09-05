@@ -45,3 +45,7 @@ def get_youtube_videos(query):
 
 def about(request):
     return render(request, 'about/about.html')
+
+
+def recipe(request):
+    return render(request, 'recipe/recipe.html')

@@ -15,5 +15,6 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('resources/', views.resources, name='resources'),
     path('about/', views.about, name='about'),
+    path('recipe/', views.about, name='recipe'),
     # Add more URL patterns as needed
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
