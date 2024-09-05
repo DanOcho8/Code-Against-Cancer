@@ -16,6 +16,10 @@ __pycache__/
 *.py[cod]
 
 activate.txt
+.prettierc
+
+# Env variables
+.env
 
 
 

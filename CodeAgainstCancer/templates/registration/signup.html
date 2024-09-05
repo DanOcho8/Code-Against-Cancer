@@ -7,7 +7,7 @@
 <div class="shadow-wrap">
     <div class="form-wrap">
         <h3>Sign Up</h3>
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Sign Up</button>

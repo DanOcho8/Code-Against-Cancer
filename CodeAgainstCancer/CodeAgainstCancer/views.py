@@ -2,7 +2,7 @@ import requests
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.conf import settings
 
 
@@ -19,9 +19,15 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
+
+            # Check if the user has completed their profile
+            if not (user.profile.cancer_type and user.profile.date_diagnosed and user.profile.cancer_stage and user.profile.gender):
+                return redirect('user_profile.html')  # Redirect to profile form if not completed
+
             return redirect('home')
     else:
         form = AuthenticationForm()
+    
     return render(request, 'registration/login.html', {'form': form})
 
 def resources(request):

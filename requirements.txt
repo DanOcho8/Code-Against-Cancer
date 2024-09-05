@@ -8,3 +8,4 @@ requests
 cryptography
 django-bootstrap-v5
 django_google_fonts
+python-dotenv
