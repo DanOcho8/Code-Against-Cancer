@@ -1,30 +1,28 @@
-<!-- templates/registration/login.html -->
 {% extends "base.html" %}
 <head>
   {% load static %}
   <link rel="stylesheet" href="{% static '/css/styles.css' %}">
 </head>
 
-
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<body class="login">
-  <div class="shadow-wrap">
-  <div class="form-wrap">
-    <h3>Login </h3>
-  <form method="POST">
-  {% csrf_token %}
-  {{form}}
-  <button type="submit">Submit</button>
-  </form>
-  <a class="signup-link" href="{% url 'signup' %}">Signup</a>
-  <a class="btn btn-google" href="{% url 'google_login' %}">
-    <img src="{% static 'images/google-logo.png' %}" alt="Google Logo" width="20" height="20" class="me-2" />
-    Login with Google
-  </a>
-
-  </div>
+<body class="login" style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #fff;">
+  <div class="shadow-wrap" style="border-radius: 5px; padding: 25px; background-color: #f0f2fb;">
+    <div class="form-wrap" style="background-color: #fff; padding: 70px;">
+      <h3 style="text-align:center">Login</h3>
+      <form method="POST" style="display: block; width: 100%;">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" style="border-radius: 5px; background: #10182f; color: #fff; cursor: pointer; text-align: center; font-size: 16px; padding: 12px 68px; font-weight: 700; border: 1px solid transparent; margin-top: 30px; line-height: 26px;">Submit</button>
+      </form>
+      <a class="signup-link" href="{% url 'signup' %}" style="font-weight: 500; border-radius: 5px; border: 2px solid #4285F4; background-color: #4285F4; color: white; font-size: 16px; margin-top: 20px; text-align: center; line-height: 25px; display: block; text-decoration: none;">Signup</a>
+      <p style="padding: 20px; border-radius: 5px; text-decoration: none; font-size: 16px; margin-top: 10px;"><a style="font-weight: 500; border-radius: 5px; border: 2px solid #4285F4; background-color: #4285F4; color: white; font-size: 16px; margin-top: 20px; text-align: center; line-height: 25px; display: block; text-decoration: none;" href="{% url 'password_reset' %}">Forgot Password?</a></p>
+      <a class="btn btn-google" href="{% url 'google_login' %}" style="text-align:center; display: inline-flex; background-color: #4285F4; color: white; border: 2px solid #4285F4; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-size: 16px; font-weight: 500; transition: background-color 0.3s, border-color 0.3s; margin-top: 10px;">
+        <img src="{% static 'images/google-logo.png' %}" alt="Google Logo" width="20" height="20" class="me-2" style="margin-right: 10px;" />
+        Login with Google
+      </a>
+    </div>
   </div>
 </body>
 {% endblock content %}
