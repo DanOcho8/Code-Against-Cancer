@@ -1,38 +1,61 @@
-{% extends "base.html" %} 
-{% load static %} 
+{% extends "base.html" %}
+{% load static %}
 
-{% block title %} Recipe {% endblock %} 
+{% block title %} Recipe {% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-	<h1 class="text-center pt-4">Recipes</h1>
-	<p class="text-center">
+    <h1 class="text-center pt-4">Recipes</h1>
+    <p class="text-center">
         Food recipes that are tailored to you!
-	</p>
-    <div class="container margin-bottom">
-        <div class="row">
-            <div class="col d-flex justify-content-center align-items-center flex-column">
-                <h2 class="text-center">Our Mission</h2>
-                <p>
-                    Our mission is to help cancer patients and their families by providing them with the resources they need to fight cancer.
-                </p>
+    </p>
+
+ <!--this is the search bar/ passes the users search result as a query in the url to the url.py then to the search recipes in views.py-->
+ <!--uses GET as a HTTP method when sending form data as a query paramter to the url/ action tell where to send it too-->
+    <form class="d-flex" method="GET" action="{% url 'searchRecipes' %}">
+        <input class="form-control me-2" type="search" name="query" value="{{ query }}" placeholder="Search for Recipes..." aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+
+    <!-- Recipes Section -->
+    <div class="container margin-bottom mt-4">
+        {% if recipes %}
+            <div class="row">
+                {% for item in recipes %}
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <img src="{{ item.recipe.image }}" class="card-img-top" alt="Recipe Image">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ item.recipe.label }}</h5>
+                                <p class="card-text">Calories: {{ item.recipe.calories|floatformat:0 }}</p>
+                                <a href="{{ item.recipe.url }}" class="btn btn-primary" target="_blank">View Recipe</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-            <div class="col d-flex justify-content-center align-items-center flex-column">
-                <img width="300" height="150" src="https://images.pexels.com/photos/7659688/pexels-photo-7659688.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Our Mission" class="about-img">
-            </div>
-        </div>
-    </br>
-        <div class="row">
-            <div class="col d-flex justify-content-center align-items-center flex-column">
-                <img width="300" height="150" src="https://images.pexels.com/photos/6798885/pexels-photo-6798885.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Our Vision" class="about-img">
-            </div>
-            <div class="col d-flex justify-content-center align-items-center flex-column">
-                <h2 class="text-center">Our Vision</h2>
-                <p>
-                    Our vision is to create a world where cancer is no longer a life-threatening disease.
-                </p>
-            </div>
-        </div>
+        {% else %}
+            <p class="text-center">No recipes found</p>
+        {% endif %}
+
+
+    <div class="d-flex justify-content-between mt-4">
+        {% if hasPrevPage %}
+            <a class="btn btn-secondary" href="?query={{ query }}&page={{ page|add:-1 }}">Previous</a>
+        {% else %}
+            <button class="btn btn-secondary" disabled>Previous</button>
+        {% endif %}
+
+        {% if hasNextPage %}
+            <a class="btn btn-secondary" href="?query={{ query }}&page={{ page|add:1 }}">Next</a>
+        {% else %}
+            <button class="btn btn-secondary" disabled>Next</button>
+        {% endif %}
     </div>
+
+    </div>
+
+
+    
 </div>
 {% endblock %}
