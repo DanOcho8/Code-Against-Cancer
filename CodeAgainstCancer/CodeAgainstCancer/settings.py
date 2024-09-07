@@ -34,6 +34,9 @@ ALLOWED_HOSTS = []
 # API keys 
 YOUTUBE_API_KEY = 'AIzaSyBydK6yBKYz-1CbLcoFNgsYnM6aXq8JSnA'
 
+APP_ID = 'd5ecad22'  
+API_KEY = 'acf97ba16a158ba48ad4e33b7974399b'
+
 
 
 # Application definition
