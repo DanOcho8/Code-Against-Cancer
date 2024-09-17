@@ -31,6 +31,7 @@ CANCER_TYPE_CHOICES = [
 ]
 
 CANCER_STAGE_CHOICES = [
+    ('', 'Select cancer stage:'),
     ('I', 'Stage I'),
     ('II', 'Stage II'),
     ('III', 'Stage III'),
@@ -38,6 +39,7 @@ CANCER_STAGE_CHOICES = [
 ]
 
 GENDER_CHOICES = [
+    ('', 'Select your gender:'),
     ('male', 'Male'),
     ('female', 'Female'),
     ('other', 'Other'),
@@ -47,11 +49,11 @@ class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField()
     first_name = forms.CharField()
     last_name = forms.CharField()
-    cancer_type = forms.ChoiceField(choices=CANCER_TYPE_CHOICES)
-    date_diagnosed = forms.DateField(widget=forms.SelectDateWidget(years=range(1900, 2100)))
+    cancer_type = forms.ChoiceField(choices=CANCER_TYPE_CHOICES, label="Cancer Type")
+    date_diagnosed = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), label="Date Diagnosed")  # Single date field
     cancer_stage = forms.ChoiceField(choices=CANCER_STAGE_CHOICES)
     gender = forms.ChoiceField(choices=GENDER_CHOICES)
-    profile_pic = forms.ImageField(required=False)
+    profile_pic = forms.ImageField(required=False, label="Profile Pic (Optional)")  # Label with "Optional"
 
     class Meta:
         model = User
