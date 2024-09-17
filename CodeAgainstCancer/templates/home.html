@@ -1,14 +1,51 @@
 {% extends "base.html" %}
 {%load static%}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Home{% endblock %}</title>
-    <link rel="stylesheet" href="{% static '/css/styles.css' %}">
-</head>
-<body>
 
-</body>
-</html>
+{% block title %} Home {% endblock %} 
+
+{% block content %}
+
+
+
+
+        <!--Homepage info-->
+        <section class="home">
+            <!--main home page-->
+            <div class="home-info-left">
+                <div>
+                    <h1>We are CodeAgainstCancer</h1>
+                    <h3><br>Eat Well, Fight Strong</h3>
+                    <h5>
+                        <br> At CodeAgainstCancer, we believe that nutrition isa powerful ally in the fight against cancer. 
+                        <br> Our mission is to provide patients with comprehensive dietary support to enhance their health, boost their strength, and improve their quality of life. 
+                        <br> Learn More. <!--add button here--> 
+                    </h5>
+                </div>
+            </div>
+            <!--image-->
+            <div class="home-img-right">
+
+            </div>
+        </section>
+        <!--Nutrition info-->
+        <section class="Nutrition">
+        
+        <section>
+        <!--Community info-->
+        <section class="Community">
+
+        <section>
+        <!-- User Testimonials-->
+        <section class="UserTestimonials">
+        
+        <section>
+        <!--Mission-->
+        <section class="Mission">
+        
+        <section>
+        <!--Social Media-->
+        <section class="SocialMedia">
+        
+        <section>
+    
+{% endblock %}
