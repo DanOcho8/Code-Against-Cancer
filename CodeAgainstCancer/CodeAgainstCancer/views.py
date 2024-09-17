@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+import json
 
 
 
@@ -115,6 +116,25 @@ def searchRecipes(request):
     from_recipes = (page - 1) * 6
     to_recipes = page * 6 #this keeps track of up to 6 different recipes per page
     recipes = []
+    excluded_query = ''
+    
+    if request.user.is_authenticated:
+        # Get the logged-in user's profile and excluded ingredients
+        user = request.user
+        user_profile = get_object_or_404(UserProfile, user=user)
+        
+        # Load cancer-related information from the JSON file
+        json_path = os.path.join(settings.BASE_DIR, 'static/cancer_information.json')
+        with open(json_path, 'r') as json_file:
+            cancer_data = json.load(json_file)
+            
+            
+ # Get cancer-specific info, including excluded ingredients
+        cancer_info = cancer_data.get(user_profile.cancer_type, {})
+        excluded_ingredients = cancer_info.get('excluded_ingredients', [])
+        
+        # Convert list of excluded ingredients into URL-friendly format
+        excluded_query = '&'.join([f'excluded={ingredient}' for ingredient in excluded_ingredients])
 
     # load random recipes if no search result is inputted
     if not query:
