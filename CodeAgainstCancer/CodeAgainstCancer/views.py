@@ -107,6 +107,9 @@ def get_youtube_videos(query, page_token=None):
 def about(request):
     return render(request, 'about/about.html')
 
+def donate(request):
+    return render(request, 'donate/donate.html')
+
 logger = logging.getLogger(__name__)
 
 def searchRecipes(request):
