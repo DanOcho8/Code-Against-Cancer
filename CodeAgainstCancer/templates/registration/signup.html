@@ -67,6 +67,13 @@
                             {{ form.email.errors }}
                         </div>
 
+                        <!-- Phone Number -->
+                        <div class="mb-3">
+                            {{ form.phone_number.label_tag }}
+                            {{ form.phone_number|add_class:"form-control" }}
+                            {{ form.phone_number.errors }}
+                        </div>
+
                         <!-- Password1 -->
                         <div class="mb-3">
                             {{ form.password1.label_tag }}
@@ -114,6 +121,12 @@
                             {{ form.profile_pic.label_tag }}
                             {{ form.profile_pic|add_class:"form-control-file" }}
                             {{ form.profile_pic.errors }}
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input type="checkbox" class="form-check-input" id="consent_to_text" name="consent_to_text" {% if form.consent_to_text.value %}checked{% endif %}>
+                            <label for="consent_to_text" class="form-check-label">I consent to receive text message reminders</label>
+                            {{ form.consent_to_text.errors }}
                         </div>
 
                         <!-- Submit Button -->
