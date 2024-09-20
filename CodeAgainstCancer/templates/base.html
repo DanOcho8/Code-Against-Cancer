@@ -124,8 +124,9 @@
 
 		<div id="main"></div>
 		{% endif %} {% if user.is_authenticated %}
+		{% block footer %}
 		<footer
-			class="navbar navbar-expand-lg fixed-bottom bg-lightblue footer-custom"
+			class="navbar navbar-expand-lg fixed-bottom bg-lightblue footer-custom", style="height: 80px;"
 		>
 			<div class="container-fluid justify-content-between">
 				<button class="btn btn-primary">Contact Your Nutritionist</button>
@@ -141,6 +142,7 @@
 				<button class="btn btn-primary">Fund Research</button>
 			</div>
 		</footer>
+		{% endblock %}
 		{% endif %}
 		<main>{% block content %} {% endblock %}</main>
 		<script src="{% static 'sidebar.js' %}"></script>
