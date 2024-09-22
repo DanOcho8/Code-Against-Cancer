@@ -8,10 +8,10 @@
         <!--Homepage info-->
         <section class="home">
             <!--main home page-->
+            <!--Add padding from the top-->
             <div class="home-info-left">
                 <div class="row justify-content-evenly">
                     <div class="col-4">
-                <div>
                     <h1 class ="main-title"> We are CodeAgainstCancer</h1>
                 <div class="text-box">
                     <h3><br>Eat Well, Fight Strong</h3>
@@ -19,22 +19,21 @@
                         <p> Learn More. <!--add button here--> 
                 </div>
             </div>
-        </div>
                  <!--image-->
                  <div class="col-4">
                 <div class="home-img-right">
-                    <img src="{% static 'images/TinyChefs.png' %}" alt=""> <!--Fix? Not showing up-->
+                    <img src="https://i.pinimg.com/564x/6a/fa/27/6afa27282ae0529247e93bdfc056e6d2.jpg" alt="Chef pic" class="img-fluid"> <!--Fix? Not showing up-->
                 </div>
             </div>
             </div>
         </div>
-    </div>
         </section>
         <!--Nutrition info-->
         <section class="Nutrition"> 
             <div class="row justify-content-evenly">
                 <div class="col-4">
                     <div class="Nutrition-img"> <!--Add image here-->
+                        <img src="https://i.pinimg.com/564x/fb/94/ca/fb94cab6d7c260b8c5952385d5dfee94.jpg" class="img-fluid" alt="healthy food img">
                 </div>  
             </div>
                 <div class="col-4">         
@@ -52,6 +51,7 @@
                 </div>
                 <div class="col-4">
             <div class="Community-img"> <!--Add image here-->
+                <img src="https://i.pinimg.com/564x/a8/79/b1/a879b1900d7961fca26028fabe585ad5.jpg" class="img-fluid" alt="community-img">
             </div>
         </div>   
         <section>
@@ -62,28 +62,35 @@
             <h3 class="UserTestimonials-title">User Testimonials</h3>
                 </div>
             </div>
-            <div class="Testimonials">
-                <div class="Testimonial1">
-                    <div class="card" style="width: 18rem;">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <p class="card-text">"Love that it is simple but effective, helps me keep track of what I eat and stay on track. @User1"</p>
-                        </div>
+            <div class="row justify-content-around">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                  <div class="card h-100">
+                    <img src="https://i.pinimg.com/564x/f8/92/61/f89261ed471d04cab6f609f7157725d3.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <p class="card-text">“Love that it is simple but effective, helps me keep track of what I eat and stay on track. @User1”
+                    </p>
                     </div>
-                <div class="Testimonial2">
-                    <div class="Testimonial2-img"> <!--Add image here-->
-                        "I was able to find yummy healthy recipes and find support in my communiy! 10/10 @User2"
-                    </div>
-                <div class="Testimonial3">
-                    <div class="Testimonial3-img"> <!--Add image here-->
-                        "Perfect for keeping track of my dietary habits! I use it everyday. @User3"
-                    </div>
-                <div class="Testimonial4">
-                    <div class="Testimonial4-img"> <!--Add image here-->
-                        "Easy to use! Helps motivate me to keep a healthy lifestyle! @User4"  
-                    </div>
+                  </div>
                 </div>
-            </div>        
+                <div class="col">
+                  <div class="card h-100">
+                    <img src="https://i.pinimg.com/564x/dc/13/ba/dc13ba4cb71bc20ccf69bcf6afd2f9b4.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <p class="card-text">“I was able to find yummy healthy recipes and find support in my community! 10/10 @User2"</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card h-100">
+                    <img src="https://i.pinimg.com/564x/8f/7e/6d/8f7e6da6e92f96af312c472e12d77c40.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <p class="card-text">"Perfect for keeping track of my dietary habits! I use it everyday. @User3"</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+      
         <section>
         <!--Mission-->
         <section class="Mission">
@@ -109,7 +116,8 @@
                     </div>
                 </div>
         <section>
-        <!--Social Media-->
+       
+            <!--Social Media-->
         <section class="SocialMedia">
             <h3 class="SocialMedia-title"> Join our Community </h3>
             <h5> @CodeAgainstCancer </h5>
