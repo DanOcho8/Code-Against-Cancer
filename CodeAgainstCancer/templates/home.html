@@ -9,42 +9,66 @@
         <section class="home">
             <!--main home page-->
             <div class="home-info-left">
+                <div class="row justify-content-evenly">
+                    <div class="col-4">
                 <div>
                     <h1 class ="main-title"> We are CodeAgainstCancer</h1>
+                <div class="text-box">
+                    <h3><br>Eat Well, Fight Strong</h3>
+                        <p>At CodeAgainstCancer, we believe that nutrition is a powerful ally in the fight against cancer. Our mission is to provide patients with comprehensive dietary support to enhance their health, boost their strength, and improve their quality of life. 
+                        <p> Learn More. <!--add button here--> 
                 </div>
             </div>
-            <!--image-->
-            <div class="home-img-right">
-                <img src="{% static 'images/TinyChefs.png' %}" alt=""> <!--Fix? Not showing up-->
+        </div>
+                 <!--image-->
+                 <div class="col-4">
+                <div class="home-img-right">
+                    <img src="{% static 'images/TinyChefs.png' %}" alt=""> <!--Fix? Not showing up-->
+                </div>
             </div>
-            <div class="text-box">
-                <h3><br>Eat Well, Fight Strong</h3>
-                    <h5>
-                        <br> At CodeAgainstCancer, we believe that nutrition is a powerful ally in the fight against cancer. 
-                        <br> Our mission is to provide patients with comprehensive dietary support to enhance their health, boost their strength, and improve their quality of life. 
-                        <br> Learn More. test<!--add button here--> 
-                    </h5>
             </div>
+        </div>
+    </div>
         </section>
         <!--Nutrition info-->
-        <section class="Nutrition">
+        <section class="Nutrition"> 
+            <div class="row justify-content-evenly">
+                <div class="col-4">
+                    <div class="Nutrition-img"> <!--Add image here-->
+                </div>  
+            </div>
+                <div class="col-4">         
             <h3 class="Nutrition-title">Nutrition</h3>
-                <div class="Nutrition-img"> <!--Add image here-->
                     At CodeAgainstCancer, we believe that nutrition plays a vital role in supporting cancer patients through their journey. Our focus is on providing personalized dietary guidance that helps boost the immune system, manage treatment side effects, and improve overall well-being. We offer tailored meal plans rich in essential nutrients, antioxidants, and anti-inflammatory foods to complement medical treatments and promote healing. By embracing a balanced, nutrient-dense diet, we aim to empower patients with the knowledge and tools to enhance their quality of life and contribute to their fight against cancer.   
+                </div>
+            </div>      
         <section>
         <!--Community info-->
         <section class="Community">
+            <div class="row justify-content-evenly">
+                <div class="col-4">
             <h3 class="Community-title">Community</h3>
-                <div class="Community-img"> <!--Add image here-->
                     We believe that sharing experiences, seeking guidance, and connecting with others who are going through similar challenges can be a powerful source of strength and resilience. Our community resources aim to foster a sense of belonging and ensure that no one has to navigate their cancer journey in isolation.
+                </div>
+                <div class="col-4">
+            <div class="Community-img"> <!--Add image here-->
+            </div>
+        </div>   
         <section>
         <!-- User Testimonials-->
         <section class="UserTestimonials">
+            <div class="container text-center">
+                <div class="row align-items-center">
             <h3 class="UserTestimonials-title">User Testimonials</h3>
+                </div>
+            </div>
             <div class="Testimonials">
                 <div class="Testimonial1">
-                    <div class="Testimonial1-img"> <!--Add image here-->
-                        "Love that it is simple but effective, helps me keep track of what I eat and stay on track. @User1"
+                    <div class="card" style="width: 18rem;">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <p class="card-text">"Love that it is simple but effective, helps me keep track of what I eat and stay on track. @User1"</p>
+                        </div>
                     </div>
                 <div class="Testimonial2">
                     <div class="Testimonial2-img"> <!--Add image here-->
