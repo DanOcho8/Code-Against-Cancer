@@ -1,13 +1,13 @@
+import logging
+import random
+
 import requests
 from accounts.models import UserProfile
 from django.conf import settings
-import random
-import logging
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-
 
 
 def user_logout(request):
@@ -67,11 +67,15 @@ def resources(request):
     next_page_token = data.get("nextPageToken", None)
     prev_page_token = data.get("prevPageToken", None)
 
+    # Fetch PubMed articles based on the query
+    pubmed_articles = fetch_pubmed_articles(query)
+
     # Pass the videos and pagination tokens to the context
     context = {
         "videos": videos,
         "next_page_token": next_page_token,
         "prev_page_token": prev_page_token,
+        "pubmed_articles": pubmed_articles,
     }
 
     # Check if it's an AJAX request to return a JSON response
@@ -80,12 +84,49 @@ def resources(request):
     return render(request, "resources/resources.html", context)
 
 
+def fetch_pubmed_articles(query="cancer", max_results=5):
+    url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
+    params = {
+        "db": "pubmed",
+        "term": query,
+        "retmax": max_results,
+        "retmode": "json",
+        "sort": "relevance",
+        "field": "title",
+    }
+
+    try:
+        # Fetch article IDs based on the query
+        response = requests.get(url, params=params)
+        response.raise_for_status()  # Check for any request issues
+        data = response.json()
+
+        article_ids = data.get("esearchresult", {}).get("idlist", [])
+
+        # If article IDs were found, fetch the details using the esummary endpoint
+        if article_ids:
+            summary_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi"
+            summary_params = {
+                "db": "pubmed",
+                "id": ",".join(article_ids),
+                "retmode": "json",
+            }
+            summary_response = requests.get(summary_url, params=summary_params)
+            summary_response.raise_for_status()
+            articles = summary_response.json().get("result", {})
+            return articles
+        return {}
+    except requests.RequestException as e:
+        print(f"Error fetching PubMed data: {e}")
+        return {}
+
+
 def get_youtube_videos(query, page_token=None):
     url = "https://www.googleapis.com/youtube/v3/search"
     params = {
         "part": "snippet",
         "q": query,
-        "maxResults": 5,
+        "maxResults": 3,
         "order": "relevance",
         "key": settings.YOUTUBE_API_KEY,
         "videoEmbeddable": "true",
@@ -105,12 +146,15 @@ def get_youtube_videos(query, page_token=None):
 
 
 def about(request):
-    return render(request, 'about/about.html')
+    return render(request, "about/about.html")
+
 
 def donate(request):
-    return render(request, 'donate/donate.html')
+    return render(request, "donate/donate.html")
+
 
 logger = logging.getLogger(__name__)
+
 
 def searchRecipes(request):
     query = request.GET.get('query', '')  # gets search result from user
