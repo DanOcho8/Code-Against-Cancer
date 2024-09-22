@@ -67,11 +67,15 @@
                                     {% for article_id, article in pubmed_articles.items %}
                                         {% if article_id != "uids" %} <!-- Exclude 'uids' key -->
                                             <li>
-                                                <strong>{{ article.title }}</strong><br>
-                                                {{ article.source }} - {{ article.pubdate }}<br>
+                                                <div class="d-flex flex-column">
+                                                <strong>{{ article.title }}</strong>
+                                                <div class="d-flex justify-content-between">
+                                                {{ article.source }} - {{ article.pubdate }}
                                                 <a href="https://pubmed.ncbi.nlm.nih.gov/{{ article_id }}" target="_blank">
                                                     View on PubMed
                                                 </a>
+                                                </div>
+                                                </div>
                                             </li>
                                         {% endif %}
                                     {% endfor %}
