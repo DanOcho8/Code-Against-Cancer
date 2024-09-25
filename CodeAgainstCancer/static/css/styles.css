@@ -242,3 +242,85 @@
     height: 200px;
     object-fit: cover;
 }
+
+
+/*************** Test ********************/
+
+
+.home {
+	position: relative;
+	max-width: 1250 px;
+	min-height: 100vh;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 4rem 2rem;
+	flex-direction: column;
+	top: 100px;
+}
+  
+.home .home-info-left{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%
+}
+
+.home .home-img-right{
+	position: relative;
+}
+
+.home .home-img-right img{
+	width: 90%;
+	transform: translate(0,0);
+}
+  
+.flex-center{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.home-info-left .main-title h1{
+	font-size: 4em;
+	font-weight: 600;
+	line-height: 65px;
+}
+
+.home-info-left .text-box h3{
+	font-feature-settings: 1.3em;
+	font-weight: 600;
+	line-height: 50px;
+}
+
+.home-info-left .text-box p{
+	max-width: 350px;
+}
+
+.UserTestimonials h1{
+	font-size: 4em;
+	font-weight: 600;
+	line-height: 65px;
+}
+
+.UserTestimonials .card-container {
+	height: 100vh;
+	border-bottom: 5px solid #232d3f;
+	align-items: center;
+	justify-content: center;
+	width: 80%
+}
+
+
+
+.UserTestimonials .card-container .card h-100{
+	width: 100%
+}
+
+.UserTestimonials .card-container .card h-100 img{
+	width: 100%
+
+}
+
+.SocialMedia {
+	bottom: 600px;
+}
