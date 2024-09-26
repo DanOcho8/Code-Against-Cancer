@@ -1,6 +1,6 @@
 <!-- base.html -->
 <!doctype html>
-<html>
+<html lang="en">
 <head>
     {% load static %}
     <meta charset="utf-8"/>
@@ -77,9 +77,15 @@
                             Logout
                         </button>
                     {% else %}
-                        <a class="btn btn-outline-primary" href="{% url 'login' %}"
-                        >Login/Signup</a
-                        >
+                        <div>
+
+                            <a class="btn btn-outline-primary" href="{% url 'login' %}"
+                            >Log In</a
+                            >
+                            <a class="btn btn-primary" href="{% url 'signup' %}"
+                            >Sign Up</a
+                            >
+                        </div>
                     {% endif %}
                 </form>
             </div>
