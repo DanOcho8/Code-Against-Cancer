@@ -157,6 +157,11 @@ logger = logging.getLogger(__name__)
 
 
 def searchRecipes(request):
+    user = request.user
+    # check if user is logged in
+    if not user.is_authenticated:
+        return redirect("login")
+    
     query = request.GET.get('query', '')  # gets search result from user
     page = int(request.GET.get('page', 1))
     from_recipes = (page - 1) * 6

@@ -1,6 +1,6 @@
 <!-- base.html -->
 <!doctype html>
-<html>
+<html lang="en">
 <head>
     {% load static %}
     <meta charset="utf-8"/>
@@ -59,11 +59,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'about' %}">About us</a>
                     </li>
-                    {% if user.is_authenticated %}
+                    {% comment %} {% if user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'resources' %}">Resources</a>
                         </li>
-                    {% endif %}
+                    {% endif %} {% endcomment %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'searchRecipes' %}">Recipes</a>
                     </li>
@@ -77,9 +77,15 @@
                             Logout
                         </button>
                     {% else %}
-                        <a class="btn btn-outline-primary" href="{% url 'login' %}"
-                        >Login/Signup</a
-                        >
+                        <div>
+
+                            <a class="btn btn-outline-primary" href="{% url 'login' %}"
+                            >Log In</a
+                            >
+                            <a class="btn btn-primary" href="{% url 'signup' %}"
+                            >Sign Up</a
+                            >
+                        </div>
                     {% endif %}
                 </form>
             </div>
@@ -129,12 +135,12 @@
     {% comment %} NOTE: removed this div, I believe that it is not being used but if anything breaks let me know {% endcomment %}
     {% comment %} <div id="main"></div> {% endcomment %}
 {% endif %}
-<main class="margin-bottom"
+<main class=""
       style="{% if user.is_authenticated %}margin-left: 50px;{% else %}margin-left: 0;{% endif %}">
     {% block content %} {% endblock %}</main>
 {% block footer %}
 <footer
-        class="fixed-bottom bg-lightblue footer-custom"
+        class="bg-lightblue footer-custom"
 >
     <div class="container">
         <div class="row flex-nowrap justify-content-between align-items-center">
