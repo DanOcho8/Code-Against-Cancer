@@ -21,6 +21,8 @@ activate.txt
 # Env variables
 .env
 
+# Pycharm configuration folder
+.idea/
 
 
 
