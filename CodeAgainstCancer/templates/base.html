@@ -130,8 +130,9 @@
 		{% comment %} <div id="main"></div> {% endcomment %}
 		{% endif %} 
 		<main class="margin-bottom" style="{% if user.is_authenticated %}margin-left: 50px;{% else %}margin-left: 0;{% endif %}">{% block content %} {% endblock %}</main>
+		{% block footer %}
 		<footer
-        class="fixed-bottom bg-lightblue footer-custom"
+			class="navbar navbar-expand-lg fixed-bottom bg-lightblue footer-custom", style="height: 80px;"
 		>
             <div class="container">
                 <div class="row flex-nowrap justify-content-between align-items-center">
@@ -160,6 +161,9 @@
                 </div>
 			</div>
 		</footer>
+		{% endblock %}
+		{% endif %}
+		<main>{% block content %} {% endblock %}</main>
 		<script src="{% static 'sidebar.js' %}"></script>
 		<script
 			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
