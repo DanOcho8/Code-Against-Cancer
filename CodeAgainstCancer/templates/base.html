@@ -1,5 +1,5 @@
 <!-- base.html -->
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
     {% load static %}
@@ -132,6 +132,7 @@
 <main class="margin-bottom"
       style="{% if user.is_authenticated %}margin-left: 50px;{% else %}margin-left: 0;{% endif %}">
     {% block content %} {% endblock %}</main>
+{% block footer %}
 <footer
         class="fixed-bottom bg-lightblue footer-custom"
 >
@@ -168,6 +169,7 @@
         </div>
     </div>
 </footer>
+{% endblock %}
 {% comment %} <script src="{% static 'sidebar.js' %}"></script> {% endcomment %}
 <script
         src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
