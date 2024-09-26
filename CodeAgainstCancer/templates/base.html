@@ -59,11 +59,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'about' %}">About us</a>
                     </li>
-{#                    {% if user.is_authenticated %}#}
-{#                        <li class="nav-item">#}
-{#                            <a class="nav-link" href="{% url 'resources' %}">Resources</a>#}
-{#                        </li>#}
-{#                    {% endif %}#}
+                    {% comment %} {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'resources' %}">Resources</a>
+                        </li>
+                    {% endif %} {% endcomment %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'searchRecipes' %}">Recipes</a>
                     </li>
@@ -126,6 +126,8 @@
             <span class="icon-text">Resources</span>
         </a>
     </div>
+    {% comment %} NOTE: removed this div, I believe that it is not being used but if anything breaks let me know {% endcomment %}
+    {% comment %} <div id="main"></div> {% endcomment %}
 {% endif %}
 <main class="margin-bottom"
       style="{% if user.is_authenticated %}margin-left: 50px;{% else %}margin-left: 0;{% endif %}">
