@@ -1,7 +1,7 @@
-import logging
 import random
 
 import requests
+from .utils import LoggerSingleton
 from accounts.models import UserProfile
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
@@ -9,6 +9,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
+logger = LoggerSingleton()
 
 def user_logout(request):
     logout(request)
@@ -81,6 +82,7 @@ def resources(request):
     # Check if it's an AJAX request to return a JSON response
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
         return JsonResponse(context)
+    logger.info("Resources successfully fetched and returned.")
     return render(request, "resources/resources.html", context)
 
 
@@ -151,9 +153,6 @@ def about(request):
 
 def donate(request):
     return render(request, "donate/donate.html")
-
-
-logger = logging.getLogger(__name__)
 
 
 def searchRecipes(request):
