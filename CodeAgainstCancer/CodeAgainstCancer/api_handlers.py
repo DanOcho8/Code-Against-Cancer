@@ -48,13 +48,14 @@ class APIHandler(ABC):
 
     def __init__(self):
         self.logging = LoggerSingleton()
+        self.session = requests.Session()
 
     def fetch(self, query, **kwargs):
         url = self.get_url()
         params = self.get_params(query, **kwargs)
         self.logging.debug(f"Making API request to {url} with params {params}")
         try:
-            response = requests.get(url, params=params)
+            response = self.session.get(url, params=params, timeout=30)
             response.raise_for_status()
             self.logging.info(f"API request to {url} was successful.")
             return self.parse_response(response.json())

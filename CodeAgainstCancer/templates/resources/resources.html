@@ -19,7 +19,7 @@
                         {% for video in videos %}
                             <div class="card mb-3">
                                 <div class="ratio ratio-16x9">
-                                    <iframe src="https://www.youtube.com/embed/{{ video.id.videoId }}"
+                                    <iframe loading="lazy" src="https://www.youtube.com/embed/{{ video.id.videoId }}"
                                             allowfullscreen></iframe>
                                 </div>
                                 {% comment %} <div class="card-body">
