@@ -83,9 +83,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'apikey'  # Replace with your Outlook email
+EMAIL_HOST_USER = 'apikey'  
 EMAIL_HOST_PASSWORD = os.getenv('SENDGRID_API_KEY')  # Ensure the password is stored securely
 DEFAULT_FROM_EMAIL = 'codeagainstcancer@outlook.com'
+EMAIL_FROM = 'codeagainstcancer@outlook.com'
 
 
 MIDDLEWARE = [

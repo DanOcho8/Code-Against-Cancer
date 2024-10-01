@@ -47,18 +47,18 @@
                             {{ user_form.username.errors }}
                         </div>
 
-                        <!-- First Name -->
-                        <div class="mb-3">
-                            {{ user_form.first_name.label_tag }}
-                            {{ user_form.first_name|add_class:"form-control" }}
-                            {{ user_form.first_name.errors }}
-                        </div>
-
-                        <!-- Last Name -->
-                        <div class="mb-3">
-                            {{ user_form.last_name.label_tag }}
-                            {{ user_form.last_name|add_class:"form-control" }}
-                            {{ user_form.last_name.errors }}
+                        <!-- First Name and Last Name in Two Columns -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ user_form.first_name.label_tag }}
+                                {{ user_form.first_name|add_class:"form-control" }}
+                                {{ user_form.first_name.errors }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ user_form.last_name.label_tag }}
+                                {{ user_form.last_name|add_class:"form-control" }}
+                                {{ user_form.last_name.errors }}
+                            </div>
                         </div>
 
                         <!-- Email -->
@@ -75,32 +75,32 @@
                             {{ user_form.phone_number.errors }}
                         </div>
 
-                        <!-- Cancer Type -->
-                        <div class="mb-3">
-                            {{ user_form.cancer_type.label_tag }}
-                            {{ user_form.cancer_type|add_class:"form-control" }}
-                            {{ user_form.cancer_type.errors }}
+                        <!-- Cancer Type and Cancer Stage in Two Columns -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ user_form.cancer_type.label_tag }}
+                                {{ user_form.cancer_type|add_class:"form-control" }}
+                                {{ user_form.cancer_type.errors }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ user_form.cancer_stage.label_tag }}
+                                {{ user_form.cancer_stage|add_class:"form-control" }}
+                                {{ user_form.cancer_stage.errors }}
+                            </div>
                         </div>
 
-                        <!-- Date Diagnosed -->
-                        <div class="mb-3">
-                            {{ user_form.date_diagnosed.label_tag }}
-                            {{ user_form.date_diagnosed|add_class:"form-control" }}
-                            {{ user_form.date_diagnosed.errors }}
-                        </div>
-
-                        <!-- Cancer Stage -->
-                        <div class="mb-3">
-                            {{ user_form.cancer_stage.label_tag }}
-                            {{ user_form.cancer_stage|add_class:"form-control" }}
-                            {{ user_form.cancer_stage.errors }}
-                        </div>
-
-                        <!-- Gender -->
-                        <div class="mb-3">
-                            {{ user_form.gender.label_tag }}
-                            {{ user_form.gender|add_class:"form-control" }}
-                            {{ user_form.gender.errors }}
+                        <!-- Date Diagnosed and Gender in Two Columns -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ user_form.date_diagnosed.label_tag }}
+                                {{ user_form.date_diagnosed|add_class:"form-control" }}
+                                {{ user_form.date_diagnosed.errors }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ user_form.gender.label_tag }}
+                                {{ user_form.gender|add_class:"form-control" }}
+                                {{ user_form.gender.errors }}
+                            </div>
                         </div>
 
                         <!-- Profile Picture -->
@@ -125,5 +125,6 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
 {% block footer %}{% endblock %}
