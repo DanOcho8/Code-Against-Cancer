@@ -25,7 +25,7 @@ load_dotenv()
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-zbn0z118jf0_e2q9!k)ujom*+i6+yw*_s_1)25)z=seib0#9&v'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -33,10 +33,10 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # API keys 
-YOUTUBE_API_KEY = 'AIzaSyBydK6yBKYz-1CbLcoFNgsYnM6aXq8JSnA'
+YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY')
 
-APP_ID = 'd5ecad22'
-API_KEY = 'acf97ba16a158ba48ad4e33b7974399b'
+APP_ID = os.getenv('APP_ID')
+API_KEY = os.getenv('API_KEY')
 
 # Application definition
 
@@ -80,12 +80,13 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'codeagainstcancer@gmail.com'
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_HOST_USER = 'apikey'  # Replace with your Outlook email
+EMAIL_HOST_PASSWORD = os.getenv('SENDGRID_API_KEY')  # Ensure the password is stored securely
+DEFAULT_FROM_EMAIL = 'codeagainstcancer@outlook.com'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
