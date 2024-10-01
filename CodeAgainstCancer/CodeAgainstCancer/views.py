@@ -9,7 +9,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .api_handlers import ResourceFactory
+from .api_handlers import APIHandlerFactory
 from .utils import LoggerSingleton, cache_results
 
 # Create a logger instance
@@ -120,8 +120,8 @@ def resources(request):
         query = "cancer patients support"
 
     # Using the ResourceFactory to determine the correct API handler
-    youtube_handler = ResourceFactory.get_resource_handler("video")
-    pubmed_handler = ResourceFactory.get_resource_handler("article")
+    youtube_handler = APIHandlerFactory.get_API_handler("video")
+    pubmed_handler = APIHandlerFactory.get_API_handler("article")
 
     # Get the page token from the request for pagination
     page_token = request.GET.get("page_token", None)

@@ -256,7 +256,7 @@ class EdamamAPIHandler(APIHandler):
 
 
 # Factory pattern to return the correct API handler
-class ResourceFactory:
+class APIHandlerFactory:
     """
     ResourceFactory is a factory class that provides a method to get the appropriate resource handler
     based on the resource type.
@@ -279,7 +279,7 @@ class ResourceFactory:
     """
 
     @staticmethod
-    def get_resource_handler(resource_type):
+    def get_API_handler(resource_type):
         if resource_type == "video":
             return YouTubeAPIHandler()
         elif resource_type == "article":
