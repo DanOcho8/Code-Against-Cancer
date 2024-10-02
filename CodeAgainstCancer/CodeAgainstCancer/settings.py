@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'widget_tweaks',
     'phonenumber_field',
+    'forum',
 ]
 
 SITE_ID = 1

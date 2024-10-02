@@ -57,7 +57,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">About us</a>
+                        <a class="nav-link" href="{% url 'about' %}">About Us</a>
                     </li>
                     {% comment %} {% if user.is_authenticated %}
                         <li class="nav-item">
@@ -117,9 +117,9 @@
             <span class="icon-text">Manage Profile</span>
         </a>
         <br/>
-        <a href="#">
+        <a href="{% url 'thread_list' %}">
             <i class="material-icons">group</i>
-            <span class="icon-text">Community</span>
+            <span class="icon-text">Community Forum</span>
         </a>
         <br/>
         <a href="{% url 'profile' %}">
