@@ -138,10 +138,10 @@ def searchRecipes(request):
     if not query: # load random recipes if no search result is inputted
         logger.debug('No query provided. Fetching random recipes.')
         random_offset = random.randint(0, 1000)  # Adjust range based on total number of recipes available
-        url = f'https://api.edamam.com/search?q=recipe&app_id={settings.APP_ID}&app_key={settings.API_KEY}&from={random_offset}&to={random_offset + 6}'
+        url = f'https://api.edamam.com/search?q=recipe&app_id={settings.APP_ID}&app_key={settings.API_KEY}&from={random_offset}&to={random_offset + 6}&{excluded_query}'
     else:
         # Fetch recipes based on the search query and also using from recipes and to recipes are used to get different recipes in 6 recipes per page
-        url = f'https://api.edamam.com/search?q={query}&app_id={settings.APP_ID}&app_key={settings.API_KEY}&from={from_recipes}&to={to_recipes}'
+        url = f'https://api.edamam.com/search?q={query}&app_id={settings.APP_ID}&app_key={settings.API_KEY}&from={from_recipes}&to={to_recipes}&{excluded_query}'
 
     response = requests.get(url)
     data = response.json()
@@ -156,7 +156,8 @@ def searchRecipes(request):
         'query': query,
         'page': page,
         'hasNextPage': hasNextPage,
-        'hasPrevPage': hasPrevPage
+        'hasPrevPage': hasPrevPage,
+        'excluded_ingredients': excluded_ingredients if request.user.is_authenticated else None
     }
 
     return render(request, 'recipe/recipe.html', context)
