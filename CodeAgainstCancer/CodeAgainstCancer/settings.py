@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'phonenumber_field',
     'forum',
+    'mathfilters',
 ]
 
 SITE_ID = 1

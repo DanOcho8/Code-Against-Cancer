@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseForbidden
 from .models import Thread, Post
 from .forms import PostForm, ReplyForm, CreateThreadForm
 # Function to list all threads
@@ -12,7 +12,8 @@ def thread_list(request):
 @login_required
 def thread_detail(request, pk):
     thread = get_object_or_404(Thread, pk=pk)
-    posts = thread.posts.all()
+    posts = thread.posts.filter(parent_post__isnull=True)  # Fetch main posts only
+    replies = thread.posts.filter(parent_post__isnull=False)  # Fetch replies only
 
     # Handle new posts
     if request.method == 'POST' and 'post_form' in request.POST:
@@ -20,6 +21,7 @@ def thread_detail(request, pk):
         if post_form.is_valid():
             post = post_form.save(commit=False)
             post.thread = thread
+            post.author = request.user  # Set the current user as the author
             post.save()
             return redirect('thread_detail', pk=thread.pk)
     else:
@@ -30,25 +32,19 @@ def thread_detail(request, pk):
         reply_form = ReplyForm(request.POST)
         if reply_form.is_valid():
             reply = reply_form.save(commit=False)
-            reply.author = request.user
+            reply.author = request.user  # Set the current user as the author
             post_id = request.POST.get('post_id')
             post = get_object_or_404(Post, id=post_id)
-            reply.post = post
+            reply.post = post  # Associate reply with the post
             reply.save()
-
-            # Return JSON response
-            return JsonResponse({
-                'success': True,
-                'reply': reply.content,
-                'author': reply.author.username,
-                'created_at': reply.created_at.strftime("%B %d, %Y, %I:%M %p")
-            })
+            return redirect('thread_detail', pk=thread.pk)
 
     reply_form = ReplyForm()
-    
+
     return render(request, 'forum/thread_detail.html', {
         'object': thread,
         'posts': posts,
+        'replies': replies,
         'post_form': post_form,
         'reply_form': reply_form,
     })
@@ -57,16 +53,19 @@ def thread_detail(request, pk):
 
 
 # Function to create a new thread
+@login_required
 def create_thread(request):
     if request.method == 'POST':
         form = CreateThreadForm(request.POST)
         if form.is_valid():
-            form.save()  # Save the new thread
-            return redirect('thread_list')  # Redirect to the thread list
+            # Save the form and pass the user for the post's author
+            thread = form.save(user=request.user)
+            return redirect('thread_list')
     else:
         form = CreateThreadForm()
 
     return render(request, 'forum/create_thread.html', {'form': form})
+
 
 # Function to create a new post within a thread
 def create_post(request, pk):
@@ -85,32 +84,38 @@ def create_post(request, pk):
     
     return render(request, 'forum/create_post.html', {'form': form, 'thread': thread})
 
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
-from .forms import ReplyForm
-from .models import Post
 
 @login_required
 def reply_to_post(request, post_id):
-    post = get_object_or_404(Post, id=post_id)  # Get the post being replied to
-
     if request.method == 'POST':
-        form = ReplyForm(request.POST)
-        if form.is_valid():
-            reply = form.save(commit=False)
-            reply.author = request.user  # Set the author to the current user
-            reply.thread = post.thread  # Associate the reply with the original thread
-            reply.save()  # Save the reply
-            
-            # Return JSON response with reply data
-            return JsonResponse({
-                'success': True,
-                'reply': reply.content,  # Assuming reply has a 'content' field
-                'author': reply.author.username,
-                'created_at': reply.created_at.strftime("%Y-%m-%d %H:%M:%S")  # Format as needed
-            })
+        content = request.POST.get('content')
+        post = get_object_or_404(Post, id=post_id)
+        thread = post.thread  # Assuming you have a relation to get the thread from the post
+        
+        # Create the new reply
+        reply = Post.objects.create(
+            content=content,
+            author=request.user,
+            thread=thread,  # Make sure to set the thread here
+            parent_post=post  # Assuming you want to relate it to the original post
+        )
 
-    return JsonResponse({'success': False, 'error': 'Invalid form submission.'})  # Handle invalid case
+        # Return a JSON response
+        return JsonResponse({
+            'success': True,
+            'reply': reply.content,
+            'author': reply.author.username,
+            'created_at': reply.created_at.strftime("%F %T"),
+        })
 
+    return JsonResponse({'success': False, 'error': 'Invalid request method.'}, status=400)
 
-
+def delete_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    
+    if request.user == post.author:
+        post.delete()
+        return redirect('thread_detail', pk=post.thread.pk)
+    else:
+        return redirect('thread_detail', pk=post.thread.pk)
+        

@@ -12,15 +12,15 @@ class CreateThreadForm(forms.ModelForm):
             'content': forms.Textarea(attrs={'class': 'form-control'}),
         }
 
-    def save(self, commit=True):
+    def save(self, user, commit=True):  # Add 'user' parameter here
         thread = super().save(commit=False)
         if commit:
             thread.save()
-            # Create the first post as part of the thread
+            # Create the first post as part of the thread and assign the author
             Post.objects.create(
                 thread=thread,
                 content=self.cleaned_data['content'],
-                # You might want to add 'user' or other fields here
+                author=user,  # Assign the logged-in user as the author
             )
         return thread
 
