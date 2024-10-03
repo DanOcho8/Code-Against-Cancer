@@ -8,6 +8,8 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+import json
+import os
 
 from .api_handlers import APIHandlerFactory
 from .utils import LoggerSingleton, cache_results
@@ -196,17 +198,31 @@ def searchRecipes(request):
     from_recipes = (page - 1) * 6
     to_recipes = page * 6  # this keeps track of up to 6 different recipes per page
     recipes = []
+    excluded_query = ''
+    
+    if request.user.is_authenticated: # Get the logged-in user's profile and excluded ingredients
+        user = request.user
+        user_profile = get_object_or_404(UserProfile, user=user)
+        
 
-    # load random recipes if no search result is inputted
-    if not query:
-        logger.debug("No query provided. Fetching random recipes.")
-        random_offset = random.randint(
-            0, 1000
-        )  # Adjust range based on total number of recipes available
-        url = f"https://api.edamam.com/search?q=recipe&app_id={settings.APP_ID}&app_key={settings.API_KEY}&from={random_offset}&to={random_offset + 6}"
+        json_path = os.path.join(settings.BASE_DIR, 'static/cancer_information.json') # Load cancer-related information from the JSON file
+        with open(json_path, 'r') as json_file:
+            cancer_data = json.load(json_file)
+            
+            
+        
+        cancer_info = cancer_data.get(user_profile.cancer_type, {}) # Get cancer-specific info, including excluded ingredients
+        excluded_ingredients = cancer_info.get('excluded_ingredients', [])
+        
+        excluded_query = '&'.join([f'excluded={ingredient}' for ingredient in excluded_ingredients]) #changes json info to url for api
+
+    if not query: # load random recipes if no search result is inputted
+        logger.debug('No query provided. Fetching random recipes.')
+        random_offset = random.randint(0, 1000)  # Adjust range based on total number of recipes available
+        url = f'https://api.edamam.com/search?q=recipe&app_id={settings.APP_ID}&app_key={settings.API_KEY}&from={random_offset}&to={random_offset + 6}&{excluded_query}'
     else:
         # Fetch recipes based on the search query and also using from recipes and to recipes are used to get different recipes in 6 recipes per page
-        url = f"https://api.edamam.com/search?q={query}&app_id={settings.APP_ID}&app_key={settings.API_KEY}&from={from_recipes}&to={to_recipes}"
+        url = f'https://api.edamam.com/search?q={query}&app_id={settings.APP_ID}&app_key={settings.API_KEY}&from={from_recipes}&to={to_recipes}&{excluded_query}'
 
     response = requests.get(url)
     data = response.json()
@@ -217,11 +233,12 @@ def searchRecipes(request):
     hasPrevPage = from_recipes > 0
 
     context = {
-        "recipes": recipes,
-        "query": query,
-        "page": page,
-        "hasNextPage": hasNextPage,
-        "hasPrevPage": hasPrevPage,
+        'recipes': recipes,
+        'query': query,
+        'page': page,
+        'hasNextPage': hasNextPage,
+        'hasPrevPage': hasPrevPage,
+        'excluded_ingredients': excluded_ingredients if request.user.is_authenticated else None
     }
 
     return render(request, "recipe/recipe.html", context)
