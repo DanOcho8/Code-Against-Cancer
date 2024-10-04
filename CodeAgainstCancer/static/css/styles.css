@@ -6,6 +6,24 @@
   transition: 0.3s all ease-in-out;
 }
 
+/* reset styles  */
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover,
+a:focus {
+  text-decoration: none;
+  color: inherit;
+}
+
 .login {
   display: flex;
   justify-content: center;
@@ -244,18 +262,79 @@
 }
 
 /* styles to make the footer sticky */
-
-/* html {
-  height: 100%;
+main {
+  min-height: calc(100dvh - 140px);
 }
 
-body {
-  display: flex;
-  flex-direction: column;
+/* styles for footer  */
+footer {
+  background-color: #033241;
+  /* font-size: 1rem; */
+  font-size: 16px;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px 20px;
+}
+
+.footer-header {
+  color: white;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-header h2 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.footer-list {
+  color: #b3b3b3;
+}
+
+.footer-list a:hover {
+  color: white;
+}
+
+.footer-bar {
+  background-color: #ff3092;
+  height: 3px;
+  width: 30%;
+  margin-bottom: 10px;
+  /* margin-top: -20px; */
+}
+
+/* .footer-logo {
+  max-height: 100%;
+}
+
+.footer-logo img {
   height: 100%;
+  width: 100%;
 } */
 
-main {
-  /* flex: 1; */
-  min-height: calc(100dvh - 140px);
+.gradient-text {
+  background: linear-gradient(-45deg, #add8e6, #ff69b4, #add8e6, #ee60a7);
+  background-size: 200% 200%;
+  animation: gradient 15s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
