@@ -6,7 +6,7 @@
 {% block content %}
 
         <!--Homepage info-->
-        <section class="home flex center">
+        <section class="home">
             <!--main home page-->
             <!--Add padding from the top-->
             <div class="home-info-left">
@@ -22,7 +22,7 @@
                  <!--image-->
                  <div class="col-4">
                 <div class="home-img-right">
-                    <img src="https://i.pinimg.com/564x/6a/fa/27/6afa27282ae0529247e93bdfc056e6d2.jpg" alt="Chef pic" class="img-fluid"> <!--Fix? Not showing up-->
+                    <img src="https://i.pinimg.com/564x/6a/fa/27/6afa27282ae0529247e93bdfc056e6d2.jpg" alt="Chef pic" class="img-fluid" > 
                 </div>
         </div>
             </div>
@@ -32,7 +32,7 @@
         <section class="Nutrition"> 
             <div class="row justify-content-evenly">
                 <div class="col-4">
-                    <div class="Nutrition-img"> <!--Add image here-->
+                    <div class="Nutrition-img" style=" 18rem"> <!--Add image here-->
                         <img src="https://i.pinimg.com/564x/fb/94/ca/fb94cab6d7c260b8c5952385d5dfee94.jpg" class="img-fluid" alt="healthy food img">
                 </div>  
             </div>
@@ -41,7 +41,7 @@
                     At CodeAgainstCancer, we believe that nutrition plays a vital role in supporting cancer patients through their journey. Our focus is on providing personalized dietary guidance that helps boost the immune system, manage treatment side effects, and improve overall well-being. We offer tailored meal plans rich in essential nutrients, antioxidants, and anti-inflammatory foods to complement medical treatments and promote healing. By embracing a balanced, nutrient-dense diet, we aim to empower patients with the knowledge and tools to enhance their quality of life and contribute to their fight against cancer.   
                 </div>
             </div>      
-        <section>
+        </section>
         <!--Community info-->
         <section class="Community">
             <div class="row justify-content-evenly">
@@ -54,19 +54,17 @@
                 <img src="https://i.pinimg.com/564x/a8/79/b1/a879b1900d7961fca26028fabe585ad5.jpg" class="img-fluid" alt="community-img">
             </div>
         </div>   
-        <section>
+    </section>
         <!-- User Testimonials-->
         <section class="UserTestimonials">
             <div class="container text-center">
                 <div class="row align-items-center">
             <h3 class="UserTestimonials-title">User Testimonials</h3>
-                </div>
-            </div>
             <div class="card-container">
-            <div class="row justify-content-around">
-            <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="row justify-content-evenly">
+            <div class="row row-cols-1 row-cols-md-3 g-4"> 
                 <div class="col">
-                  <div class="card h-100">
+                  <div class="card h-100" style="width: 18rem">
                     <img src="https://i.pinimg.com/564x/f8/92/61/f89261ed471d04cab6f609f7157725d3.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                       <p class="card-text">“Love that it is simple but effective, helps me keep track of what I eat and stay on track. @User1”
@@ -75,7 +73,7 @@
                   </div>
                 </div>
                 <div class="col">
-                  <div class="card h-100">
+                  <div class="card h-100" style="width: 18rem">
                     <img src="https://i.pinimg.com/564x/dc/13/ba/dc13ba4cb71bc20ccf69bcf6afd2f9b4.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                       <p class="card-text">“I was able to find yummy healthy recipes and find support in my community! 10/10 @User2"</p>
@@ -83,17 +81,28 @@
                   </div>
                 </div>
                 <div class="col">
-                  <div class="card h-100">
+                  <div class="card h-100" style="width: 18rem">
                     <img src="https://i.pinimg.com/564x/8f/7e/6d/8f7e6da6e92f96af312c472e12d77c40.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                       <p class="card-text">"Perfect for keeping track of my dietary habits! I use it everyday. @User3"</p>
                     </div>
                   </div>
                 </div>
+                <div class="col">
+                    <div class="card h-100" style="width: 18rem">
+                      <img src="https://i.pinimg.com/564x/8f/7e/6d/8f7e6da6e92f96af312c472e12d77c40.jpg" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <p class="card-text">"Perfect for keeping track of my dietary habits! I use it everyday. @User3"</p>
+                      </div>
+                    </div>
+                  </div>
             </div>
         </div>
+    </div>
+</div>
+</div>
       
-        <section>
+</section>
         <!--Mission-->
         <section class="Mission">
             <div class="container text-center">
@@ -104,6 +113,7 @@
                 <div class="Promote">
                     <div class="Promote-img"> <!--Add img here-->
                         Promote Balanced Nutrition
+                        <img src="https://cdn-icons-png.flaticon.com/256/5070/5070393.png" class="fi fi-rr-carrot" width="18rem">
                     </div>
                 </div>
                 <div class="Support">
@@ -121,7 +131,7 @@
                         Positive Impact
                     </div>
                 </div>
-        <section>
+            </section>
        
             <!--Social Media-->
         <section class="SocialMedia">
@@ -132,6 +142,6 @@
             </div>
             <h5> @CodeAgainstCancer </h5>
             <!--Add social media buttons?-->
-        <section>
+        </section>
     
 {% endblock %}
