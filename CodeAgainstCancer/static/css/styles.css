@@ -100,7 +100,7 @@
 	height: 100%;
 	width: 50px;
 	position: fixed;
-	z-index: 100000000;
+/* 	z-index: 100000000; */
 	top: 0;
 	left: 0;
 	background-color: #add8e6;
@@ -236,6 +236,7 @@
     display: block;
     margin: 0 auto; 
 }
+
 
 .video-thumbnail-img {
     width: auto;
