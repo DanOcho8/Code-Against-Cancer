@@ -100,7 +100,7 @@
 	height: 100%;
 	width: 50px;
 	position: fixed;
-	z-index: 1;
+	z-index: 100000000;
 	top: 0;
 	left: 0;
 	background-color: #add8e6;
@@ -241,15 +241,4 @@
     width: auto;
     height: 200px;
     object-fit: cover;
-}
-
-.UserTestimonials .col {
-	padding-right: 100px;
-}
-
-.home .carouselExample {
-	padding: none;
-	margin: none;
-	max-height: 300px
-	
 }

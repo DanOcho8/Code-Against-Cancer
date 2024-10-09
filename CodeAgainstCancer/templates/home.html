@@ -5,6 +5,44 @@
 
 {% block content %}
 
+        <style>
+          .carousel-item {
+            padding-left:none;
+            margin:none;
+            height: 30rem;
+            z-index: -1;
+            
+          }
+
+          .home-info{
+            margin:120px;
+
+          }
+
+          .SocialMedia {
+            padding-top: 150px;
+            padding-bottom: 300px;
+          }
+
+          .Nutrition {
+            padding-bottom: 150px;
+          }
+
+          .Community {
+            padding-bottom: 150px;
+          }
+
+          .UserTestimonials{
+            padding-bottom: 150px;
+          }
+
+          .Mission{
+            padding-bottom: 150px;
+          }
+        </style>
+
+
+
         <!--Homepage info-->
         <section class="home">
             <!--main home page-->
@@ -33,13 +71,15 @@
 
             <div class="home-info">
                 <div class="container text-center">
-                    <div class="row justify-content-start">  
+                    <div class="row">  
+                    <div class="col-12">
                     <h1 class ="main-title"> We are CodeAgainstCancer</h1>
                 <div class="text-box">
                     <h3><br>Eat Well, Fight Strong</h3>
                         <p>At CodeAgainstCancer, we believe that nutrition is a powerful ally in the fight against cancer. Our mission is to provide patients with comprehensive dietary support to enhance their health, boost their strength, and improve their quality of life. 
                         <p> Learn More. <!--add button here--> 
                 </div>
+              </div>
             </div>
             </div>
             </div>
@@ -50,7 +90,7 @@
             <div class="row justify-content-evenly">
                 <div class="col-4">
                     <div class="Nutrition-img" style=" 18rem"> <!--Add image here-->
-                        <img src="https://i.pinimg.com/564x/fb/94/ca/fb94cab6d7c260b8c5952385d5dfee94.jpg" class="img-fluid" alt="healthy food img" style="max-width:400px">
+                        <img src="https://img.taste.com.au/gpe52rFs/taste/2017/09/easy-beef-and-quinoa-salad-bowl-130828-2.jpg" class="img-fluid" alt="healthy food img" style="max-width:400px">
                 </div>  
             </div>
                 <div class="col-4">         
@@ -68,7 +108,7 @@
                 </div>
                 <div class="col-4">
             <div class="Community-img"> <!--Add image here-->
-                <img src="https://i.pinimg.com/564x/a8/79/b1/a879b1900d7961fca26028fabe585ad5.jpg" class="img-fluid" alt="community-img" style="max-width:400px">
+                <img src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI0LTAxL3Jhd3BpeGVsX29mZmljZV8yN19yZWFsaXN0aWNfcGhvdG9ncmFwaF9vZl9hX3RoYWlfZmFtaWx5X2Rpbm5lcl9mMjRiZDg5Zi1iMzAwLTRhZjktYTcwMC05Y2I3ODg1MWY5ZThfMS5qcGc.jpg" class="img-fluid" alt="community-img" style="max-width:400px">
             </div>
         </div> 
     </section>
@@ -105,14 +145,6 @@
                     </div>
                   </div>
                 </div>
-                <div class="col">
-                    <div class="card h-100" style="width: 18rem">
-                      <img src="https://i.pinimg.com/564x/8f/7e/6d/8f7e6da6e92f96af312c472e12d77c40.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <p class="card-text">"Perfect for keeping track of my dietary habits! I use it everyday. @User3"</p>
-                      </div>
-                    </div>
-                  </div>
             </div>
         </section>
         <!--Mission-->
@@ -122,41 +154,42 @@
             <h3 class="Mission-title">Our Mission</h3>
                 </div>
             </div>
+            <div class="container text-center">
+              <div class="row">
+            <div class="col">
                 <div class="Promote">
                     <div class="Promote-img"> 
                         Promote Balanced Nutrition
-                        <img src="https://cdn-icons-png.flaticon.com/256/5070/5070393.png" class="fi fi-rr-carrot" width="18rem">
+                        <img src="https://cdn-icons-png.flaticon.com/256/5070/5070393.png" class="fi fi-rr-carrot" width="30rem">
                     </div>
                 </div>
+              </div>
+              <div class="col">
                 <div class="Support">
                     <div class="Support-img"> 
                         Support Through Community
-                        <img src="https://cdn-icons-png.flaticon.com/256/3916/3916979.png" class="fi fi-rr-world" width="18rem">
+                        <img src="https://cdn-icons-png.flaticon.com/256/3916/3916979.png" class="fi fi-rr-world" width="30rem">
                     </div>
                 </div>
+              </div>
+                <div class="col">
                 <div class="Empower">
                     <div class="Empower-img"> 
                         Empower Cancer Patients
-                        <img src="https://cdn-icons-png.flaticon.com/256/3916/3916576.png" class="fi fi-br-heart" width="18rem">
+                        <img src="https://cdn-icons-png.flaticon.com/256/3916/3916576.png" class="fi fi-br-heart" width="30rem">
                     </div>
                 </div>
+              </div>
+                <div class="col">
                 <div class="Impact">
-                    <div class="Impact-img"> <!--Add image here-->
-                        <img src="https://cdn-icons-png.flaticon.com/256/16298/16298194.png" class="fi fi tr-thumbs-up-trust" width="18rem">
-                        Positive Impact
+                    <div class="Impact-img">
+                      Positive Impact
+                        <img src="https://cdn-icons-png.flaticon.com/256/16298/16298194.png" class="fi fi tr-thumbs-up-trust" width="30rem">
                     </div>
                 </div>
-            </section>
-       
-            <!--Social Media-->
-        <section class="SocialMedia">
-            <div class="container text-center">
-                <div class="row align-items-center">
-            <h3 class="SocialMedia-title">Join Our Community</h3>
-                </div>
+              </div>
             </div>
-            <h5> @CodeAgainstCancer </h5>
-            <!--Add social media buttons?-->
-        </section>
+          </div>
+            </section>
     
 {% endblock %}
