@@ -349,3 +349,12 @@ footer {
     background-position: 0% 50%;
   }
 }
+
+
+.sidebar {
+  width: 50px;
+  transition: width 0.3s ease;
+}
+.sidebar.expanded {
+  width: 250px;
+}

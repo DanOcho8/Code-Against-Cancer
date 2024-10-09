@@ -67,14 +67,14 @@
                         <a class="nav-link" href="{% url 'about' %}">About us</a>
                     </li>
                     {% comment %} {% if user.is_authenticated %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'resources' %}">Resources</a>
-              </li>
-              {% endif %} {% endcomment %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'resources' %}">Resources</a>
+                        </li>
+                    {% endif %} {% endcomment %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'searchRecipes' %}">Recipes</a>
                     </li>
-                    
+
                 </ul>
                 <form class="d-flex justify-content-center">
                     {% if user.is_authenticated %}
@@ -102,8 +102,8 @@
     <div
             id="mySidebar"
             class="sidebar"
-            onmouseover="toggleSidebar()"
-            onmouseout="toggleSidebar()"
+{#            onmouseover="toggleSidebar()"#}
+{#            onmouseout="toggleSidebar()"#}
     >
         <a href="{% url 'home' %}">
         <span>
@@ -145,7 +145,7 @@
     {% block content %} {% endblock %}
 </main>
 {% block footer %}
-    <footer  style="{% if user.is_authenticated %}margin-left: 50px;{% else %}margin-left: 0;{% endif %}">
+    <footer style="{% if user.is_authenticated %}margin-left: 50px;{% else %}margin-left: 0;{% endif %}">
         <div class="footer-container">
             <div>
                 <div class="footer-header">
@@ -153,10 +153,12 @@
                     <div class="footer-bar"></div>
                 </div>
                 <ul class="footer-list">
-                    <li><a href="">About Us</a></li>
-                    <li><a href="">Resources</a></li>
-                    <li><a href="">Donation</a></li>
-                    <li><a href="">Recipes</a></li>
+                    <li><a href="{% url 'about' %}">About Us</a></li>
+                    <li><a href="{% url 'donate' %}">Donation</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'resources' %}">Resources</a></li>
+                        <li><a href="{% url 'searchRecipes' %}">Recipes</a></li>
+                    {% endif %}
                 </ul>
             </div>
             <div>
@@ -189,13 +191,16 @@
                 </ul>
             </div>
             <div class="footer-logo">
-                <img
-                        src="{% static 'images/favicon.png' %}"
-                        alt="Logo"
-                        width="150"
-                        height="150"
-                        class=""
-                />
+                <a href="{% url 'home' %}">
+
+                    <img
+                            src="{% static 'images/favicon.png' %}"
+                            alt="Logo"
+                            width="150"
+                            height="150"
+                            class=""
+                    />
+                </a>
             </div>
         </div>
     </footer>
