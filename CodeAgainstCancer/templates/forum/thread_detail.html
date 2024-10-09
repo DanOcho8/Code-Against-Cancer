@@ -62,13 +62,39 @@
 
         <!-- Display Replies -->
         <div class="replies" data-post-id="{{ post.pk }}">
-          {% for reply in post.replies.all %}
+          {% for reply in post.post_replies.all %}
           <div class="reply-item" style="margin-top: 20px">
             <div style="background-color: #e8e8e8; padding: 15px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
               <p style="font-size: 16px; color: #2c3e50">{{ reply.content }}</p>
               <p style="font-size: 12px; color: #7f8c8d">
                 <small>Posted by: {{ reply.author.username }} at {{ reply.created_at|date:"F j, Y, g:i a" }}</small>
               </p>
+              {% if post.author == request.user %}
+<div style="position: relative;"> <!-- Ensures the button aligns to the right within the post -->
+    <form method="POST" action="{% url 'delete_post' reply.id %}" style="position: absolute; bottom: 1px; right: 10px; margin: 0;">
+        {% csrf_token %}
+        <button type="submit" style="background: none; border: none; cursor: pointer">
+            <img src="{% static 'images/trash.png' %}" alt="Delete" style="width: 20px; height: 20px" />
+        </button>
+    </form>
+</div>
+{% endif %}
+<!-- Reply Button -->
+        <a href="javascript:void(0);" class="reply-button" style="color: #3498db; font-size: 14px; cursor: pointer; text-decoration: underline;" onclick="toggleReplyForm('{{ reply.pk }}')">
+          Reply
+        </a>
+
+        <!-- Reply Form Section -->
+        <div id="reply-form-{{ reply.pk }}" class="reply-section" style="display: none; margin-top: 10px">
+  <form method="post" action="{% url 'reply_to_post' reply.id %}" class="reply-form">
+    {% csrf_token %}
+    {{ reply_form.as_p }}
+    <input type="hidden" name="post_id" value="{{ reply.pk }}" />
+    <button type="submit" style="background-color: #2ecc71; color: white; padding: 8px 16px; border-radius: 5px; font-size: 14px; border: none; cursor: pointer;">
+      Reply
+    </button>
+  </form>
+</div>
             </div>
           </div>
           {% endfor %}
@@ -96,9 +122,11 @@
 
   <script>
     function toggleReplyForm(postId) {
-        const form = document.getElementById(`reply-form-${postId}`);
+    const form = document.getElementById(`reply-form-${postId}`);
+    if (form) {
         form.style.display = form.style.display === "none" || form.style.display === "" ? "block" : "none";
     }
+}
 
     // Function to handle reply form submission with AJAX
     function submitReply(event, form, postId) {
