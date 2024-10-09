@@ -115,17 +115,17 @@ a:focus {
   font-size: 12px;
 }
 .sidebar {
-  height: 100%;
-  width: 50px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #add8e6;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-  white-space: nowrap;
+	height: 100%;
+	width: 50px;
+	position: fixed;
+  z-index: 100000000;
+	top: 0;
+	left: 0;
+	background-color: #add8e6;
+	overflow-x: hidden;
+	transition: 0.5s;
+	padding-top: 60px;
+	white-space: nowrap;
 }
 
 .sidebar a {
@@ -255,7 +255,11 @@ a:focus {
   margin: 0 auto;
 }
 
+
 .video-thumbnail-img {
+    width: auto;
+    height: 200px;
+    object-fit: cover;
   width: auto;
   height: 200px;
   object-fit: cover;
