@@ -12,19 +12,20 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
+
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Load enviornment variables from .env file
+# Load environment variables from .env file
 load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-zbn0z118jf0_e2q9!k)ujom*+i6+yw*_s_1)25)z=seib0#9&v'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -32,18 +33,15 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # API keys 
-YOUTUBE_API_KEY = 'AIzaSyBydK6yBKYz-1CbLcoFNgsYnM6aXq8JSnA'
+YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY')
 
-APP_ID = 'd5ecad22'  
-API_KEY = 'acf97ba16a158ba48ad4e33b7974399b'
-
-
+APP_ID = os.getenv('APP_ID')
+API_KEY = os.getenv('API_KEY')
 
 # Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    # 'bootstrapsidebar',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -57,11 +55,11 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'django_extensions',
+    'widget_tweaks',
+    'phonenumber_field',
 ]
 
 SITE_ID = 1
-
-LOGIN_REDIRECT_URL = '/'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
@@ -82,13 +80,13 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'codeagainstcancer@gmail.com'
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
+EMAIL_HOST_USER = 'apikey'  
+EMAIL_HOST_PASSWORD = os.getenv('SENDGRID_API_KEY')  # Ensure the password is stored securely
+DEFAULT_FROM_EMAIL = 'codeagainstcancer@outlook.com'
+EMAIL_FROM = 'codeagainstcancer@outlook.com'
 
 
 MIDDLEWARE = [
@@ -122,7 +120,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'CodeAgainstCancer.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -132,7 +129,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -152,7 +148,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -163,7 +158,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/

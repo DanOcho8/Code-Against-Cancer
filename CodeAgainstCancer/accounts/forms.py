@@ -5,6 +5,7 @@ from .models import UserProfile
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+from phonenumber_field.formfields import PhoneNumberField
 
 CANCER_TYPE_CHOICES = [
     ('', 'Select your cancer type:'),
@@ -31,6 +32,7 @@ CANCER_TYPE_CHOICES = [
 ]
 
 CANCER_STAGE_CHOICES = [
+    ('', 'Select cancer stage:'),
     ('I', 'Stage I'),
     ('II', 'Stage II'),
     ('III', 'Stage III'),
@@ -38,6 +40,7 @@ CANCER_STAGE_CHOICES = [
 ]
 
 GENDER_CHOICES = [
+    ('', 'Select your gender:'),
     ('male', 'Male'),
     ('female', 'Female'),
     ('other', 'Other'),
@@ -47,23 +50,24 @@ class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField()
     first_name = forms.CharField()
     last_name = forms.CharField()
-    cancer_type = forms.ChoiceField(choices=CANCER_TYPE_CHOICES)
-    date_diagnosed = forms.DateField(widget=forms.SelectDateWidget(years=range(1900, 2100)))
+    phone_number = PhoneNumberField(required=False,label="Phone Number")  # Phone number field added
+    cancer_type = forms.ChoiceField(choices=CANCER_TYPE_CHOICES, label="Cancer Type")
+    date_diagnosed = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), label="Date Diagnosed")
     cancer_stage = forms.ChoiceField(choices=CANCER_STAGE_CHOICES)
     gender = forms.ChoiceField(choices=GENDER_CHOICES)
-    profile_pic = forms.ImageField(required=False)
+    profile_pic = forms.ImageField(required=False, label="Profile Pic (Optional)")
+    consent_to_text = forms.BooleanField(required=False, label="I consent to receive text message reminders", widget=forms.CheckboxInput())
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'cancer_type', 'date_diagnosed', 'cancer_stage', 'gender', 'profile_pic']
-
-    
+        fields = ['username', 'first_name', 'last_name', 'email', 'phone_number', 'password1', 'password2', 'cancer_type', 'date_diagnosed', 'cancer_stage', 'gender', 'profile_pic','consent_to_text']
 
     def save(self, commit=True):
         user = super(CustomUserCreationForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
+        user.phone_number = self.cleaned_data['phone_number']
         
         if commit:
             user.save()
@@ -75,7 +79,9 @@ class CustomUserCreationForm(UserCreationForm):
                     'date_diagnosed': self.cleaned_data['date_diagnosed'],
                     'cancer_stage': self.cleaned_data['cancer_stage'],
                     'gender': self.cleaned_data['gender'],
-                    'profile_pic': self.cleaned_data.get('profile_pic')
+                    'profile_pic': self.cleaned_data.get('profile_pic'),
+                    'phone_number': self.cleaned_data.get('phone_number'),
+                    'consent_to_text': self.cleaned_data.get('consent_to_text')
                 }
             )
             if not created:  # Update the existing profile with new data
@@ -84,6 +90,8 @@ class CustomUserCreationForm(UserCreationForm):
                 user_profile.cancer_stage = self.cleaned_data['cancer_stage']
                 user_profile.gender = self.cleaned_data['gender']
                 user_profile.profile_pic = self.cleaned_data.get('profile_pic')
+                user_profile.phone_number = self.cleaned_data.get('phone_number')
+                user_profile.consent_to_text = self.cleaned_data.get('consent_to_text')
                 user_profile.save()
 
             subject = "Your Account Has Been Created!"
@@ -94,36 +102,37 @@ class CustomUserCreationForm(UserCreationForm):
             send_mail(
                 subject,
                 email_plaintext_message,
-                'codeagainstcancer@gmail.com',
+                'codeagainstcancer@outlook.com',
                 [user.email],
                 html_message=email_html_message
             ) 
 
         return user
     
+
 class UpdateUserForm(UserChangeForm):
-    # Hide Password 
     password = None
     email = forms.EmailField()
     first_name = forms.CharField()
     last_name = forms.CharField()
+    phone_number = PhoneNumberField(label="Phone Number")  # Phone number field added
     cancer_type = forms.ChoiceField(choices=CANCER_TYPE_CHOICES)
-    date_diagnosed = forms.DateField(widget=forms.SelectDateWidget(years=range(1900, 2100)))
+    date_diagnosed = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), label="Date Diagnosed")
     cancer_stage = forms.ChoiceField(choices=CANCER_STAGE_CHOICES)
     gender = forms.ChoiceField(choices=GENDER_CHOICES)
     profile_pic = forms.ImageField(required=False)
+    consent_to_text = forms.BooleanField(required=False, label="I consent to receive text message reminders")
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'cancer_type', 'date_diagnosed', 'cancer_stage', 'gender', 'profile_pic']
-
-    
+        fields = ['username', 'first_name', 'last_name', 'email', 'phone_number', 'cancer_type', 'date_diagnosed', 'cancer_stage', 'gender', 'profile_pic', 'consent_to_text']
 
     def save(self, commit=True):
         user = super(UpdateUserForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
+        user.phone_number = self.cleaned_data['phone_number']
         
         if commit:
             user.save()
@@ -135,7 +144,9 @@ class UpdateUserForm(UserChangeForm):
                     'date_diagnosed': self.cleaned_data['date_diagnosed'],
                     'cancer_stage': self.cleaned_data['cancer_stage'],
                     'gender': self.cleaned_data['gender'],
-                    'profile_pic': self.cleaned_data.get('profile_pic')
+                    'profile_pic': self.cleaned_data.get('profile_pic'),
+                    'phone_number': self.cleaned_data.get('phone_number'),
+                    'consent_to_text': self.cleaned_data.get('consent_to_text')
                 }
             )
             if not created:  # Update the existing profile with new data
@@ -144,6 +155,8 @@ class UpdateUserForm(UserChangeForm):
                 user_profile.cancer_stage = self.cleaned_data['cancer_stage']
                 user_profile.gender = self.cleaned_data['gender']
                 user_profile.profile_pic = self.cleaned_data.get('profile_pic')
+                user_profile.phone_number = self.cleaned_data.get('phone_number')
+                user_profile.consent_to_text = self.cleaned_data.get('consent_to_text')
                 user_profile.save()
 
         return user
