@@ -90,25 +90,27 @@ def reply_to_post(request, post_id):
     if request.method == 'POST':
         content = request.POST.get('content')
         post = get_object_or_404(Post, id=post_id)
-        thread = post.thread  # Assuming you have a relation to get the thread from the post
-        
+        thread = post.thread  # Retrieve the thread from the post
+
         # Create the new reply
         reply = Post.objects.create(
             content=content,
             author=request.user,
-            thread=thread,  # Make sure to set the thread here
-            parent_post=post  # Assuming you want to relate it to the original post
+            thread=thread,  # Associate reply with the thread
+            parent_post=post  # Associate reply with the parent post (original post or another reply)
         )
 
-        # Return a JSON response
+        # Return a JSON response including parent_post_id
         return JsonResponse({
             'success': True,
             'reply': reply.content,
             'author': reply.author.username,
-            'created_at': reply.created_at.strftime("%F %T"),
+            'created_at': reply.created_at.strftime("%B %d, %Y, %I:%M %p"),
+            'parent_post_id': post.id  # Send the parent post ID back to the front-end
         })
 
     return JsonResponse({'success': False, 'error': 'Invalid request method.'}, status=400)
+
 
 def delete_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
