@@ -341,6 +341,12 @@ footer {
   background-clip: text;
 }
 
+.gradient-bg {
+  background: linear-gradient(-45deg, #add8e6, #ff69b4, #add8e6, #c71585);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
 @keyframes gradient {
   0% {
     background-position: 0% 50%;
@@ -355,3 +361,12 @@ footer {
 
 /* end of footer styles  */
 
+/* styles for homepage  */
+.carousel-item {
+  max-height: 60dvh;
+}
+/* end of styles for homepage */
+
+/* styles for profile page  */
+
+/* end of styles for profile page */
