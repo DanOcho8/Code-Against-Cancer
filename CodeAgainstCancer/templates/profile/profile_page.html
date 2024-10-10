@@ -1,48 +1,50 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block title %} Profile | CaC {% endblock %}
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block title %} Profile | CaC {% endblock %} {% block content %}
 
     <div class="gradient-bg">
-
-        <div class="container pt-5 row" style="display: flex; justify-content: space-between; align-items: flex-start;">
-            <!-- Left Column -->
-            <div class="profile-left" style="width: 45%; padding-right: 20px;">
-                <div class="profile-pic" style="text-align: center; margin-bottom: 20px;">
-                    {% if user_profile.profile_pic %}
-                        <img src="{{ user_profile.profile_pic.url }}" alt="Profile Picture"
-                             style="width: 150px; height: 150px; border-radius: 50%;"/>
-                    {% else %}
-                        <img src="{% static 'images/defaultprofile.png' %}" alt="Default Profile Picture"
-                             style="width: 150px; height: 150px; border-radius: 50%;"/>
-                    {% endif %}
-                </div>
-                <div class="profile-info" style="text-align: center;">
-                    <h2 style="margin: 80px 0 10px 0;">{{ user.get_full_name }}</h2>
-                    <h3 style="margin: 25px 0 20px 0;">{{ cancer_type_display }} -
-                        Stage {{ user_profile.cancer_stage }}</h3>
-                    <p style="margin: 40px 0;">Assigned Nutritionist: [Nutritionist Name]</p>
-                </div>
-            </div>
-
-            <!-- Right Column -->
-            <div class="profile-right" style="width: 45%;">
-                <h2 style="margin-bottom: 20px;">Personalized Nutritional Information</h2>
-                <div class="nutritional-info">
-                    <div class="dietary-restrictions" style="margin-bottom: 20px;">
-                        <h3>Dietary Restrictions</h3>
-                        <p>{{ cancer_info.dietary_restrictions }}</p>
+        <section class="profile container pt-4">
+            <div class="row gy-4">
+                <!-- Left Column -->
+                <div
+                        class="col-lg-6 d-flex flex-column align-items-center justify-content-center"
+                >
+                    <div class="profile-pic pb-4">
+                        {% if user_profile.profile_pic %}
+                            <img src="{{ user_profile.profile_pic.url }}" alt="Profile Picture"/>
+                        {% else %}
+                            <img
+                                    src="{% static 'images/defaultprofile.png' %}"
+                                    alt="Default Profile Picture"
+                            />
+                        {% endif %}
                     </div>
-                    <div class="recommended-foods" style="margin-bottom: 20px;">
-                        <h3>Recommended Foods</h3>
-                        <p>{{ cancer_info.recommended_foods }}</p>
+                    <div class="profile-info text-center">
+                        <h2>{{ user.get_full_name }}</h2>
+                        <h4 class="pb-4">
+                            {{ cancer_type_display }} - Stage {{ user_profile.cancer_stage }}
+                        </h4>
+                        <a href="{% url 'update_profile' %}" class="edit-button">Edit Profile</a>
                     </div>
                 </div>
-                <div class="special-instructions">
-                    <h3>Special Instructions</h3>
-                    <p>{{ cancer_info.special_instructions }}</p>
+
+                <!-- Right Column -->
+                <div class="col-lg-6 profile-recommendations">
+                    <h2>Personalized Nutritional Information</h2>
+                    <div class="nutritional-info">
+                        <div class="dietary-restrictions">
+                            <h3>Dietary Restrictions</h3>
+                            <p>{{ cancer_info.dietary_restrictions }}</p>
+                        </div>
+                        <div class="recommended-foods">
+                            <h3>Recommended Foods</h3>
+                            <p>{{ cancer_info.recommended_foods }}</p>
+                        </div>
+                    </div>
+                    <div class="special-instructions">
+                        <h3>Special Instructions</h3>
+                        <p>{{ cancer_info.special_instructions }}</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
 {% endblock %}
