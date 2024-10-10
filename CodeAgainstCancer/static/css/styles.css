@@ -24,6 +24,7 @@ a:focus {
   color: inherit;
 }
 
+/* styles for forms  */
 .login {
   display: flex;
   justify-content: center;
@@ -101,6 +102,11 @@ a:focus {
   color: #10182f;
   border-color: #10182f;
 }
+
+.errorlist {
+  color: #ff4d4d;
+}
+/* end of styles for forms  */
 
 .navbar a {
   font-family: "Montserrat", sans-serif !important;
