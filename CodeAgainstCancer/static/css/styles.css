@@ -115,17 +115,21 @@ a:focus {
   font-size: 12px;
 }
 .sidebar {
-	height: 100%;
-	width: 50px;
-	position: fixed;
+  height: 100%;
+  width: 50px;
+  position: fixed;
   z-index: 100000000;
-	top: 0;
-	left: 0;
-	background-color: #add8e6;
-	overflow-x: hidden;
-	transition: 0.5s;
-	padding-top: 60px;
-	white-space: nowrap;
+  top: 0;
+  left: 0;
+  background-color: #add8e6;
+  overflow-x: hidden;
+  transition: width 0.35s ease-in-out;
+  padding-top: 60px;
+  white-space: nowrap;
+}
+
+.sidebar.expanded {
+  width: 250px;
 }
 
 .sidebar a {
@@ -255,11 +259,10 @@ a:focus {
   margin: 0 auto;
 }
 
-
 .video-thumbnail-img {
-    width: auto;
-    height: 200px;
-    object-fit: cover;
+  width: auto;
+  height: 200px;
+  object-fit: cover;
   width: auto;
   height: 200px;
   object-fit: cover;
@@ -350,11 +353,5 @@ footer {
   }
 }
 
+/* end of footer styles  */
 
-.sidebar {
-  width: 50px;
-  transition: width 0.3s ease;
-}
-.sidebar.expanded {
-  width: 250px;
-}
