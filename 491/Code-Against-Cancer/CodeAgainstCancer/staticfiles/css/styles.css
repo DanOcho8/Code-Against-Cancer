@@ -1,0 +1,142 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Mulish", sans-serif;
+  transition: 0.3s all ease-in-out;
+}
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #fff;
+}
+.shadow-wrap {
+  border-radius: 5px;
+  padding: 25px;
+  background-color: #f0f2fb;
+}
+.form-wrap {
+  background-color: #fff;
+  padding: 70px;
+}
+.form-wrap form * {
+  display: block;
+  width: 100%;
+}
+.form-wrap form label {
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 26px;
+}
+.form-wrap form input {
+  padding: 12px 20px;
+  border-radius: 5px;
+  border: 1px solid #dae1f5;
+  background: #fff;
+  color: #545d7a;
+}
+#id_username {
+  margin-bottom: 20px;
+}
+.form-wrap button {
+  border-radius: 5px;
+  background: #10182f;
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  padding: 12px 68px;
+  font-weight: 700;
+  border: 1px solid transparent;
+  margin-top: 30px;
+  line-height: 26px;
+}
+.signup-link {
+  color: #10182f;
+  font-size: 15px;
+  margin-top: 20px;
+  text-align: center;
+  line-height: 25px;
+  display: block;
+  text-decoration: none;
+}
+.signup-link:hover {
+  text-decoration: underline;
+}
+.form-wrap button:hover {
+  background-color: #fff;
+  color: #10182f;
+  border-color: #10182f;
+}
+
+.navbar a {
+  font-family: Verdana !important;
+}
+.small-input {
+  width: 50%;
+  font-size: 12px;
+}
+.sidebar {
+  display: none; /* Hide sidebar by default */
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 200px;
+  height: calc(100vh - 60px);
+  background-color: #f8f9fa;
+  border-right: 1px solid #ddd;
+  z-index: 1;
+  overflow-y: auto;
+  transition: width 0.3s ease;
+}
+
+.sidebar.active {
+  display: block; /* Show sidebar when active */
+}
+
+.navbar-nav .nav-item {
+  position: relative;
+}
+
+.navbar-nav .nav-item:hover .sidebar {
+  display: block; /* Show sidebar on hover */
+}
+
+/* Sidebar list styles */
+.sidebar ul {
+    padding: 0;
+    list-style: none;
+    margin: 0;
+}
+
+.sidebar ul li {
+    padding: 10px;
+    text-align: left;
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #000;
+    display: block;
+}
+
+/* Content styles */
+.content {
+    margin-left: 0;
+    padding: 20px;
+    width: 100%;
+    transition: margin-left 0.5s;
+}
+
+.bg-lightblue {
+    background-color: #ADD8E6 !important;
+}
+
+.footer .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
