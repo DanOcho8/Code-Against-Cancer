@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="m-auto w-[50%] m-auto border rounded-lg">
+    <h1 class="text-center bg-gray-100 h-[52px] font-bold text-3xl">Sign Up</h1>
+
+    <h2 class="text-center my-3">You are about to use your Google account to login to CodeAgainstCancer.com. As a final step, please complete the following form:</h2>
+    
+    <form method="post">
+        <div class="flex justify-center mx-3">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="bg-red-200 my-3 rounded-lg w-[100%] p-2">Sign Up</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

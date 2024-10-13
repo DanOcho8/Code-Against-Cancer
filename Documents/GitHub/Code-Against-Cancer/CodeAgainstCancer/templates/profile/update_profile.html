@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Update Your Account{% endblock %}
+
+{% block content %}
+<style>
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+    
+    body {
+        background: linear-gradient(-45deg, #add8e6, #ff69b4, #add8e6, #c71585);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+    }
+    
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <h3 class="text-center mb-4">Update Your Profile</h3>
+
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <!-- Username (Disabled if you don't want it to be updated) -->
+                        <div class="mb-3">
+                            {{ user_form.username.label_tag }}
+                            {{ user_form.username|add_class:"form-control" }}
+                            {{ user_form.username.errors }}
+                        </div>
+
+                        <!-- First Name and Last Name in Two Columns -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ user_form.first_name.label_tag }}
+                                {{ user_form.first_name|add_class:"form-control" }}
+                                {{ user_form.first_name.errors }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ user_form.last_name.label_tag }}
+                                {{ user_form.last_name|add_class:"form-control" }}
+                                {{ user_form.last_name.errors }}
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            {{ user_form.email.label_tag }}
+                            {{ user_form.email|add_class:"form-control" }}
+                            {{ user_form.email.errors }}
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div class="mb-3">
+                            {{ user_form.phone_number.label_tag }}
+                            {{ user_form.phone_number|add_class:"form-control" }}
+                            {{ user_form.phone_number.errors }}
+                        </div>
+
+                        <!-- Cancer Type and Cancer Stage in Two Columns -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ user_form.cancer_type.label_tag }}
+                                {{ user_form.cancer_type|add_class:"form-control" }}
+                                {{ user_form.cancer_type.errors }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ user_form.cancer_stage.label_tag }}
+                                {{ user_form.cancer_stage|add_class:"form-control" }}
+                                {{ user_form.cancer_stage.errors }}
+                            </div>
+                        </div>
+
+                        <!-- Date Diagnosed and Gender in Two Columns -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ user_form.date_diagnosed.label_tag }}
+                                {{ user_form.date_diagnosed|add_class:"form-control" }}
+                                {{ user_form.date_diagnosed.errors }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ user_form.gender.label_tag }}
+                                {{ user_form.gender|add_class:"form-control" }}
+                                {{ user_form.gender.errors }}
+                            </div>
+                        </div>
+
+                        <!-- Profile Picture -->
+                        <div class="mb-3">
+                            {{ user_form.profile_pic.label_tag }}
+                            {{ user_form.profile_pic|add_class:"form-control-file" }}
+                            {{ user_form.profile_pic.errors }}
+                        </div>
+
+                        <!-- Consent to Receive Text Messages -->
+                        <div class="form-check mb-3">
+                            <input type="checkbox" class="form-check-input" id="consent_to_text" name="consent_to_text" {% if profile_form.consent_to_text.value %}checked{% endif %}>
+                            <label for="consent_to_text" class="form-check-label">I consent to receive text message reminders</label>
+                            {{ user_form.consent_to_text.errors }}
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary w-100 mt-4">Update Account</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block footer %}{% endblock %}

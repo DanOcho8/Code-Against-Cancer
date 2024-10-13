@@ -1,0 +1,122 @@
+{
+    "bone": {
+        "dietary_restrictions": "Limit high-calcium foods such as dairy products, especially if undergoing certain treatments that affect calcium levels. Avoid excessive consumption of vitamin A, as it may impact bone health negatively.",
+        "recommended_foods": "Focus on lean proteins like chicken, fish, and legumes to support muscle mass. Include plenty of fruits and vegetables rich in antioxidants, such as berries, leafy greens, and cruciferous vegetables. Consider foods with omega-3 fatty acids, such as walnuts and flaxseeds, to help reduce inflammation.",
+        "special_instructions": "Consult with your healthcare provider about the need for calcium and vitamin D supplements, especially if you are on medications that may impact bone density. Stay active with weight-bearing exercises like walking or light resistance training to maintain bone health, but always follow your doctor's advice on safe activity levels.",
+        "excluded_ingredients": ["whole milk", "cheddar cheese", "vitamin A supplements", "liver"]
+    },
+    "brain_nervous": {
+        "dietary_restrictions": "Reduce intake of processed sugars and refined carbohydrates, which may contribute to inflammation. Avoid caffeine and alcohol, as they can affect the nervous system and potentially interfere with medications.",
+        "recommended_foods": "Prioritize foods that support brain health, such as fatty fish rich in omega-3 fatty acids (e.g., salmon, mackerel), nuts, seeds, and dark leafy greens. Include foods high in antioxidants like blueberries, spinach, and turmeric to help protect against oxidative stress.",
+        "special_instructions": "Maintain adequate hydration and consider small, frequent meals to manage potential side effects of treatment, such as nausea or appetite loss. Discuss with your healthcare team the possible need for a specialized diet if experiencing neurological symptoms that impact swallowing or digestion.",
+        "excluded_ingredients": ["coffee", "black tea", "alcohol", "white sugar", "white bread"]
+    },
+    "breast": {
+        "dietary_restrictions": "Minimize alcohol intake, as it is linked to an increased risk of breast cancer recurrence. Limit foods high in saturated fats and red meat, which may contribute to inflammation and hormonal imbalances.",
+        "recommended_foods": "Consume a diet rich in high-fiber foods like whole grains, fruits, and vegetables. Include lean proteins such as fish, poultry, and plant-based options like lentils and beans. Add cruciferous vegetables, such as broccoli, cauliflower, and Brussels sprouts, which may help regulate estrogen levels.",
+        "special_instructions": "Aim for a balanced diet to maintain a healthy weight, as obesity can be a risk factor for recurrence. Regular physical activity is recommended to improve overall health and reduce the risk of recurrence. Consider consulting with a registered dietitian to personalize your nutrition plan, especially if you have specific concerns about estrogen or hormonal therapies.",
+        "excluded_ingredients": ["red meat", "bacon", "sausage", "butter", "cream", "cheese", "alcohol"]
+    },
+    "colorectal": {
+        "dietary_restrictions": "Avoid processed meats (like sausages and bacon) and limit red meat intake, as these are associated with an increased risk of colorectal cancer. Reduce consumption of refined sugars, fried foods, and highly processed snacks, which can contribute to inflammation.",
+        "recommended_foods": "Emphasize a diet rich in fiber, including whole grains, legumes, fruits, and vegetables, to support digestive health. Incorporate probiotics, like those found in yogurt and fermented foods, to maintain a healthy gut microbiome. Include healthy fats from sources like olive oil, avocados, and nuts.",
+        "special_instructions": "Stay hydrated by drinking plenty of water to help manage any digestive symptoms. Small, frequent meals may be easier to digest if you are experiencing gastrointestinal discomfort. Discuss with your healthcare provider whether additional fiber supplements are needed or if you should make any specific adjustments to your diet during treatment.",
+        "excluded_ingredients": ["bacon", "sausages", "hot dogs", "steak", "french fries", "potato chips", "soda"]
+    },
+    "digestive": {
+        "dietary_restrictions": "Avoid spicy, acidic, and fried foods, which can irritate the digestive tract. Limit high-fat foods and dairy products if you experience digestive discomfort or lactose intolerance.",
+        "recommended_foods": "Choose easy-to-digest foods like bananas, applesauce, white rice, and plain toast (BRAT diet) during periods of digestive distress. Include lean proteins such as chicken, turkey, or tofu. Focus on foods high in soluble fiber, like oatmeal, beans, and carrots, which can help regulate bowel movements.",
+        "special_instructions": "Eat smaller, more frequent meals to reduce the burden on your digestive system. Consider working with a dietitian to create a plan that accommodates your specific symptoms, such as nausea or bloating. Be vigilant about hydration, especially if you experience diarrhea or vomiting, and consider electrolyte solutions as advised by your doctor.",
+        "excluded_ingredients": ["hot sauce", "vinegar", "fried chicken", "greasy burgers", "cheese", "milk"]
+    },
+    "endocrine": {
+        "dietary_restrictions": "Avoid foods that can interfere with hormone levels, such as soy products, which contain phytoestrogens. Limit refined sugars and processed foods that can cause spikes in blood glucose levels, especially for those with thyroid or adrenal issues.",
+        "recommended_foods": "Focus on whole foods such as fresh fruits, vegetables, lean proteins, and whole grains to support balanced blood sugar levels. Include foods rich in selenium, like Brazil nuts, and iodine, such as seafood, to support thyroid health. Incorporate healthy fats, like those from avocados and olive oil, to maintain overall energy levels.",
+        "special_instructions": "Monitor your intake of goitrogenic foods (like cabbage, broccoli, and kale) if you have thyroid cancer, and ensure they are cooked to reduce potential thyroid interference. Regularly check your blood sugar levels if you're managing diabetes or other endocrine conditions and consult with a dietitian for a personalized nutrition plan.",
+        "excluded_ingredients": ["tofu", "soy milk", "soy sauce", "white sugar", "processed snacks"]
+    },
+    "eye": {
+        "dietary_restrictions": "Limit foods high in saturated fats and cholesterol, which can negatively impact blood flow and eye health. Avoid excessive intake of sugar-rich foods that can contribute to diabetic eye complications.",
+        "recommended_foods": "Include foods rich in omega-3 fatty acids, such as salmon, sardines, and flaxseeds, to support retinal health. Prioritize antioxidant-rich foods, like leafy greens, carrots, berries, and citrus fruits, which are beneficial for eye health. Add zinc-rich foods, such as chickpeas, beef, and cashews, to help protect against age-related eye conditions.",
+        "special_instructions": "Stay hydrated and maintain a healthy weight to reduce pressure on the eyes. Protect your eyes from UV light by wearing sunglasses and hats when outdoors. If you are experiencing visual changes, consult with your healthcare provider promptly.",
+        "excluded_ingredients": ["saturated fats", "butter", "cream", "white sugar", "syrups"]
+    },
+    "genitourinary": {
+        "dietary_restrictions": "Avoid high-sodium foods and reduce intake of red and processed meats, which may negatively affect kidney and bladder function. Limit caffeine and alcohol, which can irritate the bladder and increase urinary frequency.",
+        "recommended_foods": "Focus on a diet rich in fruits, vegetables, and whole grains to maintain overall kidney and urinary health. Include foods that promote urinary tract health, like cranberries, blueberries, and yogurt with probiotics. Drink plenty of water to flush out toxins and support kidney function.",
+        "special_instructions": "Monitor fluid intake based on your healthcare provider's recommendations, especially if you have kidney impairment. Stay active to promote healthy circulation and support overall urinary health. Avoid prolonged use of over-the-counter medications like NSAIDs that may affect kidney function.",
+        "excluded_ingredients": ["salt", "processed meats", "cured ham", "bacon", "energy drinks", "coffee", "alcohol"]
+    },
+    "gynecologic": {
+        "dietary_restrictions": "Limit high-fat diets, particularly those high in saturated fats and trans fats, which may influence hormone levels. Avoid excessive consumption of refined sugars and processed foods that can contribute to inflammation.",
+        "recommended_foods": "Emphasize a plant-based diet rich in high-fiber foods, such as whole grains, legumes, fruits, and vegetables, to support hormone regulation and digestive health. Include foods rich in phytonutrients, such as soy, flaxseeds, and cruciferous vegetables, to help balance estrogen levels.",
+        "special_instructions": "Maintain a healthy weight through a balanced diet and regular physical activity, as obesity can increase the risk of recurrence for some gynecologic cancers. Consider meeting with a registered dietitian for personalized dietary advice, particularly if you are undergoing hormonal therapies.",
+        "excluded_ingredients": ["butter", "cheese", "cream", "white sugar", "processed foods", "pastries"]
+    },
+    "head_neck": {
+        "dietary_restrictions": "Avoid foods that are difficult to swallow or may cause irritation, such as spicy foods, acidic fruits, and rough textures (e.g., dry bread or crackers). Limit alcohol and tobacco use, which can aggravate symptoms and increase the risk of recurrence.",
+        "recommended_foods": "Opt for soft, easy-to-swallow foods like pureed vegetables, mashed potatoes, yogurt, smoothies, and soups. Include high-calorie, nutrient-dense foods like avocados, nut butters, and protein shakes to maintain weight and nutrition levels if you experience difficulty eating.",
+        "special_instructions": "Consider working with a speech therapist or dietitian to develop a safe eating plan if you have swallowing difficulties. Maintain good oral hygiene to prevent infections and irritation in the mouth and throat. Stay hydrated, but avoid very hot or cold beverages, which may cause discomfort.",
+        "excluded_ingredients": ["hot peppers", "tomato sauce", "hard candy", "crackers", "salty snacks"]
+    },
+    "hematologic": {
+        "dietary_restrictions": "Limit raw or undercooked foods, including eggs, meats, and unpasteurized products, to reduce the risk of infection due to weakened immune function. Avoid alcohol and foods high in refined sugars, which can suppress the immune system.",
+        "recommended_foods": "Consume a balanced diet rich in lean proteins, whole grains, fruits, and vegetables to support immune function and overall health. Incorporate foods high in iron, such as spinach, red meat, and legumes, to help maintain healthy blood levels. Include vitamin C-rich foods like oranges, strawberries, and bell peppers to enhance iron absorption.",
+        "special_instructions": "Maintain good food hygiene practices, such as washing fruits and vegetables thoroughly and cooking foods to safe temperatures. Consult with a dietitian for personalized advice, especially if undergoing chemotherapy, to manage side effects like nausea and maintain nutritional status.",
+        "excluded_ingredients": ["raw eggs", "raw meats", "unpasteurized dairy", "alcohol", "high-sugar foods"]
+    },
+    "liver": {
+        "dietary_restrictions": "Avoid alcohol completely, as it can exacerbate liver damage. Limit high-fat, greasy, and fried foods, which are difficult to process and can strain liver function. Reduce salt intake to prevent fluid retention.",
+        "recommended_foods": "Focus on a diet rich in fruits, vegetables, whole grains, and lean proteins like fish, poultry, and legumes to support liver health. Include foods with antioxidants, such as berries, nuts, and green tea, to help protect liver cells. Drink plenty of water to stay hydrated and assist liver function.",
+        "special_instructions": "Monitor your intake of protein, as excessive protein can be challenging for the liver to process, particularly in advanced stages of liver disease. Engage in regular light exercise to maintain overall health, but consult your healthcare provider before starting any new fitness regimen.",
+        "excluded_ingredients": ["alcohol", "fried foods", "high-fat meats", "processed snacks", "salty foods"]
+    },
+    "lung": {
+        "dietary_restrictions": "Avoid processed meats, high-sodium foods, and those containing nitrates, which may increase the risk of complications. Limit alcohol and caffeine, which can cause dehydration and may interact with medications.",
+        "recommended_foods": "Prioritize antioxidant-rich foods, such as leafy greens, tomatoes, and citrus fruits, to support lung health. Include lean proteins like chicken, turkey, and tofu, and whole grains for sustained energy. Incorporate omega-3 rich foods, such as salmon, flaxseeds, and walnuts, to help reduce inflammation.",
+        "special_instructions": "Stay hydrated by drinking plenty of water or herbal teas to help thin mucus secretions and improve breathing. If experiencing difficulty eating due to shortness of breath, opt for small, frequent meals rather than large ones. Consider pulmonary rehabilitation exercises to maintain lung function and overall fitness.",
+        "excluded_ingredients": ["bacon", "sausages", "soda", "chips", "high-sugar snacks"]
+    },
+    "lymphoma": {
+        "dietary_restrictions": "Limit consumption of raw or unpasteurized foods, especially dairy, juices, and eggs, to avoid infections due to a weakened immune system. Avoid highly processed foods, excessive red meats, and foods high in saturated fats.",
+        "recommended_foods": "Include plenty of fruits and vegetables rich in vitamins A, C, and E, like carrots, oranges, and spinach, to support the immune system. Incorporate lean proteins such as fish, chicken, and legumes, and whole grains for sustained energy. Probiotic-rich foods like yogurt and kefir can help maintain gut health.",
+        "special_instructions": "Focus on maintaining a balanced diet to support recovery and strength during treatment. Stay hydrated and practice good food hygiene to prevent infections. Work closely with a dietitian to adjust your diet as needed, especially if you experience side effects like nausea or mouth sores."
+    },
+    "melanoma_skin": {
+        "dietary_restrictions": "Avoid excessive intake of high-sugar foods and processed meats, which can promote inflammation. Limit alcohol consumption, which can compromise immune function.",
+        "recommended_foods": "Consume foods rich in antioxidants and polyphenols, such as berries, green leafy vegetables, and nuts, to protect skin cells. Include foods high in healthy fats, like avocados, olive oil, and fatty fish, which support skin health and repair. Stay hydrated by drinking plenty of water and consuming water-rich foods like cucumbers and melons.",
+        "special_instructions": "Protect your skin from further damage by avoiding sun exposure during peak hours and wearing sunscreen with a high SPF. Focus on maintaining a healthy weight and incorporating regular physical activity to support overall health and well-being. Consult with a healthcare provider about any specific dietary needs or restrictions.",
+        "excluded_ingredients": ["fried foods", "processed meats", "alcohol", "sugary desserts", "high-fat snacks"]
+    },
+    "oral": {
+        "dietary_restrictions": "Avoid foods that are spicy, acidic, or rough in texture, which may irritate the mouth or throat. Limit alcohol, tobacco, and hot beverages, which can cause further irritation and damage.",
+        "recommended_foods": "Focus on soft, bland foods like mashed potatoes, oatmeal, scrambled eggs, and smoothies to minimize discomfort while eating. Include high-calorie, high-protein foods like yogurt, avocados, and nut butters to help maintain weight and strength. Stay hydrated with water, herbal teas, and clear broths.",
+        "special_instructions": "Practice good oral hygiene by rinsing the mouth frequently with a saltwater solution. If experiencing difficulty swallowing, opt for nutrient-dense liquids or pureed meals. Consult with a dietitian to find foods that are both nutritious and easy to consume.",
+        "excluded_ingredients": ["hot sauce", "vinegar", "citrus fruits", "hard candy", "crispy snacks"]
+    },
+    "pancreatic": {
+        "dietary_restrictions": "Avoid high-fat and fried foods that can be difficult to digest and exacerbate pancreatic symptoms. Limit intake of processed sugars and refined carbohydrates to help control blood sugar levels.",
+        "recommended_foods": "Consume small, frequent meals that are low in fat but high in protein and complex carbohydrates, such as lean meats, whole grains, fruits, and vegetables. Include enzyme supplements, if prescribed, to aid digestion. Choose easy-to-digest foods like white rice, applesauce, and cooked vegetables.",
+        "special_instructions": "Stay well-hydrated to help digestion and overall health. Consider pancreatic enzyme replacement therapy (PERT) if recommended by a doctor. Monitor blood sugar levels regularly, especially if diabetes is a concern. A registered dietitian can help tailor meal plans to manage symptoms effectively.",
+        "excluded_ingredients": ["fried foods", "greasy meats", "sugary desserts", "processed snacks", "alcohol"]
+    },
+    "prostate": {
+        "dietary_restrictions": "Limit red and processed meats, high-fat dairy products, and foods high in saturated and trans fats. Reduce intake of alcohol and caffeinated beverages, which can impact urinary function.",
+        "recommended_foods": "Incorporate foods rich in antioxidants, such as tomatoes, berries, and cruciferous vegetables, to help reduce inflammation. Include sources of omega-3 fatty acids like salmon, flaxseeds, and walnuts to support heart and prostate health. Choose whole grains, legumes, and plant-based proteins to maintain overall nutrition.",
+        "special_instructions": "Stay active and maintain a healthy weight through a balanced diet and regular physical activity. Stay hydrated, but try to drink most fluids between meals rather than during, to minimize urinary discomfort. Regular check-ups and consultations with healthcare providers are essential for monitoring progress.",
+        "excluded_ingredients": ["red meat", "bacon", "whole milk", "processed foods", "sugary snacks"]
+    },
+    "sarcoma": {
+        "dietary_restrictions": "Avoid high-sugar and high-fat foods that can contribute to inflammation and weight gain. Limit alcohol intake, which may interact with medications and impair recovery.",
+        "recommended_foods": "Focus on a well-rounded diet with plenty of fruits, vegetables, lean proteins, and whole grains to support overall health and immune function. Include foods rich in vitamins C and D, and calcium, such as citrus fruits, dairy products, and leafy greens, to promote bone health and tissue repair.",
+        "special_instructions": "Monitor weight and maintain a balanced diet to avoid muscle wasting or unintentional weight loss. Stay physically active as recommended by a healthcare provider to maintain strength and mobility. Collaborate with a dietitian to manage any specific dietary needs or challenges during treatment.",
+        "excluded_ingredients": ["processed meats", "fried foods", "sugary snacks", "white bread", "high-fat dairy products"]
+    },
+    "stomach": {
+        "dietary_restrictions": "Avoid foods that are spicy, acidic, or high in fat, as they can irritate the stomach lining. Limit intake of processed foods, red meats, and sugary drinks, which may aggravate symptoms.",
+        "recommended_foods": "Eat small, frequent meals to aid digestion and prevent discomfort. Choose bland, easily digestible foods like rice, bananas, applesauce, and boiled chicken. Include foods rich in vitamins A and C, such as carrots, spinach, and oranges, to support healing.",
+        "special_instructions": "Chew food thoroughly and eat slowly to improve digestion and reduce the risk of discomfort. Stay upright for at least 30 minutes after eating to prevent acid reflux. Work with a dietitian to develop a tailored eating plan that addresses specific symptoms and nutritional needs.",
+        "excluded_ingredients": ["hot sauce", "citrus fruits", "fried foods", "caffeine", "alcohol"]
+    }
+
+}

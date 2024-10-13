@@ -1,0 +1,240 @@
+{% extends "base.html" %} {% load static %} {% block title %} Home | CaC {% endblock %} {% block content %}
+    
+    <!--Homepage info-->
+    <section class="home position-relative z-n1">
+        <!--main home page-->
+        <div id="carouselExample" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active h-auto">
+                    <img
+                            src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/02e58760844297.5a5b78316a4f8.jpg"
+                            class="d-block w-100"
+                            alt="toast"
+                    />
+                </div>
+                <div class="carousel-item h-auto">
+                    <img
+                            src="https://artbarcambridge.com/wp-content/uploads/2018/06/ARTBAR-ROYAL-SONESTA_BRIAN-SAMUELS-PHOTOGRAPHY_MAY-2018-46-1.jpg"
+                            class="d-block w-100"
+                            alt="burger"
+                    />
+                </div>
+                <div class="carousel-item h-auto">
+                    <img
+                            src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/27178b31374959.564d9314b6416.jpg"
+                            class="d-block w-100"
+                            alt="salmon"
+                    />
+                </div>
+            </div>
+            <button
+                    class="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#carouselExample"
+                    data-bs-slide="prev"
+            >
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+                    class="carousel-control-next"
+                    type="button"
+                    data-bs-target="#carouselExample"
+                    data-bs-slide="next"
+            >
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <div class="home-info container text-center py-5">
+            <div class="col-12">
+                <h1 class="main-title">We are CodeAgainstCancer</h1>
+                <div class="text-box">
+                    <h3><br/>Eat Well, Fight Strong</h3>
+                    <p>
+                        At CodeAgainstCancer, we believe that nutrition is a powerful ally in
+                        the fight against cancer. Our mission is to provide patients with
+                        comprehensive dietary support to enhance their health, boost their
+                        strength, and improve their quality of life.
+                    </p>
+
+                    <a href="">
+                        Learn More.
+                        <!--add button here-->
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--Nutrition info-->
+    <section class="Nutrition container my-5">
+        <div class="row gy-4 container">
+            <div class="col-lg-6 d-flex justify-content-center">
+                <div class="Nutrition-img" style=" 18rem">
+                    <img
+                            src="https://img.taste.com.au/gpe52rFs/taste/2017/09/easy-beef-and-quinoa-salad-bowl-130828-2.jpg"
+                            class="img-fluid"
+                            alt="healthy food img"
+                            style="max-width: 400px"
+                    />
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h3 class="Nutrition-title">Nutrition</h3>
+                At CodeAgainstCancer, we believe that nutrition plays a vital role in
+                supporting cancer patients through their journey. Our focus is on
+                providing personalized dietary guidance that helps boost the immune
+                system, manage treatment side effects, and improve overall well-being. We
+                offer tailored meal plans rich in essential nutrients, antioxidants, and
+                anti-inflammatory foods to complement medical treatments and promote
+                healing. By embracing a balanced, nutrient-dense diet, we aim to empower
+                patients with the knowledge and tools to enhance their quality of life and
+                contribute to their fight against cancer.
+            </div>
+        </div>
+    </section>
+
+    <!--Community info-->
+    <section class="Community container my-5">
+        <div class="row gy-4 container">
+            <div class="col-lg-6 order-2 order-lg-1">
+                <h3 class="Community-title">Community</h3>
+                We believe that sharing experiences, seeking guidance, and connecting with
+                others who are going through similar challenges can be a powerful source
+                of strength and resilience. Our community resources aim to foster a sense
+                of belonging and ensure that no one has to navigate their cancer journey
+                in isolation.
+            </div>
+            <div class="col-lg-6 d-flex justify-content-center order-1 order-lg-2">
+                <div class="Community-img">
+                    <img
+                            src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI0LTAxL3Jhd3BpeGVsX29mZmljZV8yN19yZWFsaXN0aWNfcGhvdG9ncmFwaF9vZl9hX3RoYWlfZmFtaWx5X2Rpbm5lcl9mMjRiZDg5Zi1iMzAwLTRhZjktYTcwMC05Y2I3ODg1MWY5ZThfMS5qcGc.jpg"
+                            class="img-fluid"
+                            alt="community-img"
+                            style="max-width: 400px"
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Testimonials-->
+    <section class="UserTestimonials my-5">
+        <div class="container text-center">
+            <h3 class="UserTestimonials-title py-2">User Testimonials</h3>
+            <div
+                    class="container row justify-content-center row-cols-1 row-cols-md-3 g-4 px-lg-10"
+            >
+                <div class="col-11 col-sm-10 col-md-4 col-lg-3">
+                    <div class="card h-100">
+                        <img
+                                src="https://i.pinimg.com/564x/f8/92/61/f89261ed471d04cab6f609f7157725d3.jpg"
+                                class="card-img-top"
+                                alt="..."
+                        />
+                        <div class="card-body">
+                            <p class="card-text">
+                                “Love that it is simple but effective, helps me keep track of what
+                                I eat and stay on track. @User1”
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-11 col-sm-10 col-md-4 col-lg-3">
+                    <div class="card h-100">
+                        <img
+                                src="https://i.pinimg.com/564x/dc/13/ba/dc13ba4cb71bc20ccf69bcf6afd2f9b4.jpg"
+                                class="card-img-top"
+                                alt="..."
+                        />
+                        <div class="card-body">
+                            <p class="card-text">
+                                “I was able to find yummy healthy recipes and find support in my
+                                community! 10/10 @User2"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-11 col-sm-10 col-md-4 col-lg-3">
+                    <div class="card h-100">
+                        <img
+                                src="https://i.pinimg.com/564x/8f/7e/6d/8f7e6da6e92f96af312c472e12d77c40.jpg"
+                                class="card-img-top"
+                                alt="..."
+                        />
+                        <div class="card-body">
+                            <p class="card-text">
+                                "Perfect for keeping track of my dietary habits! I use it
+                                everyday. @User3"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--Mission-->
+    <section class="Mission my-5">
+        <h3 class="text-center py-2">Our Mission</h3>
+        <div class="container text-center">
+            <div class="row text-center g-3">
+                <div
+                        class="col-sm-6 col-md-3 align-items-center d-flex flex-column justify-content-between"
+                >
+                    <div class="Promote-img">
+                        <img
+                                src="https://cdn-icons-png.flaticon.com/256/5070/5070393.png"
+                                class="fi fi-rr-carrot"
+                                alt=""
+                                width="30rem"
+                        />
+                    </div>
+                    <p class="m-0">Promote Balanced Nutrition</p>
+                </div>
+                <div
+                        class="col-sm-6 col-md-3 d-flex flex-column align-items-center justify-content-between"
+                >
+                    <div class="Support-img">
+                        <img
+                                src="https://cdn-icons-png.flaticon.com/256/3916/3916979.png"
+                                class="fi fi-rr-world"
+                                alt=""
+                                width="30rem"
+                        />
+                    </div>
+                    <p class="m-0">Support Through Community</p>
+                </div>
+                <div
+                        class="col-sm-6 col-md-3 d-flex flex-column align-items-center justify-content-between"
+                >
+                    <div class="Empower-img">
+                        <img
+                                src="https://cdn-icons-png.flaticon.com/256/3916/3916576.png"
+                                class="fi fi-br-heart"
+                                alt=""
+                                width="30rem"
+                        />
+                    </div>
+                    <p class="m-0">Empower Cancer Patients</p>
+                </div>
+                <div
+                        class="col-sm-6 col-md-3 d-flex flex-column align-items-center justify-content-between"
+                >
+                    <div class="Impact-img">
+                        <img
+                                src="https://cdn-icons-png.flaticon.com/256/16298/16298194.png"
+                                alt=""
+                                class="fi fi tr-thumbs-up-trust"
+                                width="30rem"
+                        />
+                    </div>
+                    <p class="m-0">Positive Impact</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
