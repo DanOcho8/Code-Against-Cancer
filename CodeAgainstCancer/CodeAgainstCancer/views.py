@@ -8,11 +8,14 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 import json
 import os
 
 from .api_handlers import APIHandlerFactory
 from .utils import LoggerSingleton, cache_results
+from .forms import ContactForm
 
 # Create a logger instance
 logger = LoggerSingleton()
@@ -242,3 +245,37 @@ def searchRecipes(request):
     }
 
     return render(request, "recipe/recipe.html", context)
+
+
+def contact(request):
+    
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        
+        
+        
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            content = form.cleaned_data['content']
+            
+            html = render_to_string('emails/email.html', {
+                'name': name,
+                'email': email,
+                'content': content
+            })
+            # Send the email using Django's send_mail function
+            send_mail(
+                'Contact Form Submission',
+                'This is the message from the contact form.',  # You might want to include the content here as well
+                settings.DEFAULT_FROM_EMAIL,  # Use the configured default from email
+                ['codeagainstcancer@outlook.com'],
+                html_message=html,
+                fail_silently=False, 
+            )
+            return redirect('contact')  # Redirect back to the contact page
+    else:
+        form = ContactForm()  # Initialize an empty form
+
+    # Render the contact form with context
+    return render(request, 'contact/contactform.html', {'form': form})
