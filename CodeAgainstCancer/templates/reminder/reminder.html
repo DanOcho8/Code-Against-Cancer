@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Reminder {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center pt-4">Reminder</h1>
+    <form method="post" action="{% url 'reminder' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <input type="text" class="form-control" id="phone" name="phone" 
+                   placeholder="Enter phone number" 
+                   maxlength="18" 
+                   required>
+            <small class="form-text text-muted">Format: +0 (123) 456-7890</small>
+
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="consent" name="consent" required>
+                <label class="form-check-label" for="consent">
+                    I agree to receive SMS messages for verification and text reminders from CodeAgainstCancer.
+                </label>
+            </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const phoneInput = document.getElementById('phone');
+
+    phoneInput.addEventListener('focus', function () {
+        if (phoneInput.value.length === 0) {
+            phoneInput.value = '+' + phoneInput.value;
+        }
+    });
+});
+</script>
+{% endblock %}

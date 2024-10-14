@@ -102,7 +102,7 @@ class CustomUserCreationForm(UserCreationForm):
             send_mail(
                 subject,
                 email_plaintext_message,
-                'codeagainstcancer@gmail.com',
+                'codeagainstcancer@outlook.com',
                 [user.email],
                 html_message=email_html_message
             ) 

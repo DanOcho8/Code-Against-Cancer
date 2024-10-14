@@ -1,14 +1,15 @@
+from pyexpat.errors import messages
+from django.contrib import messages
 import requests
 from accounts.models import UserProfile
 from django.conf import settings
 import random
 import logging
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-
-
+from django.contrib.auth.forms import AuthenticationForm
+from django.shortcuts import render, redirect
 
 def user_logout(request):
     logout(request)
@@ -18,10 +19,10 @@ def user_logout(request):
 def homepageView(request):
     return render(request, "home.html")
 
-
 def login_view(request):
+    form = AuthenticationForm(request, data=request.POST or None)
+
     if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
@@ -33,16 +34,15 @@ def login_view(request):
                 and user.profile.cancer_stage
                 and user.profile.gender
             ):
-                return redirect(
-                    "user_profile.html"
-                )  # Redirect to profile form if not completed
+                messages.warning(request, "Please complete your profile information.")
+                return redirect('update_profile')
 
-            return redirect("home")
-    else:
-        form = AuthenticationForm()
-
+            return redirect('home')
+        else:
+            # Add error if credentials are incorrect
+            form.add_error(None, "Invalid username or password.")
+    
     return render(request, "registration/login.html", {"form": form})
-
 
 def resources(request):
     user = request.user
@@ -106,6 +106,9 @@ def get_youtube_videos(query, page_token=None):
 
 def about(request):
     return render(request, 'about/about.html')
+
+def donate(request):
+    return render(request, 'donate/donate.html')
 
 logger = logging.getLogger(__name__)
 

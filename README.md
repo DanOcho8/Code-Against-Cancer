@@ -9,6 +9,15 @@ Web Based Application for Cancer Patients Who Need Nutritional Guidance
 - Bootstrap
 - YouTube API
 
+## Prerequisites
+
+Before you begin, ensure you have the following installed on your local machine:
+
+- **Python 3.8+**
+- **Git**
+- **Virtual Environment**
+- **pip**
+
 ## Getting Started
 
 ### 1. Clone the Repository
@@ -57,13 +66,38 @@ pip install -r requirements.txt
 cd CodeAgainstCancer
 ```
 
-### 5. Run the Application
+### 5. Environmental Variables
+
+Create a `.env` file in the project root and add the following environment variables:
+
+```bash
+SECRET_KEY=your_secret_key
+DEBUG=True
+ALLOWED_HOSTS=[]
+YOUTUBE_API_KEY=your_youtube_api_key
+APP_ID=your_app_id
+API_KEY=your_api_key
+```
+
+### 6. Apply Database Migrations
+
+Apply the database migrations to set up the database schema:
+
+```bash
+python3 manage.py migrate
+```
+
+### 7. Run the Application
 
 Run the Django development server:
 
 ```bash
 python3 manage.py runserver
 ```
+
+## Testing
+
+TODO: new information on testing coming soon.
 
 ## Team Members
 

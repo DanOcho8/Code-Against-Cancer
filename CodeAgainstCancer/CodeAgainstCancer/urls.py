@@ -20,5 +20,6 @@ urlpatterns = [
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'), name='password_reset_complete'),
     path('about/', views.about, name='about'),
     path('recipes/', views.searchRecipes, name='searchRecipes'),
+    path('donate/', views.donate, name='donate'),
     # Add more URL patterns as needed
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

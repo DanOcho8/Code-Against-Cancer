@@ -4,7 +4,7 @@
 {% block title %} Recipe {% endblock %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container">
     <h1 class="text-center pt-4">Recipes</h1>
     <p class="text-center">
         Food recipes that are tailored to you!
@@ -18,7 +18,7 @@
     </form>
 
     <!-- Recipes Section -->
-    <div class="container margin-bottom mt-4">
+    <div class="container mt-4 pb-5">
         {% if recipes %}
             <div class="row">
                 {% for item in recipes %}
