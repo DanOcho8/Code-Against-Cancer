@@ -31,15 +31,13 @@
           background-position: 0% 50%;
       }
   }
-</style>
-
+  </style>
 <div class="login-background" style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #fff;">
   <div class="shadow-wrap card" style="border-radius: 5px; padding: 25px; background-color: #f0f2fb;">
     <div class="form-wrap card-body" style="background-color: #fff; padding: 70px;">
       <h3 class="text-center mb-4">Welcome Back!</h3>
       <h5 class="text-center mb-5" style="color: #a9a9a9;">Please enter your details to sign in.</h5>
       
-
       <!-- Login Form -->
       <form method="POST" style="display: block; width: 100%;">
         {% csrf_token %}
@@ -56,14 +54,21 @@
         </div>
         <button type="submit" class="btn btn-primary rounded-pill w-100 mt-3">Sign In</button>
       </form>
-      <a class="signup-link" href="{% url 'signup' %}" style="font-weight: 500; border-radius: 5px; border: 2px solid #4285F4; background-color: #4285F4; color: white; font-size: 16px; margin-top: 20px; text-align: center; line-height: 25px; display: block; text-decoration: none;">Signup</a>
-      <p style="padding: 20px; border-radius: 5px; text-decoration: none; font-size: 16px; margin-top: 10px;"><a style="font-weight: 500; border-radius: 5px; border: 2px solid #4285F4; background-color: #4285F4; color: white; font-size: 16px; margin-top: 20px; text-align: center; line-height: 25px; display: block; text-decoration: none;" href="{% url 'password_reset' %}">Forgot Password?</a></p>
-      <a class="btn btn-google" href="{% url 'google_login' %}" style="text-align:center; display: inline-flex; background-color: #4285F4; color: white; border: 2px solid #4285F4; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-size: 16px; font-weight: 500; transition: background-color 0.3s, border-color 0.3s; margin-top: 10px;">
+      <!-- Signup Button -->
+      <button class="btn btn-primary rounded-pill w-100 mt-3" onclick="window.location.href='{% url 'signup' %}'">Signup</button>
+
+      <!-- Google Login Button -->
+      <a class="btn btn-google rounded-pill w-100 mt-3" href="{% url 'google_login' %}" style="background-color: #4285F4; border-color: #4285F4; color: white;">
         <img src="{% static 'images/google-logo.png' %}" alt="Google Logo" width="20" height="20" class="me-2" style="margin-right: 10px;" />
         Login with Google
       </a>
+
+      <!-- Forgot Password -->
+      <p class="w-100 text-center mt-3" style="color: #4285F4;">
+        <a href="{% url 'password_reset' %}" class="text-primary">Forgot Password?</a>
+      </p>
     </div>
   </div>
 </div>
-
 {% endblock content %}
+{% block footer %}{% endblock %}
