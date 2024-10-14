@@ -1,0 +1,160 @@
+2024-10-13 03:52:28,296 - api_handlers.py:56 - DEBUG - Making API request to https://www.googleapis.com/youtube/v3/search with params {'part': 'snippet', 'q': 'Lung cancer Stage 2 stage', 'maxResults': 3, 'order': 'relevance', 'key': 'AIzaSyBydK6yBKYz-1CbLcoFNgsYnM6aXq8JSnA', 'videoEmbeddable': 'true', 'type': 'video', 'pageToken': None}
+2024-10-13 03:52:28,813 - api_handlers.py:60 - INFO - API request to https://www.googleapis.com/youtube/v3/search was successful.
+2024-10-13 03:52:28,814 - views.py:135 - INFO - YouTube API call took 0.52 seconds.
+2024-10-13 03:52:28,814 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi with params {'db': 'pubmed', 'term': 'Lung cancer Stage 2 stage', 'retmax': 5, 'retmode': 'json', 'sort': 'relevance'}
+2024-10-13 03:52:29,631 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi was successful.
+2024-10-13 03:52:29,632 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi with params {'db': 'pubmed', 'id': '32492161,36504141,30316011,28429473,38490228', 'retmode': 'json'}
+2024-10-13 03:52:30,025 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi was successful.
+2024-10-13 03:52:30,029 - views.py:139 - INFO - PubMed API call took 1.22 seconds.
+2024-10-13 03:52:30,030 - views.py:158 - INFO - Total resources view response time: 1.74 seconds.
+2024-10-13 03:52:30,030 - views.py:159 - INFO - Resources successfully fetched and returned.
+2024-10-13 03:54:00,344 - api_handlers.py:56 - DEBUG - Making API request to https://www.googleapis.com/youtube/v3/search with params {'part': 'snippet', 'q': 'Lung cancer Stage 2 stage', 'maxResults': 3, 'order': 'relevance', 'key': 'AIzaSyBydK6yBKYz-1CbLcoFNgsYnM6aXq8JSnA', 'videoEmbeddable': 'true', 'type': 'video', 'pageToken': None}
+2024-10-13 03:54:00,808 - api_handlers.py:60 - INFO - API request to https://www.googleapis.com/youtube/v3/search was successful.
+2024-10-13 03:54:00,810 - views.py:135 - INFO - YouTube API call took 0.46 seconds.
+2024-10-13 03:54:00,810 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi with params {'db': 'pubmed', 'term': 'Lung cancer Stage 2 stage', 'retmax': 5, 'retmode': 'json', 'sort': 'relevance'}
+2024-10-13 03:54:01,406 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi was successful.
+2024-10-13 03:54:01,406 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi with params {'db': 'pubmed', 'id': '32492161,36504141,30316011,28429473,38490228', 'retmode': 'json'}
+2024-10-13 03:54:01,994 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi was successful.
+2024-10-13 03:54:01,998 - views.py:139 - INFO - PubMed API call took 1.19 seconds.
+2024-10-13 03:54:02,000 - views.py:158 - INFO - Total resources view response time: 1.66 seconds.
+2024-10-13 03:54:02,010 - views.py:159 - INFO - Resources successfully fetched and returned.
+2024-10-13 03:56:54,778 - api_handlers.py:56 - DEBUG - Making API request to https://www.googleapis.com/youtube/v3/search with params {'part': 'snippet', 'q': 'Lung cancer Stage 2 stage', 'maxResults': 3, 'order': 'relevance', 'key': 'AIzaSyBydK6yBKYz-1CbLcoFNgsYnM6aXq8JSnA', 'videoEmbeddable': 'true', 'type': 'video', 'pageToken': None}
+2024-10-13 03:56:55,259 - api_handlers.py:60 - INFO - API request to https://www.googleapis.com/youtube/v3/search was successful.
+2024-10-13 03:56:55,261 - views.py:135 - INFO - YouTube API call took 0.48 seconds.
+2024-10-13 03:56:55,262 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi with params {'db': 'pubmed', 'term': 'Lung cancer Stage 2 stage', 'retmax': 5, 'retmode': 'json', 'sort': 'relevance'}
+2024-10-13 03:56:55,871 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi was successful.
+2024-10-13 03:56:55,880 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi with params {'db': 'pubmed', 'id': '32492161,36504141,30316011,28429473,38490228', 'retmode': 'json'}
+2024-10-13 03:56:56,279 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi was successful.
+2024-10-13 03:56:56,281 - views.py:139 - INFO - PubMed API call took 1.02 seconds.
+2024-10-13 03:56:56,281 - views.py:158 - INFO - Total resources view response time: 1.52 seconds.
+2024-10-13 03:56:56,281 - views.py:159 - INFO - Resources successfully fetched and returned.
+2024-10-13 04:05:19,176 - api_handlers.py:56 - DEBUG - Making API request to https://www.googleapis.com/youtube/v3/search with params {'part': 'snippet', 'q': 'Lung cancer Stage 2 stage', 'maxResults': 3, 'order': 'relevance', 'key': 'AIzaSyBydK6yBKYz-1CbLcoFNgsYnM6aXq8JSnA', 'videoEmbeddable': 'true', 'type': 'video', 'pageToken': None}
+2024-10-13 04:05:19,578 - api_handlers.py:60 - INFO - API request to https://www.googleapis.com/youtube/v3/search was successful.
+2024-10-13 04:05:19,579 - views.py:135 - INFO - YouTube API call took 0.40 seconds.
+2024-10-13 04:05:19,579 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi with params {'db': 'pubmed', 'term': 'Lung cancer Stage 2 stage', 'retmax': 5, 'retmode': 'json', 'sort': 'relevance'}
+2024-10-13 04:05:20,236 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi was successful.
+2024-10-13 04:05:20,237 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi with params {'db': 'pubmed', 'id': '32492161,36504141,30316011,28429473,38490228', 'retmode': 'json'}
+2024-10-13 04:05:20,770 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi was successful.
+2024-10-13 04:05:20,772 - views.py:139 - INFO - PubMed API call took 1.19 seconds.
+2024-10-13 04:05:20,772 - views.py:158 - INFO - Total resources view response time: 1.60 seconds.
+2024-10-13 04:05:20,772 - views.py:159 - INFO - Resources successfully fetched and returned.
+2024-10-13 06:14:40,772 - api_handlers.py:56 - DEBUG - Making API request to https://www.googleapis.com/youtube/v3/search with params {'part': 'snippet', 'q': 'Lung cancer Stage 2 stage', 'maxResults': 3, 'order': 'relevance', 'key': 'AIzaSyBydK6yBKYz-1CbLcoFNgsYnM6aXq8JSnA', 'videoEmbeddable': 'true', 'type': 'video', 'pageToken': None}
+2024-10-13 06:14:41,282 - api_handlers.py:60 - INFO - API request to https://www.googleapis.com/youtube/v3/search was successful.
+2024-10-13 06:14:41,284 - views.py:135 - INFO - YouTube API call took 0.51 seconds.
+2024-10-13 06:14:41,285 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi with params {'db': 'pubmed', 'term': 'Lung cancer Stage 2 stage', 'retmax': 5, 'retmode': 'json', 'sort': 'relevance'}
+2024-10-13 06:14:43,119 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi was successful.
+2024-10-13 06:14:43,120 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi with params {'db': 'pubmed', 'id': '32492161,36504141,30316011,28429473,38490228', 'retmode': 'json'}
+2024-10-13 06:14:44,044 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi was successful.
+2024-10-13 06:14:44,047 - views.py:139 - INFO - PubMed API call took 2.76 seconds.
+2024-10-13 06:14:44,048 - views.py:158 - INFO - Total resources view response time: 3.28 seconds.
+2024-10-13 06:14:44,048 - views.py:159 - INFO - Resources successfully fetched and returned.
+2024-10-13 21:09:41,946 - api_handlers.py:56 - DEBUG - Making API request to https://www.googleapis.com/youtube/v3/search with params {'part': 'snippet', 'q': 'Lung cancer Stage 2 stage', 'maxResults': 3, 'order': 'relevance', 'key': 'AIzaSyBydK6yBKYz-1CbLcoFNgsYnM6aXq8JSnA', 'videoEmbeddable': 'true', 'type': 'video', 'pageToken': None}
+2024-10-13 21:09:42,371 - api_handlers.py:60 - INFO - API request to https://www.googleapis.com/youtube/v3/search was successful.
+2024-10-13 21:09:42,371 - views.py:135 - INFO - YouTube API call took 0.42 seconds.
+2024-10-13 21:09:42,371 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi with params {'db': 'pubmed', 'term': 'Lung cancer Stage 2 stage', 'retmax': 5, 'retmode': 'json', 'sort': 'relevance'}
+2024-10-13 21:09:43,239 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi was successful.
+2024-10-13 21:09:43,240 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi with params {'db': 'pubmed', 'id': '32492161,36504141,30316011,28429473,38490228', 'retmode': 'json'}
+2024-10-13 21:09:43,628 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi was successful.
+2024-10-13 21:09:43,628 - views.py:139 - INFO - PubMed API call took 1.26 seconds.
+2024-10-13 21:09:43,629 - views.py:158 - INFO - Total resources view response time: 1.69 seconds.
+2024-10-13 21:09:43,629 - views.py:159 - INFO - Resources successfully fetched and returned.
+2024-10-13 21:53:57,582 - api_handlers.py:56 - DEBUG - Making API request to https://www.googleapis.com/youtube/v3/search with params {'part': 'snippet', 'q': 'Lung cancer Stage 2 stage', 'maxResults': 3, 'order': 'relevance', 'key': 'AIzaSyBydK6yBKYz-1CbLcoFNgsYnM6aXq8JSnA', 'videoEmbeddable': 'true', 'type': 'video', 'pageToken': None}
+2024-10-13 21:53:58,168 - api_handlers.py:60 - INFO - API request to https://www.googleapis.com/youtube/v3/search was successful.
+2024-10-13 21:53:58,169 - views.py:135 - INFO - YouTube API call took 0.59 seconds.
+2024-10-13 21:53:58,170 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi with params {'db': 'pubmed', 'term': 'Lung cancer Stage 2 stage', 'retmax': 5, 'retmode': 'json', 'sort': 'relevance'}
+2024-10-13 21:53:58,811 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi was successful.
+2024-10-13 21:53:58,812 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi with params {'db': 'pubmed', 'id': '32492161,36504141,30316011,28429473,38490228', 'retmode': 'json'}
+2024-10-13 21:53:59,249 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi was successful.
+2024-10-13 21:53:59,250 - views.py:139 - INFO - PubMed API call took 1.08 seconds.
+2024-10-13 21:53:59,250 - views.py:158 - INFO - Total resources view response time: 1.67 seconds.
+2024-10-13 21:53:59,250 - views.py:159 - INFO - Resources successfully fetched and returned.
+2024-10-13 22:08:47,054 - api_handlers.py:56 - DEBUG - Making API request to https://www.googleapis.com/youtube/v3/search with params {'part': 'snippet', 'q': 'Lung cancer Stage 2 stage', 'maxResults': 3, 'order': 'relevance', 'key': 'AIzaSyBydK6yBKYz-1CbLcoFNgsYnM6aXq8JSnA', 'videoEmbeddable': 'true', 'type': 'video', 'pageToken': None}
+2024-10-13 22:08:47,534 - api_handlers.py:60 - INFO - API request to https://www.googleapis.com/youtube/v3/search was successful.
+2024-10-13 22:08:47,536 - views.py:135 - INFO - YouTube API call took 0.48 seconds.
+2024-10-13 22:08:47,537 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi with params {'db': 'pubmed', 'term': 'Lung cancer Stage 2 stage', 'retmax': 5, 'retmode': 'json', 'sort': 'relevance'}
+2024-10-13 22:08:48,366 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi was successful.
+2024-10-13 22:08:48,367 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi with params {'db': 'pubmed', 'id': '32492161,36504141,30316011,28429473,38490228', 'retmode': 'json'}
+2024-10-13 22:08:48,750 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi was successful.
+2024-10-13 22:08:48,753 - views.py:139 - INFO - PubMed API call took 1.22 seconds.
+2024-10-13 22:08:48,753 - views.py:158 - INFO - Total resources view response time: 1.70 seconds.
+2024-10-13 22:08:48,754 - views.py:159 - INFO - Resources successfully fetched and returned.
+2024-10-13 22:19:44,087 - api_handlers.py:56 - DEBUG - Making API request to https://www.googleapis.com/youtube/v3/search with params {'part': 'snippet', 'q': 'Lung cancer Stage 2 stage', 'maxResults': 3, 'order': 'relevance', 'key': 'AIzaSyBydK6yBKYz-1CbLcoFNgsYnM6aXq8JSnA', 'videoEmbeddable': 'true', 'type': 'video', 'pageToken': None}
+2024-10-13 22:19:44,433 - api_handlers.py:60 - INFO - API request to https://www.googleapis.com/youtube/v3/search was successful.
+2024-10-13 22:19:44,434 - views.py:135 - INFO - YouTube API call took 0.35 seconds.
+2024-10-13 22:19:44,434 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi with params {'db': 'pubmed', 'term': 'Lung cancer Stage 2 stage', 'retmax': 5, 'retmode': 'json', 'sort': 'relevance'}
+2024-10-13 22:19:45,419 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi was successful.
+2024-10-13 22:19:45,420 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi with params {'db': 'pubmed', 'id': '32492161,36504141,30316011,28429473,38490228', 'retmode': 'json'}
+2024-10-13 22:19:45,803 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi was successful.
+2024-10-13 22:19:45,803 - views.py:139 - INFO - PubMed API call took 1.37 seconds.
+2024-10-13 22:19:45,804 - views.py:158 - INFO - Total resources view response time: 1.72 seconds.
+2024-10-13 22:19:45,804 - views.py:159 - INFO - Resources successfully fetched and returned.
+2024-10-14 00:07:11,373 - api_handlers.py:56 - DEBUG - Making API request to https://www.googleapis.com/youtube/v3/search with params {'part': 'snippet', 'q': 'Lung cancer Stage 2 stage', 'maxResults': 3, 'order': 'relevance', 'key': 'AIzaSyBydK6yBKYz-1CbLcoFNgsYnM6aXq8JSnA', 'videoEmbeddable': 'true', 'type': 'video', 'pageToken': None}
+2024-10-14 00:07:11,924 - api_handlers.py:60 - INFO - API request to https://www.googleapis.com/youtube/v3/search was successful.
+2024-10-14 00:07:11,925 - views.py:135 - INFO - YouTube API call took 0.55 seconds.
+2024-10-14 00:07:11,925 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi with params {'db': 'pubmed', 'term': 'Lung cancer Stage 2 stage', 'retmax': 5, 'retmode': 'json', 'sort': 'relevance'}
+2024-10-14 00:07:12,953 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi was successful.
+2024-10-14 00:07:12,954 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi with params {'db': 'pubmed', 'id': '32492161,36504141,30316011,28429473,38490228', 'retmode': 'json'}
+2024-10-14 00:07:13,478 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi was successful.
+2024-10-14 00:07:13,481 - views.py:139 - INFO - PubMed API call took 1.56 seconds.
+2024-10-14 00:07:13,491 - views.py:158 - INFO - Total resources view response time: 2.12 seconds.
+2024-10-14 00:07:13,491 - views.py:159 - INFO - Resources successfully fetched and returned.
+2024-10-14 00:08:09,428 - api_handlers.py:56 - DEBUG - Making API request to https://www.googleapis.com/youtube/v3/search with params {'part': 'snippet', 'q': 'Lung cancer Stage 2 stage', 'maxResults': 3, 'order': 'relevance', 'key': 'AIzaSyBydK6yBKYz-1CbLcoFNgsYnM6aXq8JSnA', 'videoEmbeddable': 'true', 'type': 'video', 'pageToken': None}
+2024-10-14 00:08:09,772 - api_handlers.py:60 - INFO - API request to https://www.googleapis.com/youtube/v3/search was successful.
+2024-10-14 00:08:09,773 - views.py:135 - INFO - YouTube API call took 0.34 seconds.
+2024-10-14 00:08:09,773 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi with params {'db': 'pubmed', 'term': 'Lung cancer Stage 2 stage', 'retmax': 5, 'retmode': 'json', 'sort': 'relevance'}
+2024-10-14 00:08:10,484 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi was successful.
+2024-10-14 00:08:10,485 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi with params {'db': 'pubmed', 'id': '32492161,36504141,30316011,28429473,38490228', 'retmode': 'json'}
+2024-10-14 00:08:11,141 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi was successful.
+2024-10-14 00:08:11,142 - views.py:139 - INFO - PubMed API call took 1.37 seconds.
+2024-10-14 00:08:11,142 - views.py:158 - INFO - Total resources view response time: 1.72 seconds.
+2024-10-14 00:08:11,142 - views.py:159 - INFO - Resources successfully fetched and returned.
+2024-10-14 00:17:57,487 - api_handlers.py:56 - DEBUG - Making API request to https://www.googleapis.com/youtube/v3/search with params {'part': 'snippet', 'q': 'Lung cancer Stage 2 stage', 'maxResults': 3, 'order': 'relevance', 'key': 'AIzaSyBydK6yBKYz-1CbLcoFNgsYnM6aXq8JSnA', 'videoEmbeddable': 'true', 'type': 'video', 'pageToken': None}
+2024-10-14 00:17:57,879 - api_handlers.py:60 - INFO - API request to https://www.googleapis.com/youtube/v3/search was successful.
+2024-10-14 00:17:57,882 - views.py:135 - INFO - YouTube API call took 0.39 seconds.
+2024-10-14 00:17:57,882 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi with params {'db': 'pubmed', 'term': 'Lung cancer Stage 2 stage', 'retmax': 5, 'retmode': 'json', 'sort': 'relevance'}
+2024-10-14 00:17:58,539 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi was successful.
+2024-10-14 00:17:58,539 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi with params {'db': 'pubmed', 'id': '32492161,36504141,30316011,28429473,38490228', 'retmode': 'json'}
+2024-10-14 00:17:58,919 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi was successful.
+2024-10-14 00:17:58,920 - views.py:139 - INFO - PubMed API call took 1.04 seconds.
+2024-10-14 00:17:58,920 - views.py:158 - INFO - Total resources view response time: 1.44 seconds.
+2024-10-14 00:17:58,920 - views.py:159 - INFO - Resources successfully fetched and returned.
+2024-10-14 00:59:38,989 - api_handlers.py:56 - DEBUG - Making API request to https://www.googleapis.com/youtube/v3/search with params {'part': 'snippet', 'q': 'Lung cancer Stage 2 stage', 'maxResults': 3, 'order': 'relevance', 'key': 'AIzaSyBydK6yBKYz-1CbLcoFNgsYnM6aXq8JSnA', 'videoEmbeddable': 'true', 'type': 'video', 'pageToken': None}
+2024-10-14 00:59:40,627 - api_handlers.py:60 - INFO - API request to https://www.googleapis.com/youtube/v3/search was successful.
+2024-10-14 00:59:40,628 - views.py:135 - INFO - YouTube API call took 1.64 seconds.
+2024-10-14 00:59:40,628 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi with params {'db': 'pubmed', 'term': 'Lung cancer Stage 2 stage', 'retmax': 5, 'retmode': 'json', 'sort': 'relevance'}
+2024-10-14 00:59:41,319 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi was successful.
+2024-10-14 00:59:41,320 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi with params {'db': 'pubmed', 'id': '32492161,36504141,30316011,28429473,38490228', 'retmode': 'json'}
+2024-10-14 00:59:42,033 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi was successful.
+2024-10-14 00:59:42,034 - views.py:139 - INFO - PubMed API call took 1.41 seconds.
+2024-10-14 00:59:42,034 - views.py:158 - INFO - Total resources view response time: 3.05 seconds.
+2024-10-14 00:59:42,035 - views.py:159 - INFO - Resources successfully fetched and returned.
+2024-10-14 01:06:32,556 - api_handlers.py:56 - DEBUG - Making API request to https://www.googleapis.com/youtube/v3/search with params {'part': 'snippet', 'q': 'Lung cancer Stage 2 stage', 'maxResults': 3, 'order': 'relevance', 'key': 'AIzaSyBydK6yBKYz-1CbLcoFNgsYnM6aXq8JSnA', 'videoEmbeddable': 'true', 'type': 'video', 'pageToken': None}
+2024-10-14 01:06:33,151 - api_handlers.py:60 - INFO - API request to https://www.googleapis.com/youtube/v3/search was successful.
+2024-10-14 01:06:33,152 - views.py:136 - INFO - YouTube API call took 0.60 seconds.
+2024-10-14 01:06:33,152 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi with params {'db': 'pubmed', 'term': 'Lung cancer Stage 2 stage', 'retmax': 5, 'retmode': 'json', 'sort': 'relevance'}
+2024-10-14 01:06:33,787 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi was successful.
+2024-10-14 01:06:33,788 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi with params {'db': 'pubmed', 'id': '32492161,36504141,30316011,28429473,38490228', 'retmode': 'json'}
+2024-10-14 01:06:34,427 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi was successful.
+2024-10-14 01:06:34,429 - views.py:140 - INFO - PubMed API call took 1.28 seconds.
+2024-10-14 01:06:34,429 - views.py:159 - INFO - Total resources view response time: 1.88 seconds.
+2024-10-14 01:06:34,430 - views.py:160 - INFO - Resources successfully fetched and returned.
+2024-10-14 01:13:08,951 - api_handlers.py:56 - DEBUG - Making API request to https://www.googleapis.com/youtube/v3/search with params {'part': 'snippet', 'q': 'Lung cancer Stage 2 stage', 'maxResults': 3, 'order': 'relevance', 'key': 'AIzaSyBydK6yBKYz-1CbLcoFNgsYnM6aXq8JSnA', 'videoEmbeddable': 'true', 'type': 'video', 'pageToken': None}
+2024-10-14 01:13:09,383 - api_handlers.py:60 - INFO - API request to https://www.googleapis.com/youtube/v3/search was successful.
+2024-10-14 01:13:09,384 - views.py:136 - INFO - YouTube API call took 0.43 seconds.
+2024-10-14 01:13:09,384 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi with params {'db': 'pubmed', 'term': 'Lung cancer Stage 2 stage', 'retmax': 5, 'retmode': 'json', 'sort': 'relevance'}
+2024-10-14 01:13:10,596 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi was successful.
+2024-10-14 01:13:10,596 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi with params {'db': 'pubmed', 'id': '32492161,36504141,30316011,28429473,38490228', 'retmode': 'json'}
+2024-10-14 01:13:11,196 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi was successful.
+2024-10-14 01:13:11,197 - views.py:140 - INFO - PubMed API call took 1.81 seconds.
+2024-10-14 01:13:11,198 - views.py:159 - INFO - Total resources view response time: 2.25 seconds.
+2024-10-14 01:13:11,198 - views.py:160 - INFO - Resources successfully fetched and returned.
+2024-10-14 02:08:32,601 - api_handlers.py:56 - DEBUG - Making API request to https://www.googleapis.com/youtube/v3/search with params {'part': 'snippet', 'q': 'Lung cancer Stage 2 stage', 'maxResults': 3, 'order': 'relevance', 'key': 'AIzaSyBydK6yBKYz-1CbLcoFNgsYnM6aXq8JSnA', 'videoEmbeddable': 'true', 'type': 'video', 'pageToken': None}
+2024-10-14 02:08:33,040 - api_handlers.py:60 - INFO - API request to https://www.googleapis.com/youtube/v3/search was successful.
+2024-10-14 02:08:33,041 - views.py:136 - INFO - YouTube API call took 0.44 seconds.
+2024-10-14 02:08:33,041 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi with params {'db': 'pubmed', 'term': 'Lung cancer Stage 2 stage', 'retmax': 5, 'retmode': 'json', 'sort': 'relevance'}
+2024-10-14 02:08:33,826 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi was successful.
+2024-10-14 02:08:33,827 - api_handlers.py:56 - DEBUG - Making API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi with params {'db': 'pubmed', 'id': '32492161,36504141,30316011,28429473,38490228', 'retmode': 'json'}
+2024-10-14 02:08:34,215 - api_handlers.py:60 - INFO - API request to https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi was successful.
+2024-10-14 02:08:34,216 - views.py:140 - INFO - PubMed API call took 1.18 seconds.
+2024-10-14 02:08:34,217 - views.py:159 - INFO - Total resources view response time: 1.62 seconds.
+2024-10-14 02:08:34,217 - views.py:160 - INFO - Resources successfully fetched and returned.
