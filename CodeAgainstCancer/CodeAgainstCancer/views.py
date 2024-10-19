@@ -130,12 +130,6 @@ def resources(request):
     # Get the page token from the request if provided
     page_token = request.GET.get("page_token", None)
 
-    # Fetch YouTube videos based on the query and page token
-    data = get_youtube_videos(query, page_token)
-    videos = data.get("items", [])
-    next_page_token = data.get("nextPageToken", None)
-    prev_page_token = data.get("prevPageToken", None)
-
     # Fetch YouTube videos and PubMed articles using the handlers
     youtube_start = time.time()  # Start timer for YouTube API call
     youtube_videos = youtube_handler.fetch(query, page_token=page_token)
@@ -166,29 +160,6 @@ def resources(request):
     logger.info("Resources successfully fetched and returned.")
     return render(request, "resources/resources.html", context)
 
-def get_youtube_videos(query, page_token=None):
-    url = "https://www.googleapis.com/youtube/v3/search"
-    params = {
-        "part": "snippet",
-        "q": query,
-        "maxResults": 5,
-        "order": "relevance",
-        "key": settings.YOUTUBE_API_KEY,
-        "videoEmbeddable": "true",
-        "type": "video",
-    }
-
-    if page_token:
-        params["pageToken"] = page_token  # Add the page token for pagination
-
-    try:
-        response = requests.get(url, params=params)
-        response.raise_for_status()  # Check if the request was successful
-        return response.json()
-    except requests.RequestException as e:
-        print(f"Error fetching YouTube data: {e}")
-        return {"items": []}
-
 def about(request):
     """
     Handles the request for the 'About' page.
@@ -216,29 +187,8 @@ def donate(request):
 
 logger = logging.getLogger(__name__)
 
-def searchRecipes(request):
-    query = request.GET.get('query', '')  # gets search result from user
-    page = int(request.GET.get('page', 1))
-    from_recipes = (page - 1) * 6
-    to_recipes = page * 6 #this keeps track of up to 6 different recipes per page
-    recipes = []
 
-    # load random recipes if no search result is inputted
-    if not query:
-        logger.debug('No query provided. Fetching random recipes.')
-        random_offset = random.randint(0, 1000)  # Adjust range based on total number of recipes available
-        url = f'https://api.edamam.com/search?q=recipe&app_id={settings.APP_ID}&app_key={settings.API_KEY}&from={random_offset}&to={random_offset + 6}'
-    else:
-        # Fetch recipes based on the search query and also using from recipes and to recipes are used to get different recipes in 6 recipes per page
-        url = f'https://api.edamam.com/search?q={query}&app_id={settings.APP_ID}&app_key={settings.API_KEY}&from={from_recipes}&to={to_recipes}'
-
-    response = requests.get(url)
-    data = response.json()
-    recipes = data.get('hits', [])
-
-    total_recipes = data.get('count', 0)
-
-@cache_results(timeout=300)
+# @cache_results(timeout=300)
 def searchRecipes(request):
     user = request.user
     # check if user is logged in
@@ -297,8 +247,7 @@ def searchRecipes(request):
 
 
 def contact(request):
-    
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ContactForm(request.POST)
         
         

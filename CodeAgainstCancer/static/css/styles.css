@@ -415,3 +415,11 @@ footer {
 }
 
 /* end of styles for profile page */
+
+/* donation page styles  */
+.donation-img {
+  clip-path: polygon(0 0, 100% 0%, 75% 100%, 0% 100%);
+  width: 100%;
+  height: auto;
+}
+/* end of donation page styles  */
