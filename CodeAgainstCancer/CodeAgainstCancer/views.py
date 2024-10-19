@@ -1,28 +1,28 @@
-import json
+from pyexpat.errors import messages
+from django.contrib import messages
 import logging
-import os
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, JsonResponse
 import random
 import time
 
 import requests
 from accounts.models import UserProfile
 from django.conf import settings
-from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
-from django.core.mail import send_mail
-from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from pyexpat.errors import messages
+import json
+import os
 
 from .api_handlers import APIHandlerFactory
-from .forms import ContactForm
 from .utils import LoggerSingleton, cache_results
+from .forms import ContactForm
 
 # Create a logger instance
 logger = LoggerSingleton()
-
 
 def user_logout(request):
     """
@@ -82,15 +82,16 @@ def login_view(request):
                 and user.profile.gender
             ):
                 messages.warning(request, "Please complete your profile information.")
-                return redirect("update_profile")
+                return redirect('update_profile')
 
-            return redirect("home")
+            return redirect('home')
     else:
         form = AuthenticationForm()
 
     return render(request, "registration/login.html", {"form": form})
 
 
+@login_required(login_url='login')
 @cache_results(timeout=7200)
 def resources(request):
     """
@@ -114,14 +115,9 @@ def resources(request):
         HttpResponse: The rendered resources page or a JSON response if it's an AJAX request.
     """
     start_time = time.time()  # Start timer for the view function
-    user = request.user
-    # check if user is logged in
-    if not user.is_authenticated:
-        return redirect("login")
+    user_profile = get_object_or_404(UserProfile, user=request.user)
 
-    user_profile = get_object_or_404(UserProfile, user=user)
-
-    # generate query based on user profile or default query
+    # Generate query based on user profile or default query
     if user_profile.cancer_type and user_profile.cancer_stage:
         query = f"{user_profile.cancer_type} cancer {user_profile.cancer_stage} stage"
     else:
@@ -137,7 +133,6 @@ def resources(request):
     # Fetch YouTube videos and PubMed articles using the handlers
     youtube_start = time.time()  # Start timer for YouTube API call
     youtube_videos = youtube_handler.fetch(query, page_token=page_token)
-    # Log the time taken for the YouTube API call
     logger.info(f"YouTube API call took {time.time() - youtube_start:.2f} seconds.")
 
     pubmed_start = time.time()  # Start timer for PubMed API call
@@ -165,7 +160,6 @@ def resources(request):
     logger.info("Resources successfully fetched and returned.")
     return render(request, "resources/resources.html", context)
 
-
 def about(request):
     """
     Handles the request for the 'About' page.
@@ -191,7 +185,6 @@ def donate(request):
     """
     return render(request, "donate/donate.html")
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -207,38 +200,31 @@ def searchRecipes(request):
     from_recipes = (page - 1) * 6
     to_recipes = page * 6  # this keeps track of up to 6 different recipes per page
     recipes = []
-    excluded_query = ""
-
-    if (
-        request.user.is_authenticated
-    ):  # Get the logged-in user's profile and excluded ingredients
+    excluded_query = ''
+    
+    if request.user.is_authenticated: # Get the logged-in user's profile and excluded ingredients
         user = request.user
         user_profile = get_object_or_404(UserProfile, user=user)
+        
 
-        json_path = os.path.join(
-            settings.BASE_DIR, "static/cancer_information.json"
-        )  # Load cancer-related information from the JSON file
-        with open(json_path, "r") as json_file:
+        json_path = os.path.join(settings.BASE_DIR, 'static/cancer_information.json') # Load cancer-related information from the JSON file
+        with open(json_path, 'r') as json_file:
             cancer_data = json.load(json_file)
+            
+            
+        
+        cancer_info = cancer_data.get(user_profile.cancer_type, {}) # Get cancer-specific info, including excluded ingredients
+        excluded_ingredients = cancer_info.get('excluded_ingredients', [])
+        
+        excluded_query = '&'.join([f'excluded={ingredient}' for ingredient in excluded_ingredients]) #changes json info to url for api
 
-        cancer_info = cancer_data.get(
-            user_profile.cancer_type, {}
-        )  # Get cancer-specific info, including excluded ingredients
-        excluded_ingredients = cancer_info.get("excluded_ingredients", [])
-
-        excluded_query = "&".join(
-            [f"excluded={ingredient}" for ingredient in excluded_ingredients]
-        )  # changes json info to url for api
-
-    if not query:  # load random recipes if no search result is inputted
-        logger.debug("No query provided. Fetching random recipes.")
-        random_offset = random.randint(
-            0, 1000
-        )  # Adjust range based on total number of recipes available
-        url = f"https://api.edamam.com/search?q=recipe&app_id={settings.APP_ID}&app_key={settings.API_KEY}&from={random_offset}&to={random_offset + 6}&{excluded_query}"
+    if not query: # load random recipes if no search result is inputted
+        logger.debug('No query provided. Fetching random recipes.')
+        random_offset = random.randint(0, 1000)  # Adjust range based on total number of recipes available
+        url = f'https://api.edamam.com/search?q=recipe&app_id={settings.APP_ID}&app_key={settings.API_KEY}&from={random_offset}&to={random_offset + 6}&{excluded_query}'
     else:
         # Fetch recipes based on the search query and also using from recipes and to recipes are used to get different recipes in 6 recipes per page
-        url = f"https://api.edamam.com/search?q={query}&app_id={settings.APP_ID}&app_key={settings.API_KEY}&from={from_recipes}&to={to_recipes}&{excluded_query}"
+        url = f'https://api.edamam.com/search?q={query}&app_id={settings.APP_ID}&app_key={settings.API_KEY}&from={from_recipes}&to={to_recipes}&{excluded_query}'
 
     response = requests.get(url)
     data = response.json()
@@ -249,14 +235,12 @@ def searchRecipes(request):
     hasPrevPage = from_recipes > 0
 
     context = {
-        "recipes": recipes,
-        "query": query,
-        "page": page,
-        "hasNextPage": hasNextPage,
-        "hasPrevPage": hasPrevPage,
-        "excluded_ingredients": (
-            excluded_ingredients if request.user.is_authenticated else None
-        ),
+        'recipes': recipes,
+        'query': query,
+        'page': page,
+        'hasNextPage': hasNextPage,
+        'hasPrevPage': hasPrevPage,
+        'excluded_ingredients': excluded_ingredients if request.user.is_authenticated else None
     }
 
     return render(request, "recipe/recipe.html", context)
@@ -265,27 +249,31 @@ def searchRecipes(request):
 def contact(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
-
+        
+        
+        
         if form.is_valid():
-            name = form.cleaned_data["name"]
-            email = form.cleaned_data["email"]
-            content = form.cleaned_data["content"]
-
-            html = render_to_string(
-                "emails/email.html", {"name": name, "email": email, "content": content}
-            )
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            content = form.cleaned_data['content']
+            
+            html = render_to_string('emails/email.html', {
+                'name': name,
+                'email': email,
+                'content': content
+            })
             # Send the email using Django's send_mail function
             send_mail(
-                "Contact Form Submission",
-                "This is the message from the contact form.",  # You might want to include the content here as well
+                'Contact Form Submission',
+                'This is the message from the contact form.',  # You might want to include the content here as well
                 settings.DEFAULT_FROM_EMAIL,  # Use the configured default from email
-                ["codeagainstcancer@outlook.com"],
+                ['codeagainstcancer@outlook.com'],
                 html_message=html,
-                fail_silently=False,
+                fail_silently=False, 
             )
-            return redirect("contact")  # Redirect back to the contact page
+            return redirect('contact')  # Redirect back to the contact page
     else:
         form = ContactForm()  # Initialize an empty form
 
     # Render the contact form with context
-    return render(request, "contact/contactform.html", {"form": form})
+    return render(request, 'contact/contactform.html', {'form': form})
