@@ -95,9 +95,14 @@ Run the Django development server:
 python3 manage.py runserver
 ```
 
-## Testing
+### 8.Testing
 
-TODO: new information on testing coming soon.
+Run automated test cases:
+
+```
+python3 manage.py test
+```
+
 
 ## Team Members
 
