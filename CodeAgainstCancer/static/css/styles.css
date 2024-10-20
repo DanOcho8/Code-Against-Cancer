@@ -6,6 +6,25 @@
   transition: 0.3s all ease-in-out;
 }
 
+/* reset styles  */
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover,
+a:focus {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* styles for forms  */
 .login {
   display: flex;
   justify-content: center;
@@ -84,12 +103,18 @@
   border-color: #10182f;
 }
 
+.errorlist {
+  color: #ff4d4d;
+}
+/* end of styles for forms  */
+
 .navbar a {
   font-family: "Montserrat", sans-serif !important;
   color: #ffffff;
 }
 .navbar {
   background-color: #add8e6 !important;
+  z-index: 1000000000;
 }
 
 .small-input {
@@ -100,14 +125,18 @@
   height: 100%;
   width: 50px;
   position: fixed;
-  z-index: 1;
+  z-index: 1000;
   top: 0;
   left: 0;
   background-color: #add8e6;
   overflow-x: hidden;
-  transition: 0.5s;
+  transition: width 0.35s ease-in-out;
   padding-top: 60px;
   white-space: nowrap;
+}
+
+.sidebar.expanded {
+  width: 250px;
 }
 
 .sidebar a {
@@ -241,21 +270,156 @@
   width: auto;
   height: 200px;
   object-fit: cover;
+  width: auto;
+  height: 200px;
+  object-fit: cover;
 }
 
 /* styles to make the footer sticky */
-
-/* html {
-  height: 100%;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-} */
-
 main {
-  /* flex: 1; */
   min-height: calc(100dvh - 140px);
 }
+
+/* styles for footer  */
+footer {
+  background-color: #033241;
+  /* font-size: 1rem; */
+  font-size: 16px;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px 20px;
+}
+
+.footer-header {
+  color: white;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-header h2 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.footer-list {
+  color: #b3b3b3;
+}
+
+.footer-list a:hover {
+  color: white;
+}
+
+.footer-bar {
+  background-color: #ff3092;
+  height: 3px;
+  width: 30%;
+  margin-bottom: 10px;
+  /* margin-top: -20px; */
+}
+
+.footer-logo {
+  margin: 0 auto;
+}
+
+.footer-socials {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  font-size: 2rem;
+  gap: 1rem;
+}
+
+.footer-socials a:hover {
+  color: white;
+}
+
+.gradient-text {
+  background: linear-gradient(-45deg, #add8e6, #ff69b4, #add8e6, #ee60a7);
+  background-size: 200% 200%;
+  animation: gradient 15s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-bg {
+  background: linear-gradient(-45deg, #add8e6, #ff69b4, #add8e6, #c71585);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  min-height: calc(100dvh - 140px);
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* end of footer styles  */
+
+/* styles for homepage  */
+.carousel-item {
+  max-height: 60dvh;
+}
+/* end of styles for homepage */
+
+/* styles for profile page  */
+.profile p {
+  color: #4f4f4f;
+}
+
+.profile h3 {
+  /* color: white; */
+  font-weight: bolder;
+}
+
+.profile h4 {
+  color: #4f4f4f;
+}
+
+.profile img {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+}
+
+.edit-button {
+  display: inline-block;
+  background: linear-gradient(-45deg, #add8e6, #ff69b4, #add8e6, #c71585);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  color: white;
+  border: 2px solid transparent;
+  padding: 10px 20px;
+  border-radius: 50px;
+  min-width: 260px;
+}
+
+/* on hover animate faster  */
+.edit-button:hover {
+  border: 2px solid silver;
+  color: silver;
+  animation: gradient 5s ease infinite;
+}
+
+/* end of styles for profile page */
+
+/* donation page styles  */
+.donation-img {
+  clip-path: polygon(0 0, 100% 0%, 75% 100%, 0% 100%);
+  width: 100%;
+  height: auto;
+}
+/* end of donation page styles  */
