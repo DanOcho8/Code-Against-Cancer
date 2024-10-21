@@ -46,4 +46,4 @@ activate:
 clean:
 	find . -name "__pycache__" -exec rm -rf {} +
 
-.PHONY: migrate runserver test install venv activate clean
+.PHONY: run migrate runserver test install venv activate clean
