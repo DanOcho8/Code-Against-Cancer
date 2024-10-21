@@ -18,6 +18,9 @@ else ifeq ($(OS), Windows_NT)  # Windows
     PYTHON = python
 endif
 
+# Define the default prefix for tests
+TEST_PREFIX = tests.test_
+
 # Run migrations
 migrate:
 	@$(ACTIVATE_VENV) && $(PYTHON) manage.py migrate
@@ -28,7 +31,7 @@ runserver:
 
 # Run tests
 test:
-	@$(ACTIVATE_VENV) && $(PYTHON) manage.py test
+	@$(ACTIVATE_VENV) && $(PYTHON) manage.py test $(TEST_PREFIX)$(TEST)
 
 # Install dependencies from requirements.txt
 install:
