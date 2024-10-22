@@ -1,11 +1,11 @@
 {% extends 'base.html' %} {% load static %} {% block title %} Profile | CaC {% endblock %} {% block content %}
 
-    <div class="gradient-bg">
+    <div class="gradient-bg d-flex flex-column align-items-center justify-content-center">
         <section class="profile container pt-4">
             <div class="row gy-4">
                 <!-- Left Column -->
                 <div
-                        class="col-lg-6 d-flex flex-column align-items-center justify-content-center"
+                        class="col-lg-5 d-flex flex-column align-items-center justify-content-center"
                 >
                     <div class="profile-pic pb-4">
                         {% if user_profile.profile_pic %}
@@ -27,7 +27,8 @@
                 </div>
 
                 <!-- Right Column -->
-                <div class="col-lg-6 profile-recommendations">
+                <div class="col-lg-7 profile-recommendations d-flex flex-column justify-content-center align-items-center">
+                   <div>
                     <h2>Personalized Nutritional Information</h2>
                     <div class="nutritional-info">
                         <div class="dietary-restrictions">
@@ -43,6 +44,7 @@
                         <h3>Special Instructions</h3>
                         <p>{{ cancer_info.special_instructions }}</p>
                     </div>
+                   </div>
                 </div>
             </div>
         </section>
