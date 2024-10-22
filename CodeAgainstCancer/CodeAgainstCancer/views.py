@@ -195,68 +195,62 @@ logger = logging.getLogger(__name__)
 @login_required(login_url="login")
 def searchRecipes(request):
     user = request.user
-    # check if user is logged in
     if not user.is_authenticated:
         return redirect("login")
 
-    query = request.GET.get("query", "")  # gets search result from user
+    query = request.GET.get("query", "")
     page = int(request.GET.get("page", 1))
     from_recipes = (page - 1) * 6
-    to_recipes = page * 6  # this keeps track of up to 6 different recipes per page
+    to_recipes = page * 6
     recipes = []
     excluded_query = ""
 
-    if (
-        request.user.is_authenticated
-    ):  # Get the logged-in user's profile and excluded ingredients
-        user = request.user
+    if request.user.is_authenticated:
         user_profile = get_object_or_404(UserProfile, user=user)
-
-        json_path = os.path.join(
-            settings.BASE_DIR, "static/cancer_information.json"
-        )  # Load cancer-related information from the JSON file
+        json_path = os.path.join(settings.BASE_DIR, "static/cancer_information.json")
         with open(json_path, "r") as json_file:
             cancer_data = json.load(json_file)
 
-        cancer_info = cancer_data.get(
-            user_profile.cancer_type, {}
-        )  # Get cancer-specific info, including excluded ingredients
+        cancer_info = cancer_data.get(user_profile.cancer_type, {})
         excluded_ingredients = cancer_info.get("excluded_ingredients", [])
+        excluded_query = "&".join([f"excluded={ingredient}" for ingredient in excluded_ingredients])
 
-        excluded_query = "&".join(
-            [f"excluded={ingredient}" for ingredient in excluded_ingredients]
-        )  # changes json info to url for api
-
-    if not query:  # load random recipes if no search result is inputted
-        logger.debug("No query provided. Fetching random recipes.")
-        random_offset = random.randint(
-            0, 1000
-        )  # Adjust range based on total number of recipes available
+    if not query:
+        random_offset = random.randint(0, 1000)
         url = f"https://api.edamam.com/search?q=recipe&app_id={settings.APP_ID}&app_key={settings.API_KEY}&from={random_offset}&to={random_offset + 6}&{excluded_query}"
     else:
-        # Fetch recipes based on the search query and also using from recipes and to recipes are used to get different recipes in 6 recipes per page
         url = f"https://api.edamam.com/search?q={query}&app_id={settings.APP_ID}&app_key={settings.API_KEY}&from={from_recipes}&to={to_recipes}&{excluded_query}"
-
-    response = requests.get(url)
-    data = response.json()
-    recipes = data.get("hits", [])
-
-    total_recipes = data.get("count", 0)
-    hasNextPage = to_recipes < total_recipes
-    hasPrevPage = from_recipes > 0
 
     context = {
         "recipes": recipes,
         "query": query,
         "page": page,
-        "hasNextPage": hasNextPage,
-        "hasPrevPage": hasPrevPage,
-        "excluded_ingredients": (
-            excluded_ingredients if request.user.is_authenticated else None
-        ),
+        "hasNextPage": False,  # Default values for error handling
+        "hasPrevPage": False,
+        "excluded_ingredients": excluded_ingredients if request.user.is_authenticated else None,
     }
 
-    return render(request, "recipe/recipe.html", context)
+    try:
+        response = requests.get(url)
+        data = response.json()
+        recipes = data.get("hits", [])
+        total_recipes = data.get("count", 0)
+        hasNextPage = to_recipes < total_recipes
+        hasPrevPage = from_recipes > 0
+
+        context.update({
+            "recipes": recipes,
+            "hasNextPage": hasNextPage,
+            "hasPrevPage": hasPrevPage,
+        })
+
+        return render(request, "recipe/recipe.html", context)
+
+    except requests.exceptions.RequestException as e:
+        logger.error(f"API request failed: {e}")
+        messages.error(request, "Unable to fetch recipes at this time, API failed")
+        return render(request, "recipe/recipe.html", context)
+
 
 
 def contact(request):
