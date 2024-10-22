@@ -5,6 +5,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.contrib.auth import views as auth_views
 from . import views
+from .views import contact
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -21,5 +22,6 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('recipes/', views.searchRecipes, name='searchRecipes'),
     path('donate/', views.donate, name='donate'),
+    path('contact/', contact, name='contact')
     # Add more URL patterns as needed
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
