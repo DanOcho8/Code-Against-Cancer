@@ -99,44 +99,49 @@
 </header>
 
 {% if user.is_authenticated %}
-    <div
+    <aside
             id="mySidebar"
-            class="sidebar z-2 position-fixed"
-{#            onmouseover="toggleSidebar()"#}
-{#            onmouseout="toggleSidebar()"#}
+            class="sidebar z-2 position-fixed d-flex"
     >
-        <a href="{% url 'home' %}">
-        <span>
-          <i class="material-icons">home</i>
-          <span class="icon-text">Home</span>
-        </span>
-        </a>
-        <br/>
-        <a href="#">
-            <i class="material-icons">spa</i>
-            <span class="icon-text">Diet Plan</span>
-        </a>
-        <br/>
-        <a href="{% url 'update_profile' %}">
-            <i class="material-icons">manage_accounts</i>
-            <span class="icon-text">Manage Profile</span>
-        </a>
-        <br/>
-        <a href="#">
-            <i class="material-icons">group</i>
-            <span class="icon-text">Community</span>
-        </a>
-        <br/>
-        <a href="{% url 'profile' %}">
-            <i class="material-icons">person</i>
-            <span class="icon-text">My Profile</span>
-        </a>
-        <br/>
-        <a href="{% url 'resources' %}">
-            <i class="material-icons"> library_books </i>
-            <span class="icon-text">Resources</span>
-        </a>
-    </div>
+        <ul class="d-flex flex-column justify-content-center">
+            <li>
+                <a href="{% url 'home' %}" class="py-4">
+                    <i class="material-icons">home</i>
+                    <span class="icon-text">Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="py-4">
+                    <i class="material-icons">spa</i>
+                    <span class="icon-text">Diet Plan</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'update_profile' %}" class="py-4">
+                    <i class="material-icons">manage_accounts</i>
+                    <span class="icon-text">Manage Profile</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="py-4">
+                    <i class="material-icons">group</i>
+                    <span class="icon-text">Community</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'profile' %}" class="py-4">
+                    <i class="material-icons">person</i>
+                    <span class="icon-text">My Profile</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'resources' %}" class="py-4">
+                    <i class="material-icons"> library_books </i>
+                    <span class="icon-text">Resources</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
 {% endif %}
 <main
         class=""
