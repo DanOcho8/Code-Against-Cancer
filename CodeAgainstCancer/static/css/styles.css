@@ -373,6 +373,11 @@ footer {
 .carousel-item {
   max-height: 60dvh;
 }
+
+.home-img {
+  max-width: 400px;
+  height: auto;
+}
 /* end of styles for homepage */
 
 /* styles for profile page  */
@@ -423,3 +428,38 @@ footer {
   height: auto;
 }
 /* end of donation page styles  */
+
+/* styles for the resources page  */
+.pubmed-link {
+  color: #4cbee3;
+}
+
+.pubmed-link:hover {
+  color: #ff69b4;
+}
+
+ul.forums {
+  list-style-type: disc;
+  padding: 0 20px;
+}
+
+ul.forums a:hover {
+  color: #ff69b4;
+}
+/* end of styles for the resources page */
+
+/* styles for the about page  */
+.mission {
+  color: #4f4f4f;
+  font-size: 2rem;
+  font-weight: bolder;
+}
+
+/* for smaller screens  */
+@media (max-width: 768px) {
+  .mission {
+    font-size: 1.5rem;
+  }
+}
+
+/* end of styles for the about page */
