@@ -61,7 +61,7 @@
         </div>
 
         <!-- Display Replies -->
-<div class="replies" data-post-id="{{ post.pk }}">
+<div class="replies" data-post-id="{{ reply.pk }}">
   {% for reply in post.post_replies.all %}
   <div class="reply-item" style="margin-top: 20px">
     <div style="background-color: #e8e8e8; padding: 15px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
@@ -71,7 +71,7 @@
       </p>
       {% if reply.author == request.user %}
       <div style="position: relative;"> <!-- Ensures the button aligns to the right within the post -->
-        <form method="POST" action="{% url 'delete_post' reply.id %}" style="position: absolute; bottom: 1px; right: 10px; margin: 0;">
+        <form method="POST" action="{% url 'delete_post' reply.id %}" style="position: absolute; top: 10px; right: 10px; margin: 0;">
             {% csrf_token %}
             <button type="submit" style="background: none; border: none; cursor: pointer">
                 <img src="{% static 'images/trash.png' %}" alt="Delete" style="width: 20px; height: 20px" />
@@ -97,7 +97,7 @@
       </div>
 
       <!-- Nested Replies Section for the current reply -->
-      <div class="replies" data-post-id="{{ reply.pk }}">
+      <div class="replies" data-post-id="{{ nested_reply.pk }}">
         {% for nested_reply in reply.post_replies.all %}
         <div class="reply-item" style="margin-top: 20px">
           <div style="background-color: #e0e0e0; padding: 15px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
@@ -105,9 +105,20 @@
             <p style="font-size: 12px; color: #7f8c8d">
               <small>Posted by: {{ nested_reply.author.username }} at {{ nested_reply.created_at|date:"F j, Y, g:i a" }}</small>
             </p>
+            {% if reply.author == request.user %}
+      <div style="position: relative;"> <!-- Ensures the button aligns to the right within the post -->
+        <form method="POST" action="{% url 'delete_post' nested_reply.pk %}" style="position: absolute; bottom: 4px; right: 10px; margin: 0;">
+            {% csrf_token %}
+            <button type="submit" style="background: none; border: none; cursor: pointer">
+                <img src="{% static 'images/trash.png' %}" alt="Delete" style="width: 20px; height: 20px" />
+            </button>
+        </form>
+      </div>
+      {% endif %}
           </div>
         </div>
         {% endfor %}
+        
       </div>
       <!-- End of Nested Replies Section -->
     </div>

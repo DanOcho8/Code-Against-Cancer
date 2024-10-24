@@ -124,7 +124,7 @@
         <br/>
         <a href="{% url 'thread_list' %}">
             <i class="material-icons">group</i>
-            <span class="icon-text">Community Forum</span>
+            <span class="icon-text">Forum</span>
         </a>
         <br/>
         <a href="{% url 'profile' %}">
@@ -217,6 +217,11 @@
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"
 ></script>
+<script>
+    // Timezone settings
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone; // e.g. "America/New_York"
+    document.cookie = "django_timezone=" + timezone;
+</script>
 <script src="{% static 'scripts.js' %}"></script>
 </body>
 </html>

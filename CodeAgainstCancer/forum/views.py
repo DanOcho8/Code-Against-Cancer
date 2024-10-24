@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponseForbidden
 from .models import Thread, Post
 from .forms import PostForm, ReplyForm, CreateThreadForm
+from django.utils import timezone
 # Function to list all threads
 def thread_list(request):
     threads = Thread.objects.all()  # Get all threads
@@ -120,4 +121,4 @@ def delete_post(request, post_id):
         return redirect('thread_detail', pk=post.thread.pk)
     else:
         return redirect('thread_detail', pk=post.thread.pk)
-        
+    

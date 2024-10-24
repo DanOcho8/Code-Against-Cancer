@@ -101,6 +101,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'forum.middleware.TimezoneMiddleware',
 ]
 
 ROOT_URLCONF = 'CodeAgainstCancer.urls'
