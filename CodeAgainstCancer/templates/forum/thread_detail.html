@@ -40,11 +40,17 @@
             <img src="{% static 'images/defaultprofile.png' %}" alt="Default Profile Picture" style="border-radius: 50%; width: 50px; height: 50px; object-fit: cover;">
         {% endif %}
     </div>
-        <!-- Post Content -->
-        <p style="font-size: 18px; color: #2c3e50">{{ post.content }}</p>
-        <p style="font-size: 14px; color: #7f8c8d; margin-top: 10px">
-          <small>Posted by: {{ post.author.username }} at {{ post.created_at|date:"F j, Y, g:i a" }}</small>
-        </p>
+        <!-- Username and created At -->
+        <div style="flex: 1;">
+      <p style="font-size: 14px; color: #7f8c8d;">
+        <strong>{{ post.author.username }}</strong> ~ <small>{{ post.created_at|date:"F j, Y, g:i a" }}</small>
+      </p>
+    </div>
+    <div style="margin-top: 10px;">
+    <p style="font-size: 18px; color: #2c3e50;">
+      {{ post.content }}
+    </p>
+  </div>
 
         {% if post.author == request.user %}
 <div style="position: relative;"> <!-- Ensures the button aligns to the right within the post -->
@@ -77,19 +83,25 @@
         <!-- Display Replies -->
 <div class="replies" data-post-id="{{ reply.pk }}">
   {% for reply in post.post_replies.all %}
-  <div class="reply-item" style="margin-top: 20px">
-    <div class="profile-pic" style="margin-right: 15px;">
+  <div class="reply-item" style="margin-top: 20px;">
+    <div style="background-color: #e8e8e8; padding: 15px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+      <div class="profile-pic" style="margin-right: 15px;">
         {% if reply.author.userprofile.profile_pic %}
             <img src="{{ reply.author.userprofile.profile_pic.url }}" alt="{{ reply.author.username }}'s Profile Picture" style="border-radius: 50%; width: 40px; height: 40px; object-fit: cover;">
         {% else %}
             <img src="{% static 'images/defaultprofile.png' %}" alt="Default Profile Picture" style="border-radius: 50%; width: 40px; height: 40px; object-fit: cover;">
         {% endif %}
     </div>
-    <div style="background-color: #e8e8e8; padding: 15px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-      <p style="font-size: 16px; color: #2c3e50">{{ reply.content }}</p>
-      <p style="font-size: 12px; color: #7f8c8d">
-        <small>Posted by: {{ reply.author.username }} at {{ reply.created_at|date:"F j, Y, g:i a" }}</small>
-      </p>
+    <div style="flex: 1;">
+      <p style="font-size: 14px; color: #7f8c8d;">
+    <strong>{{ reply.author.username }}</strong> ~ <small>{{ reply.created_at|date:"F j, Y, g:i a" }}</small>
+    </p>
+   </div>
+  <div style="margin-top: 10px;">
+  <p style="font-size: 16px; color: #2c3e50;">
+    {{ reply.content }}
+  </p>
+</div>
       {% if reply.author == request.user %}
       <div style="position: relative;"> <!-- Ensures the button aligns to the right within the post -->
         <form method="POST" action="{% url 'delete_post' reply.id %}" style="position: absolute; top: 10px; right: 10px; margin: 0;">
@@ -121,18 +133,20 @@
       <div class="replies" data-post-id="{{ nested_reply.pk }}">
         {% for nested_reply in reply.post_replies.all %}
         <div class="reply-item" style="margin-top: 20px">
-          <div class="profile-pic" style="margin-right: 15px;">
+          <div style="background-color: #e0e0e0; padding: 15px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+            <div class="profile-pic" style="margin-right: 15px;">
             {% if nested_reply.author.userprofile.profile_pic %}
                 <img src="{{ nested_reply.author.userprofile.profile_pic.url }}" alt="{{ nested_reply.author.username }}'s Profile Picture" style="border-radius: 50%; width: 40px; height: 40px; object-fit: cover;">
             {% else %}
                 <img src="{% static 'images/defaultprofile.png' %}" alt="Default Profile Picture" style="border-radius: 50%; width: 40px; height: 40px; object-fit: cover;">
             {% endif %}
         </div>
-          <div style="background-color: #e0e0e0; padding: 15px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-            <p style="font-size: 16px; color: #2c3e50">{{ nested_reply.content }}</p>
-            <p style="font-size: 12px; color: #7f8c8d">
-              <small>Posted by: {{ nested_reply.author.username }} at {{ nested_reply.created_at|date:"F j, Y, g:i a" }}</small>
+        <div style="flex:1;">
+          <p style="font-size: 12px; color: #7f8c8d">
+              <strong>{{ nested_reply.author.username }}</strong> ~ <small>{{ nested_reply.created_at|date:"F j, Y, g:i a" }}</small>
             </p>
+        </div>
+            <p style="font-size: 16px; color: #2c3e50">{{ nested_reply.content }}</p>
             {% if reply.author == request.user %}
       <div style="position: relative;"> <!-- Ensures the button aligns to the right within the post -->
         <form method="POST" action="{% url 'delete_post' nested_reply.pk %}" style="position: absolute; bottom: 4px; right: 10px; margin: 0;">
