@@ -16,6 +16,13 @@
 
     {% if first_post %}
     <div class="post-item" style="background-color: #f8f8f8; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 100%;">
+      <div class="profile-pic" style="margin-right: 15px;">
+        {% if first_post.author.userprofile.profile_pic %}
+            <img src="{{ first_post.author.userprofile.profile_pic.url }}" alt="{{ first_post.author.username }}'s Profile Picture" style="border-radius: 50%; width: 50px; height: 50px; object-fit: cover;">
+        {% else %}
+            <img src="{% static 'images/defaultprofile.png' %}" alt="Default Profile Picture" style="border-radius: 50%; width: 50px; height: 50px; object-fit: cover;">
+        {% endif %}
+    </div>
       <p style="font-size: 18px; color: #2c3e50">{{ first_post.content }}</p>
       <p style="font-size: 14px; color: #7f8c8d; margin-top: 10px">
         <small>Posted by: {{ first_post.author.username }} at {{ first_post.created_at|date:"F j, Y, g:i a" }}</small>
@@ -25,7 +32,14 @@
 
     {% if posts %}
       {% for post in posts %}
-      <div class="post-item" style="background-color: #f8f8f8; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+      <div class="post-item" style="background-color: #f8f8f8; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); ">
+        <div class="profile-pic" style="margin-right: 15px;">
+        {% if post.author.userprofile.profile_pic %}
+            <img src="{{ post.author.userprofile.profile_pic.url }}" alt="{{ post.author.username }}'s Profile Picture" style="border-radius: 50%; width: 50px; height: 50px; object-fit: cover;">
+        {% else %}
+            <img src="{% static 'images/defaultprofile.png' %}" alt="Default Profile Picture" style="border-radius: 50%; width: 50px; height: 50px; object-fit: cover;">
+        {% endif %}
+    </div>
         <!-- Post Content -->
         <p style="font-size: 18px; color: #2c3e50">{{ post.content }}</p>
         <p style="font-size: 14px; color: #7f8c8d; margin-top: 10px">
@@ -64,6 +78,13 @@
 <div class="replies" data-post-id="{{ reply.pk }}">
   {% for reply in post.post_replies.all %}
   <div class="reply-item" style="margin-top: 20px">
+    <div class="profile-pic" style="margin-right: 15px;">
+        {% if reply.author.userprofile.profile_pic %}
+            <img src="{{ reply.author.userprofile.profile_pic.url }}" alt="{{ reply.author.username }}'s Profile Picture" style="border-radius: 50%; width: 40px; height: 40px; object-fit: cover;">
+        {% else %}
+            <img src="{% static 'images/defaultprofile.png' %}" alt="Default Profile Picture" style="border-radius: 50%; width: 40px; height: 40px; object-fit: cover;">
+        {% endif %}
+    </div>
     <div style="background-color: #e8e8e8; padding: 15px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
       <p style="font-size: 16px; color: #2c3e50">{{ reply.content }}</p>
       <p style="font-size: 12px; color: #7f8c8d">
@@ -100,6 +121,13 @@
       <div class="replies" data-post-id="{{ nested_reply.pk }}">
         {% for nested_reply in reply.post_replies.all %}
         <div class="reply-item" style="margin-top: 20px">
+          <div class="profile-pic" style="margin-right: 15px;">
+            {% if nested_reply.author.userprofile.profile_pic %}
+                <img src="{{ nested_reply.author.userprofile.profile_pic.url }}" alt="{{ nested_reply.author.username }}'s Profile Picture" style="border-radius: 50%; width: 40px; height: 40px; object-fit: cover;">
+            {% else %}
+                <img src="{% static 'images/defaultprofile.png' %}" alt="Default Profile Picture" style="border-radius: 50%; width: 40px; height: 40px; object-fit: cover;">
+            {% endif %}
+        </div>
           <div style="background-color: #e0e0e0; padding: 15px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
             <p style="font-size: 16px; color: #2c3e50">{{ nested_reply.content }}</p>
             <p style="font-size: 12px; color: #7f8c8d">
@@ -141,7 +169,7 @@
     <form method="post" action="{% url 'create_post' pk=object.pk %}">
       {% csrf_token %}
       {{ post_form.as_p }}
-      <button type="submit" style="background-color: #3498db; color: white; padding: 10px 20px; border-radius: 5px; font-size: 16px; border: none; cursor: pointer;">
+      <button type="submit" style="background-color: #033241; color: white; padding: 10px 20px; border-radius: 5px; font-size: 16px; border: none; cursor: pointer;">
         Submit
       </button>
     </form>
