@@ -137,6 +137,31 @@
             </div>
         </div>
     </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const phoneNumberInput = document.querySelector("#id_phone_number");
+
+    // Set the default value if it's empty
+    if (phoneNumberInput.value === "") {
+        phoneNumberInput.value = "+1";
+    }
+
+    // Ensure the prefix "+1" stays and the user can only edit after it
+    phoneNumberInput.addEventListener("input", function() {
+        if (!phoneNumberInput.value.startsWith("+1")) {
+            phoneNumberInput.value = "+1" + phoneNumberInput.value.replace(/^\+1/, "");
+        }
+    });
+
+    // Place cursor at the end of input on focus to avoid typing over the "+1"
+    phoneNumberInput.addEventListener("focus", function() {
+        const end = phoneNumberInput.value.length;
+        phoneNumberInput.setSelectionRange(end, end);
+    });
+});
+</script>
+
     
 {% endblock %}
 {% block footer %}{% endblock %}
