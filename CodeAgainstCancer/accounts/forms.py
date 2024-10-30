@@ -50,7 +50,7 @@ class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField()
     first_name = forms.CharField()
     last_name = forms.CharField()
-    phone_number = PhoneNumberField(required=False,label="Phone Number")  # Phone number field added
+    phone_number = PhoneNumberField(required=False,label="Phone Number", widget=forms.TextInput(attrs={'value': '+1'}))  # Phone number field added
     cancer_type = forms.ChoiceField(choices=CANCER_TYPE_CHOICES, label="Cancer Type")
     date_diagnosed = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), label="Date Diagnosed")
     cancer_stage = forms.ChoiceField(choices=CANCER_STAGE_CHOICES)
@@ -115,7 +115,7 @@ class UpdateUserForm(UserChangeForm):
     email = forms.EmailField()
     first_name = forms.CharField()
     last_name = forms.CharField()
-    phone_number = PhoneNumberField(label="Phone Number")  # Phone number field added
+    phone_number = PhoneNumberField(label="Phone Number", widget=forms.TextInput(attrs={'value': '+1'}))  # Phone number field added
     cancer_type = forms.ChoiceField(choices=CANCER_TYPE_CHOICES)
     date_diagnosed = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), label="Date Diagnosed")
     cancer_stage = forms.ChoiceField(choices=CANCER_STAGE_CHOICES)

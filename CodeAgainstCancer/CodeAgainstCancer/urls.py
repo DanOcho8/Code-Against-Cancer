@@ -8,6 +8,7 @@ from . import views
 from .views import contact
 
 urlpatterns = [
+    path('forum/', include('forum.urls')),
     path('admin/', admin.site.urls),
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("django.contrib.auth.urls")),

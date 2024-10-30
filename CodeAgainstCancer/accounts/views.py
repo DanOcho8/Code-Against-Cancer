@@ -10,6 +10,8 @@ from django.contrib import messages
 from .models import UserProfile
 from django.contrib.auth.decorators import login_required
 from .forms import CANCER_TYPE_CHOICES
+from django.utils import timezone
+from django.http import JsonResponse
 
 def signup(request):
     if request.method == 'POST':
@@ -63,4 +65,4 @@ def update_profile(request):
         return render(request, 'profile/update_profile.html', {'user_form':user_form})
     else:
         messages.error(request, "You must be logged in to access that page.")
-        return redirect('home')
+        return redirect('home')  

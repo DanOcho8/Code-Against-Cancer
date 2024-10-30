@@ -113,7 +113,7 @@ a:focus {
   color: #ffffff;
 }
 .navbar {
-  background-color: #add8e6 !important;
+  background-color: #033241 !important;
   z-index: 1000000000;
 }
 
@@ -128,7 +128,7 @@ a:focus {
   z-index: 1000;
   top: 0;
   left: 0;
-  background-color: #add8e6;
+  background-color: #033241;
   overflow-x: hidden;
   transition: width 0.35s ease-in-out;
   padding-top: 60px;
@@ -154,7 +154,10 @@ a:focus {
 
 .sidebar:hover a .icon-text {
   display: inline-block; /* Show text on hover */
+  text-decoration: underline;
+  text-decoration-color: #ff69b4;
 }
+
 
 .sidebar a:hover {
   color: rgb(175, 174, 184);
