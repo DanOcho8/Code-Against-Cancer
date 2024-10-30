@@ -15,7 +15,7 @@ from django.core.mail import send_mail
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
-from pyexpat.errors import messages
+#from pyexpat.errors import messages
 
 from .api_handlers import APIHandlerFactory
 from .forms import ContactForm
@@ -195,9 +195,6 @@ logger = logging.getLogger(__name__)
 @login_required(login_url="login")
 def searchRecipes(request):
     user = request.user
-    if not user.is_authenticated:
-        return redirect("login")
-
     query = request.GET.get("query", "")
     page = int(request.GET.get("page", 1))
     from_recipes = (page - 1) * 6
@@ -205,15 +202,15 @@ def searchRecipes(request):
     recipes = []
     excluded_query = ""
 
-    if request.user.is_authenticated:
-        user_profile = get_object_or_404(UserProfile, user=user)
-        json_path = os.path.join(settings.BASE_DIR, "static/cancer_information.json")
-        with open(json_path, "r") as json_file:
-            cancer_data = json.load(json_file)
 
-        cancer_info = cancer_data.get(user_profile.cancer_type, {})
-        excluded_ingredients = cancer_info.get("excluded_ingredients", [])
-        excluded_query = "&".join([f"excluded={ingredient}" for ingredient in excluded_ingredients])
+    user_profile = get_object_or_404(UserProfile, user=user)
+    json_path = os.path.join(settings.BASE_DIR, "static/cancer_information.json")
+    with open(json_path, "r") as json_file:
+        cancer_data = json.load(json_file)
+
+    cancer_info = cancer_data.get(user_profile.cancer_type, {})
+    excluded_ingredients = cancer_info.get("excluded_ingredients", [])
+    excluded_query = "&".join([f"excluded={ingredient}" for ingredient in excluded_ingredients])
 
     if not query:
         random_offset = random.randint(0, 1000)
@@ -232,24 +229,28 @@ def searchRecipes(request):
 
     try:
         response = requests.get(url)
-        data = response.json()
-        recipes = data.get("hits", [])
-        total_recipes = data.get("count", 0)
-        hasNextPage = to_recipes < total_recipes
-        hasPrevPage = from_recipes > 0
+        if response.status_code == 200:
+            data = response.json()
+            recipes = data.get("hits", [])
+            total_recipes = data.get("count", 0)
+            hasNextPage = to_recipes < total_recipes
+            hasPrevPage = from_recipes > 0
 
-        context.update({
-            "recipes": recipes,
-            "hasNextPage": hasNextPage,
-            "hasPrevPage": hasPrevPage,
-        })
-
-        return render(request, "recipe/recipe.html", context)
+            context.update({
+                "recipes": recipes,
+                "hasNextPage": hasNextPage,
+                "hasPrevPage": hasPrevPage,
+            })
+        else:
+            messages.error(request, "Unable to fetch recipes at this time. Please try again later")
+            logger.error(f"API request failed with a status code {response.status_code}: {response.text}")
 
     except requests.exceptions.RequestException as e:
         logger.error(f"API request failed: {e}")
-        messages.error(request, "Unable to fetch recipes at this time, API failed")
-        return render(request, "recipe/recipe.html", context)
+        messages.error(request, "Unable to fetch recipes at this time due to network issues")
+        
+        
+    return render(request, "recipe/recipe.html", context)
 
 
 

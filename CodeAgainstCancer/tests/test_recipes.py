@@ -51,8 +51,6 @@ class SearchRecipesViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Chicken Soup')
         self.assertContains(response, 'Pasta')
-<<<<<<< Updated upstream
-=======
         
         
     @patch('requests.get')
@@ -133,4 +131,3 @@ class SearchRecipesViewTests(TestCase):
         self.assertEqual(len(list(messages.get_messages(response.wsgi_request))), 1)
         message = list(messages.get_messages(response.wsgi_request))[0]
         self.assertEqual(message.message, "Unable to fetch recipes at this time, API failed")
->>>>>>> Stashed changes
