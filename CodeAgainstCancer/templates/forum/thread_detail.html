@@ -74,7 +74,7 @@
             {% csrf_token %}
             {{ reply_form.as_p }}
             <input type="hidden" name="post_id" value="{{ post.pk }}" />
-            <button type="submit" style="background-color: #2ecc71; color: white; padding: 8px 16px; border-radius: 5px; font-size: 14px; border: none; cursor: pointer;">
+            <button type="submit" style="background-color: #033241; color: white; padding: 8px 16px; border-radius: 5px; font-size: 14px; border: none; cursor: pointer;">
               Reply
             </button>
           </form>
@@ -123,7 +123,7 @@
           {% csrf_token %}
           {{ reply_form.as_p }}
           <input type="hidden" name="post_id" value="{{ reply.pk }}" />
-          <button type="submit" style="background-color: #2ecc71; color: white; padding: 8px 16px; border-radius: 5px; font-size: 14px; border: none; cursor: pointer;">
+          <button type="submit" style="background-color: #033241; color: white; padding: 8px 16px; border-radius: 5px; font-size: 14px; border: none; cursor: pointer;">
             Reply
           </button>
         </form>
@@ -178,7 +178,7 @@
   <hr style="width: 60%; margin: 40px auto" />
 
   <!-- Add New Post Section -->
-  <div class="add-post" style="width: 60%; margin: 0 auto; text-align: left">
+  <div class="add-post" style="width: 60%; margin: 0 auto; text-align: left; margin-top:-20px; padding-bottom: 60px;">
     <h3 style="font-size: 24px; font-weight: bold; margin-bottom: 20px">Add New Post</h3>
     <form method="post" action="{% url 'create_post' pk=object.pk %}">
       {% csrf_token %}
@@ -190,6 +190,22 @@
   </div>
 
   <script>
+
+    function autoResize(textarea) {
+      textarea.style.height = 'auto'; // Reset the height first
+      textarea.style.height = textarea.scrollHeight + 'px'; // Set height to match content
+  }
+
+  // Attach the autoResize function to each reply textarea on page load
+  document.addEventListener("DOMContentLoaded", function() {
+      document.querySelectorAll(".reply-section textarea").forEach(textarea => {
+          textarea.style.overflow = 'hidden'; // Hide overflow to prevent scrollbars
+          textarea.style.resize = 'none'; // Prevent manual resizing by the user
+          textarea.setAttribute('rows', '1'); // Set initial number of rows
+          textarea.addEventListener('input', () => autoResize(textarea)); // Add input event listener
+      });
+  });
+
     function toggleReplyForm(postId) {
     const form = document.getElementById(`reply-form-${postId}`);
     if (form) {
@@ -238,11 +254,10 @@
                 </p>
             `;
 
-            if (targetRepliesSection) {
-                targetRepliesSection.appendChild(newReply); // Append the new reply to the correct section
-            } else {
-                console.error('Error: Could not find the correct reply section to append to.');
-            }
+            
+            targetRepliesSection.appendChild(newReply); // Append the new reply to the correct section
+            form.parentElement.style.display = 'none';
+            
 
             form.reset(); // Reset the form
         } else {
@@ -261,5 +276,11 @@
         });
     });
   </script>
+  <style>
+    .reply-section label[for="id_content"] {
+        font-size: 12px; 
+        color: #7f8c8d;  
+    }
+</style>
 </div>
 {% endblock %}

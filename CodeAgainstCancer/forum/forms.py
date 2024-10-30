@@ -2,7 +2,11 @@ from django import forms
 from .models import Thread, Post
 
 class CreateThreadForm(forms.ModelForm):
-    content = forms.CharField(widget=forms.Textarea, label="Your Post")
+    content = forms.CharField(widget=forms.Textarea(attrs={
+            'class': 'form-control',
+            'style': 'width: 100%; min-height: 100px; padding: 12px; font-size: 14px; border-radius: 10px; border: 1px solid #ddd; resize: none; overflow: hidden;',
+            'placeholder': 'Write the first post of the thread here...'
+        }), label="Your Post")
 
     class Meta:
         model = Thread
@@ -11,8 +15,11 @@ class CreateThreadForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'content': forms.Textarea(attrs={'class': 'form-control'}),
         }
+        labels = {
+            'title': 'Your Topic/Question',  
+        }
 
-    def save(self, user, commit=True):  # Add 'user' parameter here
+    def save(self, user, commit=True):  
         thread = super().save(commit=False)
         if commit:
             thread.save()
@@ -25,7 +32,11 @@ class CreateThreadForm(forms.ModelForm):
         return thread
 
 class PostForm(forms.ModelForm):
-    content = forms.CharField(widget=forms.Textarea, label="Post Content")
+    content = forms.CharField(widget=forms.Textarea(attrs={
+            'class': 'form-control',
+            'style': 'width: 100%; min-height: 100px; padding: 12px; font-size: 14px; border-radius: 10px; border: 1px solid #ddd; resize: none; overflow: hidden;',
+            'placeholder': 'Write your post here...'
+        }), label="Post Content")
 
     class Meta:
         model = Post
@@ -33,6 +44,15 @@ class PostForm(forms.ModelForm):
 
 
 class ReplyForm(forms.ModelForm):
+    content = forms.CharField(
+        label="Add your reply",  
+        widget=forms.Textarea(attrs={
+            'style': 'width: 100%; min-height: 50px; resize: none; overflow: hidden; padding: 8px; font-size: 14px; border-radius: 10px; border: 1px solid #ddd;',
+            'rows': '1',
+            'class': 'form-control'
+        })
+    )
+    
     class Meta:
         model = Post
         fields = ['content']

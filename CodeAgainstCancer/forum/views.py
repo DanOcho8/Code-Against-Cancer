@@ -94,23 +94,18 @@ def reply_to_post(request, post_id):
         thread = post.thread  # Retrieve the thread from the post
 
         # Create the new reply
-        reply = Post.objects.create(
+        Post.objects.create(
             content=content,
             author=request.user,
             thread=thread,  # Associate reply with the thread
             parent_post=post  # Associate reply with the parent post (original post or another reply)
         )
 
-        # Return a JSON response including parent_post_id
-        return JsonResponse({
-            'success': True,
-            'reply': reply.content,
-            'author': reply.author.username,
-            'created_at': reply.created_at.strftime("%B %d, %Y, %I:%M %p"),
-            'parent_post_id': post.id  # Send the parent post ID back to the front-end
-        })
+        # Redirect to the thread detail view after creating the reply
+        return redirect('thread_detail', pk=thread.pk)
 
-    return JsonResponse({'success': False, 'error': 'Invalid request method.'}, status=400)
+    # Optionally handle non-POST requests (e.g., invalid access)
+    return redirect('thread_detail', pk=post.thread.pk)
 
 
 def delete_post(request, post_id):
