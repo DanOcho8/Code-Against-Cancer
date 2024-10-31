@@ -10,6 +10,47 @@
         Food recipes that are tailored to you!
     </p>
 
+    {% if messages %}
+        <div class="mt-3">
+            {% for message in messages %}
+                {% if message.tags == "error" %}  <!-- Only display error messages -->
+                    <div class="alert alert-danger text-center">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="d-flex justify-content-center align-items-center mb-0">
+        <button class="btn btn-primary me-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample1" aria-expanded="false" aria-controls="collapseWidthExample1">
+            Dietary Restrictions
+        </button>
+        
+        <button class="btn btn-primary me-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false" aria-controls="collapseWidthExample2">
+            Recommended Foods
+        </button>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample3" aria-expanded="false" aria-controls="collapseWidthExample3">
+            Special Instructions
+        </button>
+    </div>
+
+        <div class="d-flex" style="min-height: 100px;">
+            <div class="collapse collapse-horizontal mb-2 mt-2" id="collapseWidthExample1">
+                <div class="card card-body" style="width: 500px; height: 180px;">
+                    Dietary Restrictions: {{ dietary_restrictions }}
+                </div>
+            </div>
+            <div class="collapse collapse-horizontal mb-2 mt-2" id="collapseWidthExample2">
+                <div class="card card-body" style="width: 500px; height: 180px;">
+                    Recommended Foods: {{ recommended_foods }}
+                </div>
+            </div>
+            <div class="collapse collapse-horizontal mb-2 mt-2" id="collapseWidthExample3">
+                <div class="card card-body" style="width: 500px; height: 180px;">
+                    Special Instructions: {{ special_instructions }}
+                </div>
+            </div>
+        </div>
+    
  <!--this is the search bar/ passes the users search result as a query in the url to the url.py then to the search recipes in views.py-->
  <!--uses GET as a HTTP method when sending form data as a query paramter to the url/ action tell where to send it too-->
     <form class="d-flex" method="GET" action="{% url 'searchRecipes' %}">

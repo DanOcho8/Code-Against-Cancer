@@ -8,6 +8,7 @@ import requests
 from accounts.models import UserProfile
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.messages import get_messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
@@ -24,6 +25,11 @@ from .utils import LoggerSingleton, cache_results
 # Create a logger instance
 logger = LoggerSingleton()
 
+
+def single_error_message(request, message_text): #makes sure a specific error message is only showed once
+    """Ensure a unique error message is added only once."""
+    if message_text not in [msg.message for msg in get_messages(request)]:
+        messages.error(request, message_text)
 
 def user_logout(request):
     """
@@ -188,9 +194,6 @@ def donate(request):
     return render(request, "donate/donate.html")
 
 
-logger = logging.getLogger(__name__)
-
-
 # @cache_results(timeout=300)
 @login_required(login_url="login")
 def searchRecipes(request):
@@ -210,8 +213,28 @@ def searchRecipes(request):
 
     cancer_info = cancer_data.get(user_profile.cancer_type, {})
     excluded_ingredients = cancer_info.get("excluded_ingredients", [])
+    dietary_retrictions = cancer_info.get("dietary_restrictions", "")
+    recommended_foods = cancer_info.get("recommended_foods", "")
+    special_instructions = cancer_info.get("special_instructions", "")
+    
+    if any(excluded in query for excluded in excluded_ingredients):
+        # Set an error message and skip the API call
+        single_error_message(request, "Your query includes an ingredient you should avoid. Please try again without it.")
+        context = {
+            "recipes": recipes,
+            "query": query,
+            "page": page,
+            "hasNextPage": False,
+            "hasPrevPage": False,
+            "excluded_ingredients": excluded_ingredients,
+            "dietary_restrictions": dietary_retrictions,
+            "recommended_foods": recommended_foods,
+            "special_instructions": special_instructions,
+        }
+        return render(request, "recipe/recipe.html", context)
+    
+    
     excluded_query = "&".join([f"excluded={ingredient}" for ingredient in excluded_ingredients])
-
     if not query:
         random_offset = random.randint(0, 1000)
         url = f"https://api.edamam.com/search?q=recipe&app_id={settings.APP_ID}&app_key={settings.API_KEY}&from={random_offset}&to={random_offset + 6}&{excluded_query}"
@@ -224,7 +247,10 @@ def searchRecipes(request):
         "page": page,
         "hasNextPage": False,  # Default values for error handling
         "hasPrevPage": False,
-        "excluded_ingredients": excluded_ingredients if request.user.is_authenticated else None,
+        "excluded_ingredients": excluded_ingredients,
+        "dietary_restrictions": dietary_retrictions,
+        "recommended_foods": recommended_foods,
+        "special_instructions": special_instructions,
     }
 
     try:
@@ -242,12 +268,12 @@ def searchRecipes(request):
                 "hasPrevPage": hasPrevPage,
             })
         else:
-            messages.error(request, "Unable to fetch recipes at this time. Please try again later")
+            single_error_message(request, "Unable to fetch recipes at this time. Please try again later")
             logger.error(f"API request failed with a status code {response.status_code}: {response.text}")
 
     except requests.exceptions.RequestException as e:
         logger.error(f"API request failed: {e}")
-        messages.error(request, "Unable to fetch recipes at this time due to network issues")
+        single_error_message(request, "Unable to fetch recipes at this time due to network issues")
         
         
     return render(request, "recipe/recipe.html", context)
