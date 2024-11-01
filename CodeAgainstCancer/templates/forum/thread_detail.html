@@ -1,0 +1,286 @@
+{% extends 'base.html' %}
+{% load mathfilters %}
+{% load static %}
+
+{% block content %}
+<div class="thread-detail" style="text-align: center; margin-top: 20px">
+  <!-- Thread Title -->
+  <h1 style="font-size: 36px; font-weight: bold; margin-bottom: 30px">
+    {{ object.title }}
+  </h1>
+
+  <div class="posts-section" style="text-align: left; width: 60%; margin: 0 auto">
+    <h2 style="font-size: 28px; font-weight: bold; margin-bottom: 20px">
+      Posts:
+    </h2>
+
+    {% if first_post %}
+    <div class="post-item" style="background-color: #f8f8f8; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 100%;">
+      <div class="profile-pic" style="margin-right: 15px;">
+        {% if first_post.author.userprofile.profile_pic %}
+            <img src="{{ first_post.author.userprofile.profile_pic.url }}" alt="{{ first_post.author.username }}'s Profile Picture" style="border-radius: 50%; width: 50px; height: 50px; object-fit: cover;">
+        {% else %}
+            <img src="{% static 'images/defaultprofile.png' %}" alt="Default Profile Picture" style="border-radius: 50%; width: 50px; height: 50px; object-fit: cover;">
+        {% endif %}
+    </div>
+      <p style="font-size: 18px; color: #2c3e50">{{ first_post.content }}</p>
+      <p style="font-size: 14px; color: #7f8c8d; margin-top: 10px">
+        <small>Posted by: {{ first_post.author.username }} at {{ first_post.created_at|date:"F j, Y, g:i a" }}</small>
+      </p>
+    </div>
+    {% endif %} 
+
+    {% if posts %}
+      {% for post in posts %}
+      <div class="post-item" style="background-color: #f8f8f8; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); ">
+        <div class="profile-pic" style="margin-right: 15px;">
+        {% if post.author.userprofile.profile_pic %}
+            <img src="{{ post.author.userprofile.profile_pic.url }}" alt="{{ post.author.username }}'s Profile Picture" style="border-radius: 50%; width: 50px; height: 50px; object-fit: cover;">
+        {% else %}
+            <img src="{% static 'images/defaultprofile.png' %}" alt="Default Profile Picture" style="border-radius: 50%; width: 50px; height: 50px; object-fit: cover;">
+        {% endif %}
+    </div>
+        <!-- Username and created At -->
+        <div style="flex: 1;">
+      <p style="font-size: 14px; color: #7f8c8d;">
+        <strong>{{ post.author.username }}</strong> ~ <small>{{ post.created_at|date:"F j, Y, g:i a" }}</small>
+      </p>
+    </div>
+    <div style="margin-top: 10px;">
+    <p style="font-size: 18px; color: #2c3e50;">
+      {{ post.content }}
+    </p>
+  </div>
+
+        {% if post.author == request.user %}
+<div style="position: relative;"> <!-- Ensures the button aligns to the right within the post -->
+    <form method="POST" action="{% url 'delete_post' post.id %}" style="position: absolute; top: 10px; right: 10px; margin: 0;">
+        {% csrf_token %}
+        <button type="submit" style="background: none; border: none; cursor: pointer">
+            <img src="{% static 'images/trash.png' %}" alt="Delete" style="width: 20px; height: 20px" />
+        </button>
+    </form>
+</div>
+{% endif %}
+
+        <!-- Reply Button -->
+        <a href="javascript:void(0);" class="reply-button" style="color: #3498db; font-size: 14px; cursor: pointer; text-decoration: underline;" onclick="toggleReplyForm('{{ post.pk }}')">
+          Reply
+        </a>
+
+        <!-- Reply Form Section -->
+        <div id="reply-form-{{ post.pk }}" class="reply-section" style="display: none; margin-top: 10px">
+          <form method="post" action="{% url 'reply_to_post' post.id %}" class="reply-form">
+            {% csrf_token %}
+            {{ reply_form.as_p }}
+            <input type="hidden" name="post_id" value="{{ post.pk }}" />
+            <button type="submit" style="background-color: #033241; color: white; padding: 8px 16px; border-radius: 5px; font-size: 14px; border: none; cursor: pointer;">
+              Reply
+            </button>
+          </form>
+        </div>
+
+        <!-- Display Replies -->
+<div class="replies" data-post-id="{{ reply.pk }}">
+  {% for reply in post.post_replies.all %}
+  <div class="reply-item" style="margin-top: 20px;">
+    <div style="background-color: #e8e8e8; padding: 15px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+      <div class="profile-pic" style="margin-right: 15px;">
+        {% if reply.author.userprofile.profile_pic %}
+            <img src="{{ reply.author.userprofile.profile_pic.url }}" alt="{{ reply.author.username }}'s Profile Picture" style="border-radius: 50%; width: 40px; height: 40px; object-fit: cover;">
+        {% else %}
+            <img src="{% static 'images/defaultprofile.png' %}" alt="Default Profile Picture" style="border-radius: 50%; width: 40px; height: 40px; object-fit: cover;">
+        {% endif %}
+    </div>
+    <div style="flex: 1;">
+      <p style="font-size: 14px; color: #7f8c8d;">
+    <strong>{{ reply.author.username }}</strong> ~ <small>{{ reply.created_at|date:"F j, Y, g:i a" }}</small>
+    </p>
+   </div>
+  <div style="margin-top: 10px;">
+  <p style="font-size: 16px; color: #2c3e50;">
+    {{ reply.content }}
+  </p>
+</div>
+      {% if reply.author == request.user %}
+      <div style="position: relative;"> <!-- Ensures the button aligns to the right within the post -->
+        <form method="POST" action="{% url 'delete_post' reply.id %}" style="position: absolute; top: 10px; right: 10px; margin: 0;">
+            {% csrf_token %}
+            <button type="submit" style="background: none; border: none; cursor: pointer">
+                <img src="{% static 'images/trash.png' %}" alt="Delete" style="width: 20px; height: 20px" />
+            </button>
+        </form>
+      </div>
+      {% endif %}
+      <!-- Nested Reply Button -->
+      <a href="javascript:void(0);" class="reply-button" style="color: #3498db; font-size: 14px; cursor: pointer; text-decoration: underline;" onclick="toggleReplyForm('{{ reply.pk }}')">
+        Reply
+      </a>
+
+      <!-- Nested Reply Form Section -->
+      <div id="reply-form-{{ reply.pk }}" class="reply-section" style="display: none; margin-top: 10px">
+        <form method="post" action="{% url 'reply_to_post' reply.id %}" class="reply-form">
+          {% csrf_token %}
+          {{ reply_form.as_p }}
+          <input type="hidden" name="post_id" value="{{ reply.pk }}" />
+          <button type="submit" style="background-color: #033241; color: white; padding: 8px 16px; border-radius: 5px; font-size: 14px; border: none; cursor: pointer;">
+            Reply
+          </button>
+        </form>
+      </div>
+
+      <!-- Nested Replies Section for the current reply -->
+      <div class="replies" data-post-id="{{ nested_reply.pk }}">
+        {% for nested_reply in reply.post_replies.all %}
+        <div class="reply-item" style="margin-top: 20px">
+          <div style="background-color: #e0e0e0; padding: 15px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+            <div class="profile-pic" style="margin-right: 15px;">
+            {% if nested_reply.author.userprofile.profile_pic %}
+                <img src="{{ nested_reply.author.userprofile.profile_pic.url }}" alt="{{ nested_reply.author.username }}'s Profile Picture" style="border-radius: 50%; width: 40px; height: 40px; object-fit: cover;">
+            {% else %}
+                <img src="{% static 'images/defaultprofile.png' %}" alt="Default Profile Picture" style="border-radius: 50%; width: 40px; height: 40px; object-fit: cover;">
+            {% endif %}
+        </div>
+        <div style="flex:1;">
+          <p style="font-size: 12px; color: #7f8c8d">
+              <strong>{{ nested_reply.author.username }}</strong> ~ <small>{{ nested_reply.created_at|date:"F j, Y, g:i a" }}</small>
+            </p>
+        </div>
+            <p style="font-size: 16px; color: #2c3e50">{{ nested_reply.content }}</p>
+            {% if reply.author == request.user %}
+      <div style="position: relative;"> <!-- Ensures the button aligns to the right within the post -->
+        <form method="POST" action="{% url 'delete_post' nested_reply.pk %}" style="position: absolute; bottom: 4px; right: 10px; margin: 0;">
+            {% csrf_token %}
+            <button type="submit" style="background: none; border: none; cursor: pointer">
+                <img src="{% static 'images/trash.png' %}" alt="Delete" style="width: 20px; height: 20px" />
+            </button>
+        </form>
+      </div>
+      {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+        
+      </div>
+      <!-- End of Nested Replies Section -->
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+      </div>
+      {% endfor %}
+    {% else %}
+    <p style="color: #7f8c8d; font-size: 16px">No posts in this thread yet.</p>
+    {% endif %}
+  </div>
+
+  <hr style="width: 60%; margin: 40px auto" />
+
+  <!-- Add New Post Section -->
+  <div class="add-post" style="width: 60%; margin: 0 auto; text-align: left; margin-top:-20px; padding-bottom: 60px;">
+    <h3 style="font-size: 24px; font-weight: bold; margin-bottom: 20px">Add New Post</h3>
+    <form method="post" action="{% url 'create_post' pk=object.pk %}">
+      {% csrf_token %}
+      {{ post_form.as_p }}
+      <button type="submit" style="background-color: #033241; color: white; padding: 10px 20px; border-radius: 5px; font-size: 16px; border: none; cursor: pointer;">
+        Submit
+      </button>
+    </form>
+  </div>
+
+  <script>
+
+    function autoResize(textarea) {
+      textarea.style.height = 'auto'; // Reset the height first
+      textarea.style.height = textarea.scrollHeight + 'px'; // Set height to match content
+  }
+
+  // Attach the autoResize function to each reply textarea on page load
+  document.addEventListener("DOMContentLoaded", function() {
+      document.querySelectorAll(".reply-section textarea").forEach(textarea => {
+          textarea.style.overflow = 'hidden'; // Hide overflow to prevent scrollbars
+          textarea.style.resize = 'none'; // Prevent manual resizing by the user
+          textarea.setAttribute('rows', '1'); // Set initial number of rows
+          textarea.addEventListener('input', () => autoResize(textarea)); // Add input event listener
+      });
+  });
+
+    function toggleReplyForm(postId) {
+    const form = document.getElementById(`reply-form-${postId}`);
+    if (form) {
+        form.style.display = form.style.display === "none" || form.style.display === "" ? "block" : "none";
+    }
+}
+
+    // Function to handle reply form submission with AJAX
+    function submitReply(event, form, parentId) {
+    event.preventDefault(); // Prevent default form submission
+
+    const formData = new FormData(form); // Collect form data
+
+    fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest' // Indicate that this is an AJAX request
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Response from server:', data);
+        if (data.success) {
+            console.log(`Looking for .replies[data-post-id="${data.parent_post_id}"]`);
+            // Use the parent_post_id from the response to find the correct replies section
+            const targetRepliesSection = document.querySelector(`.replies[data-post-id="${data.parent_post_id}"]`);
+            if (!targetRepliesSection) {
+                console.error('Error: Could not find the correct reply section to append to.');
+            }
+            
+            // Create a new reply element
+            const newReply = document.createElement('div');
+            newReply.classList.add('reply-item');
+            newReply.style.cssText = `
+                background-color: #e8e8e8;
+                padding: 15px;
+                border-radius: 8px;
+                margin-bottom: 10px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            `;
+            newReply.innerHTML = `
+                <p style="font-size: 16px; color: #2c3e50">${data.reply}</p>
+                <p style="font-size: 12px; color: #7f8c8d">
+                    <small>Posted by: ${data.author} at: ${data.created_at}</small>
+                </p>
+            `;
+
+            
+            targetRepliesSection.appendChild(newReply); // Append the new reply to the correct section
+            form.parentElement.style.display = 'none';
+            
+
+            form.reset(); // Reset the form
+        } else {
+            console.error('Failed to add reply:', data.error); // Handle error if not successful
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+
+    // Attach the submitReply function to each reply form
+    document.querySelectorAll('.reply-section form').forEach(form => {
+        form.addEventListener('submit', function(event) {
+            const parentId = this.querySelector('input[name="post_id"]').value;
+            submitReply(event, this, parentId);
+        });
+    });
+  </script>
+  <style>
+    .reply-section label[for="id_content"] {
+        font-size: 12px; 
+        color: #7f8c8d;  
+    }
+</style>
+</div>
+{% endblock %}

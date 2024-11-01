@@ -64,7 +64,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">About us</a>
+                        <a class="nav-link" href="{% url 'about' %}">About Us</a>
                     </li>
                     {% comment %} {% if user.is_authenticated %}
                         <li class="nav-item">
@@ -123,9 +123,9 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="py-4">
+                <a href="{% url 'thread_list' %}" class="py-4">
                     <i class="material-icons">group</i>
-                    <span class="icon-text">Community</span>
+                    <span class="icon-text">Forum</span>
                 </a>
             </li>
             <li>
@@ -222,6 +222,11 @@
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"
 ></script>
+<script>
+    // Timezone settings
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone; // e.g. "America/New_York"
+    document.cookie = "django_timezone=" + timezone;
+</script>
 <script src="{% static 'scripts.js' %}"></script>
 </body>
 </html>

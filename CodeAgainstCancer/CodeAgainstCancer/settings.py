@@ -79,6 +79,8 @@ INSTALLED_APPS = [
     "phonenumber_field",
     "tests",
     "csp",
+    'forum',
+    'mathfilters',
 ]
 
 SITE_ID = 1
@@ -120,6 +122,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "forum.middleware.TimezoneMiddleware",
 ]
 
 ROOT_URLCONF = "CodeAgainstCancer.urls"
