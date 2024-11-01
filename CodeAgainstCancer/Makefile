@@ -8,7 +8,7 @@ UNAME := $(shell uname)
 
 # Define the virtual environment activation command and Python command based on OS
 ifeq ($(UNAME), Linux)
-    ACTIVATE_VENV = source venv/bin/activate
+    ACTIVATE_VENV = . venv/bin/activate
     PYTHON = python
 else ifeq ($(UNAME), Darwin)  # macOS
     ACTIVATE_VENV = source venv/bin/activate
