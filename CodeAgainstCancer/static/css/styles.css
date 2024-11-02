@@ -470,7 +470,8 @@ ul.forums a:hover {
 /*resources goolge maps styling*/
 
 #map {
-  height: 100%;
+  height: 400px;
+  width: 100%;
 }
 
 .custom-map-control-button {
