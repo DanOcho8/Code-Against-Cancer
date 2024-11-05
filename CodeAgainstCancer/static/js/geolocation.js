@@ -4,7 +4,7 @@
 // prompted by your browser. If you see the error "The Geolocation service
 // failed.", it means you probably did not give permission for the browser to
 // locate you.
-let map, infoWindow, service;
+let map, infoWindow;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -12,24 +12,7 @@ function initMap() {
     zoom: 6,
   });
   infoWindow = new google.maps.InfoWindow();
-
-  const request = {
-    query: "Cancer support groups near me",
-    fields: ["name", "geometry"],
-  };
   
-  service = new google.maps.places.PlacesService(map);
-  service.findPlaceFromQuery(request, (results, status) => {
-    if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-      for (let i = 0; i < results.length; i++) {
-        createMarker(results[i]);
-      }
-  
-      map.setCenter(results[0].geometry.location);
-    }
-  });
-  
-
   const locationButton = document.createElement("button");
 
   locationButton.textContent = "Pan to Current Location";
@@ -59,6 +42,7 @@ function initMap() {
       handleLocationError(false, infoWindow, map.getCenter());
     }
   });
+
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -71,20 +55,5 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.open(map);
 }
 
-
-
-function createMarker(place) {
-if (!place.geometry || !place.geometry.location) return;
-
-const marker = new google.maps.Marker({
-  map,
-  position: place.geometry.location,
-});
-
-google.maps.event.addListener(marker, "click", () => {
-  infowindow.setContent(place.name || "");
-  infowindow.open(map);
-});
-}
-
 window.initMap = initMap;
+
