@@ -79,8 +79,8 @@ INSTALLED_APPS = [
     "phonenumber_field",
     "tests",
     "csp",
-    'forum',
-    'mathfilters',
+    "forum",
+    "mathfilters",
 ]
 
 SITE_ID = 1
@@ -206,20 +206,32 @@ LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
 
 # Security settings
-CSRF_COOKIE_SECURE = not DEBUG  # Ensures the CSRF cookie is only sent over HTTPS (production only).
+CSRF_COOKIE_SECURE = (
+    not DEBUG
+)  # Ensures the CSRF cookie is only sent over HTTPS (production only).
 CSRF_COOKIE_SAMESITE = "Lax"  # Restricts CSRF cookie from being sent with cross-site requests, except for top-level navigations.
 SESSION_COOKIE_SAMESITE = "Lax"
-SESSION_COOKIE_SECURE = not DEBUG # Ensures session cookies are only sent over HTTPS, protecting them from being exposed over HTTP.
+SESSION_COOKIE_SECURE = (
+    not DEBUG
+)  # Ensures session cookies are only sent over HTTPS, protecting them from being exposed over HTTP.
 SECURE_BROWSER_XSS_FILTER = True  # Enables the browser's built-in XSS filter to help prevent cross-site scripting (XSS) attacks.
 SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents the browser from guessing (sniffing) the MIME type, reducing the risk of security vulnerabilities.
-SECURE_SSL_REDIRECT = not DEBUG # Redirects all HTTP requests to HTTPS when not in DEBUG mode (production only).
+SECURE_SSL_REDIRECT = (
+    not DEBUG
+)  # Redirects all HTTP requests to HTTPS when not in DEBUG mode (production only).
 X_FRAME_OPTIONS = "DENY"  # Prevents the site from being displayed in an iframe, mitigating clickjacking attacks.
 SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents the browser from guessing (sniffing) the MIME type, reducing the risk of security vulnerabilities.
 
 # HTTP Strict Transport Security (HSTS)
-SECURE_HSTS_SECONDS = 31536000 if not DEBUG else 0 # Enforces HTTPS by telling browsers to only use HTTPS for the next 1 year (or 0 in development).
-SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG # Ensures HSTS is applied to all subdomains in production.
-SECURE_HSTS_PRELOAD = not DEBUG # Allows your site to be included in browsers' HSTS preload lists (used in production).
+SECURE_HSTS_SECONDS = (
+    31536000 if not DEBUG else 0
+)  # Enforces HTTPS by telling browsers to only use HTTPS for the next 1 year (or 0 in development).
+SECURE_HSTS_INCLUDE_SUBDOMAINS = (
+    not DEBUG
+)  # Ensures HSTS is applied to all subdomains in production.
+SECURE_HSTS_PRELOAD = (
+    not DEBUG
+)  # Allows your site to be included in browsers' HSTS preload lists (used in production).
 SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents the browser from guessing (sniffing) the MIME type, reducing the risk of security vulnerabilities.
 
 # Content Security Policy (CSP) (if using django-csp)
@@ -234,6 +246,7 @@ CSP_STYLE_SRC = (
 CSP_SCRIPT_SRC = (
     "'self'",  # Allow scripts from the same origin
     "https://cdn.jsdelivr.net",  # Bootstrap scripts (if any in the future)
+    "https://code.jquery.com",  # jQuery CDN
     "'unsafe-inline'",  # TODO: we should remove this and also remove inline scripts
 )
 CSP_FONT_SRC = (
