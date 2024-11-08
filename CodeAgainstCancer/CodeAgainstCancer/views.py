@@ -286,3 +286,6 @@ def contact(request):
 
     # Render the contact form with context
     return render(request, "contact/contactform.html", {"form": form})
+
+def faq(request):
+    return render(request, "resources/faq.html")
