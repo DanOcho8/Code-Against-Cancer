@@ -310,3 +310,6 @@ def contact(request):
 
 def faq(request):
     return render(request, "resources/faq.html")
+
+def privacy_policy(request):
+    return render(request, 'resources/privacy_policy.html')
