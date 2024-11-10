@@ -14,7 +14,7 @@ services:
   app_prod:
     build: .
     ports:
-      - 8000:8000
+      - 80:8000
     image: code-against-cancer:prod
     container_name: cac_prod_container
     profiles:
