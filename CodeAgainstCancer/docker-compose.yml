@@ -21,7 +21,9 @@ services:
       - production
     command: >
       sh -c "
-      echo 'Clearing staticfiles directory';
+      echo 'Applying database migrations' &&
+      python manage.py migrate &&
+      echo 'Clearing staticfiles directory' &&
       rm -rf /app/staticfiles/* && 
       echo 'Collecting static files with verbosity 2' &&
       python manage.py collectstatic --noinput --verbosity 2 &&
