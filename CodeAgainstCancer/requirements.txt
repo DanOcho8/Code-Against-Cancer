@@ -17,3 +17,4 @@ pillow==10.4.0
 django-csp
 django-mathfilters
 gunicorn==23.0.0
+whitenoise
