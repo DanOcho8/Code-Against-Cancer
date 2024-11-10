@@ -35,6 +35,11 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
+from .utils import LoggerSingleton
+
+# Create a logger instance
+logger = LoggerSingleton()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -48,20 +53,14 @@ load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Set DEBUG based on an environment variable, defaulting to True if not set
+DEBUG = bool(int(os.getenv("DEBUG", 1)))
+logger.info(f"DEBUG mode is {'on' if DEBUG else 'off'}")
 
-CURRENT_URL = os.getenv('CURRENT_URL', 'http://127.0.0.1:8000')
-
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'localhost',
-    CURRENT_URL.split('//')[-1]
-]
-# MUST INCLUDE CURRENT URL
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 CSRF_TRUSTED_ORIGINS = [ 
-    CURRENT_URL
+    "ALLOWED_HOSTS"
 ]
-
 
 # API keys
 YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
@@ -136,6 +135,17 @@ MIDDLEWARE = [
     "forum.middleware.TimezoneMiddleware",
 ]
 
+# Conditionally add Whitenoise middleware if DEBUG is False (for production only)
+if not DEBUG:
+    MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
+
+# Whitenoise storage backend for static files, only effective in production
+STATICFILES_STORAGE = (
+    "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    if not DEBUG
+    else "django.contrib.staticfiles.storage.StaticFilesStorage"
+)
+
 ROOT_URLCONF = "CodeAgainstCancer.urls"
 
 TEMPLATES = [
@@ -198,7 +208,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
     "static/",
@@ -233,7 +243,7 @@ SECURE_SSL_REDIRECT = (
 X_FRAME_OPTIONS = "DENY"  # Prevents the site from being displayed in an iframe, mitigating clickjacking attacks.
 SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents the browser from guessing (sniffing) the MIME type, reducing the risk of security vulnerabilities.
 
-# HTTP Strict Transport Security (HSTS)
+# # HTTP Strict Transport Security (HSTS)
 SECURE_HSTS_SECONDS = (
     31536000 if not DEBUG else 0
 )  # Enforces HTTPS by telling browsers to only use HTTPS for the next 1 year (or 0 in development).
@@ -243,9 +253,8 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = (
 SECURE_HSTS_PRELOAD = (
     not DEBUG
 )  # Allows your site to be included in browsers' HSTS preload lists (used in production).
-SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents the browser from guessing (sniffing) the MIME type, reducing the risk of security vulnerabilities.
 
-# Content Security Policy (CSP) (if using django-csp)
+# Content Security Policy (CSP)
 CSP_DEFAULT_SRC = ("'none'",)
 CSP_STYLE_SRC = (
     "'self'",  # Allow styles from the same origin

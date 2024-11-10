@@ -99,7 +99,7 @@ python3 manage.py runserver
 
 Run automated test cases:
 
-```
+```bash
 python3 manage.py test
 ```
 
@@ -117,16 +117,12 @@ This application includes a `docker-compose.yml` file that allows you to run it 
 
 First, ensure you’re in the root project directory, then build the Docker images:
 
-```bash
-docker-compose build
-```
-
-#### 2. Run the Application in Development Mode
+#### 1. Run the Application in Development Mode
 
 To run the application in development mode, use the development profile:
 
 ```bash
-docker-compose --profile development up
+docker-compose --profile development up --build
 ```
 
 This command:
@@ -134,12 +130,12 @@ This command:
 - Starts the application with `python manage.py runserver`.
 - Maps the project directory as a volume, enabling real-time updates as you code.
 
-#### 4. Run the Application in Production Mode
+#### 2. Run the Application in Production Mode
 
 For production, use the `production` profile:
 
 ```bash
-docker-compose --profile production up
+docker-compose --profile production up --build
 ```
 
 In production mode:
@@ -168,7 +164,3 @@ This command stops and removes the containers, networks, and any temporary volum
 - Daniel Ochoa
 - Edward Cardenas
 - Kalila Ingco
-
-```
-
-```
