@@ -5,12 +5,15 @@
 
 {% block content %}
     <div class="container">
-        <h1 class="text-center pt-4">Get Support Now</h1>
-        <p class="text-center">
-            We understand that cancer can be a difficult journey. We are here to help
-            you every step of the way. Below are some resources that can help you get
-            the support you need.
+        <h1 class="text-center pt-4">Your Cancer Support Hub</h1>
+        <p>
+            Cancer is a difficult journey, but you don&#39;t have to navigate it alone. Whether you&#39;re seeking advice,
+            emotional support, or practical guidance, we&#39;re committed to standing by your side at every stage. Our
+            goal is to connect you with valuable resources that offer comfort, strength, and expert assistance tailored
+            to your needs. Take a moment to explore the options below&mdash;there&#39;s help available to guide you
+            through this challenging time, and together, we can face this journey with hope and resilience.
         </p>
+
         <div class="row pb-3">
             <div class="col-lg-6">
                 <h2>Related videos</h2>
@@ -22,9 +25,6 @@
                                     <iframe loading="lazy" src="https://www.youtube.com/embed/{{ video.id.videoId }}"
                                             allowfullscreen></iframe>
                                 </div>
-                                {% comment %} <div class="card-body">
-                        <h5 class="card-title">{{ video.snippet.title }}</h5>
-                    </div> {% endcomment %}
                             </div>
                         {% endfor %}
                     </div>
@@ -63,26 +63,28 @@
                         >
                             <div class="accordion-body">
                                 {% if pubmed_articles %}
-                                <ul>
-                                    {% for article_id, article in pubmed_articles.items %}
-                                        {% if article_id != "uids" %} <!-- Exclude 'uids' key -->
-                                            <li>
-                                                <div class="d-flex flex-column">
-                                                <strong>{{ article.title }}</strong>
-                                                <div class="d-flex justify-content-between">
-                                                {{ article.source }} - {{ article.pubdate }}
-                                                <a href="https://pubmed.ncbi.nlm.nih.gov/{{ article_id }}" target="_blank">
-                                                    View on PubMed
-                                                </a>
-                                                </div>
-                                                </div>
-                                            </li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul>
-                            {% else %}
-                                <p>No articles found.</p>
-                            {% endif %}
+                                    <ul>
+                                        {% for article_id, article in pubmed_articles.items %}
+                                            {% if article_id != "uids" %} <!-- Exclude 'uids' key -->
+                                                <li>
+                                                    <div class="d-flex flex-column">
+                                                        <strong>{{ article.title }}</strong>
+                                                        <div class="d-flex justify-content-between">
+                                                            {{ article.source }} - {{ article.pubdate }}
+                                                            <a href="https://pubmed.ncbi.nlm.nih.gov/{{ article_id }}"
+                                                               target="_blank" rel="noopener noreferrer"
+                                                               class="pubmed-link">
+                                                                Read on PubMed
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <p>No articles found.</p>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -105,8 +107,8 @@
                                 data-bs-parent="#accordionExample"
                         >
                             <div class="accordion-body">
-                                <p>Here are some forums where you can find support and connect with others:</p>
-                                <ul>
+                                <p class="mb-1">Here are some forums where you can find support and connect with others:</p>
+                                <ul class="forums">
                                     <li><a href="https://www.reddit.com/r/cancer/" target="_blank"
                                            rel="noopener noreferrer">Reddit: Cancer</a></li>
                                     <li><a href="https://www.reddit.com/r/CancerFamilySupport/" target="_blank"
@@ -228,7 +230,7 @@
                                     help you need.
                                 </p>
                                 <h4>General information</h4>
-                                <ul>
+                                <ul class="forums">
                                     <li><a href="https://www.cancer.org/" target="_blank"
                                            rel="noopener noreferrer">American Cancer Society</a></li>
                                     <li><a href="https://www.cancer.gov/" target="_blank"
@@ -253,8 +255,8 @@
                                     <li><a href="https://find-doctor.ama-assn.org" target="_blank"
                                            rel="noopener noreferrer">Association of American Cancer Institutes</a></li>
                                 </ul>
-                                <h4>Financial and legal assistance</h4>
-                                <ul>
+                                <h4 class="mt-4">Financial and legal assistance</h4>
+                                <ul class="forums">
                                     <li><a href="https://www.cancercare.org" target="_blank"
                                            rel="noopener noreferrer">CancerCare</a></li>
                                     <li><a href="https://www.cancerandcareers.org/en" target="_blank"
@@ -268,8 +270,8 @@
                                     <li><a href="https://triagecancer.org" target="_blank"
                                            rel="noopener noreferrer">Triage Cancer</a></li>
                                 </ul>
-                                <h4>Support groups</h4>
-                                <ul>
+                                <h4 class="mt-4">Support groups</h4>
+                                <ul class="forums">
                                     <li><a href="https://cancersupport.net" target="_blank"
                                            rel="noopener noreferrer">Cancer Support Community</a></li>
                                     <li><a href="https://rdc.gnosishosting.net/Events/Calendar" target="_blank"

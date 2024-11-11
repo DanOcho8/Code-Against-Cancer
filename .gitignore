@@ -1,6 +1,7 @@
 # Virtual environment
 venv/
 env/
+.venv/
 
 # Python files
 *.pyc
@@ -140,3 +141,13 @@ local_settings.py
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Jupyter Notebook metadata and kernelspecs
+*.ipynb.kernelspec
+*.ipynb_metadata.json
+
+# Jupyter Notebook config and environment files
+.jupyter/

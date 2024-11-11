@@ -8,6 +8,7 @@ from . import views
 from .views import contact
 
 urlpatterns = [
+    path('forum/', include('forum.urls')),
     path('admin/', admin.site.urls),
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
@@ -22,6 +23,8 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('recipes/', views.searchRecipes, name='searchRecipes'),
     path('donate/', views.donate, name='donate'),
-    path('contact/', contact, name='contact')
+    path('contact/', contact, name='contact'),
+    path('faq/', views.faq, name='faq'),
+    path('privacy_policy', views.privacy_policy, name='privacy_policy')
     # Add more URL patterns as needed
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

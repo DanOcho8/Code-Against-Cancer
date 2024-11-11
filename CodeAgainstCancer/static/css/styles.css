@@ -113,7 +113,7 @@ a:focus {
   color: #ffffff;
 }
 .navbar {
-  background-color: #add8e6 !important;
+  background-color: #033241 !important;
   z-index: 1000000000;
 }
 
@@ -128,7 +128,7 @@ a:focus {
   z-index: 1000;
   top: 0;
   left: 0;
-  background-color: #add8e6;
+  background-color: #033241;
   overflow-x: hidden;
   transition: width 0.35s ease-in-out;
   padding-top: 60px;
@@ -154,7 +154,10 @@ a:focus {
 
 .sidebar:hover a .icon-text {
   display: inline-block; /* Show text on hover */
+  text-decoration: underline;
+  text-decoration-color: #ff69b4;
 }
+
 
 .sidebar a:hover {
   color: rgb(175, 174, 184);
@@ -373,6 +376,11 @@ footer {
 .carousel-item {
   max-height: 60dvh;
 }
+
+.home-img {
+  max-width: 400px;
+  height: auto;
+}
 /* end of styles for homepage */
 
 /* styles for profile page  */
@@ -423,3 +431,38 @@ footer {
   height: auto;
 }
 /* end of donation page styles  */
+
+/* styles for the resources page  */
+.pubmed-link {
+  color: #4cbee3;
+}
+
+.pubmed-link:hover {
+  color: #ff69b4;
+}
+
+ul.forums {
+  list-style-type: disc;
+  padding: 0 20px;
+}
+
+ul.forums a:hover {
+  color: #ff69b4;
+}
+/* end of styles for the resources page */
+
+/* styles for the about page  */
+.mission {
+  color: #4f4f4f;
+  font-size: 2rem;
+  font-weight: bolder;
+}
+
+/* for smaller screens  */
+@media (max-width: 768px) {
+  .mission {
+    font-size: 1.5rem;
+  }
+}
+
+/* end of styles for the about page */

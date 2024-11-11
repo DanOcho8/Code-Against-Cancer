@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h1 class="text-center">Create New Thread</h1>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <form method="post" class="shadow-lg p-4 rounded">
+          {% csrf_token %}
+          <div class="mb-3">
+            {{ form.title.label_tag }}
+            {{ form.title }}
+          </div>
+          <div class="mb-3">
+            {{ form.content.label_tag }}
+            {{ form.content }}
+          </div>
+          <button type="submit" class="btn btn-block" style="background-color: #033241; color: white;">Create Thread</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

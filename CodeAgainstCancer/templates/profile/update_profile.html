@@ -5,18 +5,19 @@
 {% block title %}Update Your Account{% endblock %}
 
 {% block content %}
+
 <style>
     html, body {
       width: 100%;
       height: 100%;
     }
-    
+
     body {
         background: linear-gradient(-45deg, #add8e6, #ff69b4, #add8e6, #c71585);
         background-size: 400% 400%;
         animation: gradient 15s ease infinite;
     }
-    
+
     @keyframes gradient {
         0% {
             background-position: 0% 50%;
@@ -28,103 +29,202 @@
             background-position: 0% 50%;
         }
     }
+
+  /* Area code and phone number container */
+.phone-number-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.area-code-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Area code dropdown */
+.area-code-dropdown {
+    width: 70px;
+    flex: 0 0 auto;
+}
+
+/* Area code input */
+.area-code-input {
+    width: 60px;
+    flex: 0 0 auto;
+    margin-left: 5px;
+}
 </style>
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow">
-                <div class="card-body p-5">
-                    <h3 class="text-center mb-4">Update Your Profile</h3>
+<div class="gradient-bg">
+    <div class="container py-3">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <div class="card shadow">
+                    <div class="card-body p-5">
+                        <h3 class="text-center mb-4">Update Your Profile</h3>
 
-                    <form method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        
-                        <!-- Username (Disabled if you don't want it to be updated) -->
-                        <div class="mb-3">
-                            {{ user_form.username.label_tag }}
-                            {{ user_form.username|add_class:"form-control" }}
-                            {{ user_form.username.errors }}
-                        </div>
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
 
-                        <!-- First Name and Last Name in Two Columns -->
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                {{ user_form.first_name.label_tag }}
-                                {{ user_form.first_name|add_class:"form-control" }}
-                                {{ user_form.first_name.errors }}
+                            <!-- Username (Disabled if you don't want it to be updated) -->
+                            <div class="mb-3">
+                                {{ user_form.username.label_tag }}
+                                {{ user_form.username|add_class:"form-control" }}
+                                {{ user_form.username.errors }}
                             </div>
-                            <div class="col-md-6 mb-3">
-                                {{ user_form.last_name.label_tag }}
-                                {{ user_form.last_name|add_class:"form-control" }}
-                                {{ user_form.last_name.errors }}
+
+                            <!-- First Name and Last Name in Two Columns -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    {{ user_form.first_name.label_tag }}
+                                    {{ user_form.first_name|add_class:"form-control" }}
+                                    {{ user_form.first_name.errors }}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    {{ user_form.last_name.label_tag }}
+                                    {{ user_form.last_name|add_class:"form-control" }}
+                                    {{ user_form.last_name.errors }}
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Email -->
-                        <div class="mb-3">
-                            {{ user_form.email.label_tag }}
-                            {{ user_form.email|add_class:"form-control" }}
-                            {{ user_form.email.errors }}
-                        </div>
-
-                        <!-- Phone Number -->
-                        <div class="mb-3">
-                            {{ user_form.phone_number.label_tag }}
-                            {{ user_form.phone_number|add_class:"form-control" }}
-                            {{ user_form.phone_number.errors }}
-                        </div>
-
-                        <!-- Cancer Type and Cancer Stage in Two Columns -->
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                {{ user_form.cancer_type.label_tag }}
-                                {{ user_form.cancer_type|add_class:"form-control" }}
-                                {{ user_form.cancer_type.errors }}
+                            <!-- Email -->
+                            <div class="mb-3">
+                                {{ user_form.email.label_tag }}
+                                {{ user_form.email|add_class:"form-control" }}
+                                {{ user_form.email.errors }}
                             </div>
-                            <div class="col-md-6 mb-3">
-                                {{ user_form.cancer_stage.label_tag }}
-                                {{ user_form.cancer_stage|add_class:"form-control" }}
-                                {{ user_form.cancer_stage.errors }}
+
+                            <div class="mb-3" style="flex-grow: 1;">
+                                <div class="phone-number-container">
+                                    <!-- Area Code Section -->
+                                    <div class="area-code-section">
+                                        <label for="area-code-dropdown">Area Code</label>
+                                        <div class="area-code-container">
+                                            <!-- Dropdown -->
+                                            <select class="form-control area-code-dropdown" id="area-code-dropdown">
+                                                <option value="">Select</option>
+                                                {% for code, country in area_code_choices %}
+                                                    <option value="{{ code }}">{{ country }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <!-- Area code input -->
+                                            {{ user_form.area_code|add_class:"form-control area-code-input" }}
+                                        </div>
+                                    </div>
+                            
+                                    <!-- Phone Number Section -->
+                                    <div class="mb-3" style="flex-grow: 1;">
+                                        <label for="id_phone_number">Phone Number</label>
+                                        {{ user_form.phone_number|add_class:"form-control phone-input" }}
+                                    </div>
+                                </div>
+                            
+                                <!-- Error Messages -->
+                                {{ user_form.area_code.errors }}
+                                {{ user_form.phone_number.errors }}
                             </div>
-                        </div>
 
-                        <!-- Date Diagnosed and Gender in Two Columns -->
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                {{ user_form.date_diagnosed.label_tag }}
-                                {{ user_form.date_diagnosed|add_class:"form-control" }}
-                                {{ user_form.date_diagnosed.errors }}
+                            <!-- Cancer Type and Cancer Stage in Two Columns -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    {{ user_form.cancer_type.label_tag }}
+                                    {{ user_form.cancer_type|add_class:"form-control" }}
+                                    {{ user_form.cancer_type.errors }}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    {{ user_form.cancer_stage.label_tag }}
+                                    {{ user_form.cancer_stage|add_class:"form-control" }}
+                                    {{ user_form.cancer_stage.errors }}
+                                </div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                {{ user_form.gender.label_tag }}
-                                {{ user_form.gender|add_class:"form-control" }}
-                                {{ user_form.gender.errors }}
+
+                            <!-- Date Diagnosed and Gender in Two Columns -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    {{ user_form.date_diagnosed.label_tag }}
+                                    {{ user_form.date_diagnosed|add_class:"form-control" }}
+                                    {{ user_form.date_diagnosed.errors }}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    {{ user_form.gender.label_tag }}
+                                    {{ user_form.gender|add_class:"form-control" }}
+                                    {{ user_form.gender.errors }}
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Profile Picture -->
-                        <div class="mb-3">
-                            {{ user_form.profile_pic.label_tag }}
-                            {{ user_form.profile_pic|add_class:"form-control-file" }}
-                            {{ user_form.profile_pic.errors }}
-                        </div>
+                            <!-- Profile Picture -->
+                            <div class="mb-3">
+                                {{ user_form.profile_pic.label_tag }}
+                                {{ user_form.profile_pic|add_class:"form-control-file" }}
+                                {{ user_form.profile_pic.errors }}
+                            </div>
 
-                        <!-- Consent to Receive Text Messages -->
-                        <div class="form-check mb-3">
-                            <input type="checkbox" class="form-check-input" id="consent_to_text" name="consent_to_text" {% if profile_form.consent_to_text.value %}checked{% endif %}>
-                            <label for="consent_to_text" class="form-check-label">I consent to receive text message reminders</label>
-                            {{ user_form.consent_to_text.errors }}
-                        </div>
+                            <!-- Consent to Receive Text Messages -->
+                            <div class="form-check mb-3">
+                                <input type="checkbox" class="form-check-input" id="consent_to_text"
+                                       name="consent_to_text"
+                                       {% if user_form.consent_to_text.value %}checked{% endif %}>
+                                <label for="consent_to_text" class="form-check-label">I consent to receive text
+                                    message reminders</label>
+                                {{ user_form.consent_to_text.errors }}
+                            </div>
 
-                        <!-- Submit Button -->
-                        <button type="submit" class="btn btn-primary w-100 mt-4">Update Account</button>
-                    </form>
+                            <!-- Submit Button -->
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="edit-button">Update Account</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const areaCodeInput = document.getElementById("id_area_code");
+        const areaCodeDropdown = document.getElementById("area-code-dropdown");
+    
+        areaCodeDropdown.addEventListener("change", function() {
+            areaCodeInput.value = this.value;
+        });
+    
+        if (areaCodeInput.value === "") {
+            areaCodeInput.value = "+";
+        }
+    
+        areaCodeInput.addEventListener("focus", function() {
+            if (!areaCodeInput.value.startsWith("+")) {
+                areaCodeInput.value = "+" + areaCodeInput.value;
+            }
+            setCaretPosition(areaCodeInput, areaCodeInput.value.length);
+        });
+    
+        areaCodeInput.addEventListener("keydown", function(e) {
+            if (areaCodeInput.selectionStart <= 1 && (e.key === "Backspace" || e.key === "ArrowLeft")) {
+                e.preventDefault();
+                setCaretPosition(areaCodeInput, 1);
+            }
+        });
+    
+        areaCodeInput.addEventListener("input", function() {
+            if (!areaCodeInput.value.startsWith("+")) {
+                areaCodeInput.value = "+" + areaCodeInput.value.replace(/\+/g, "");
+            }
+        });
+    
+        function setCaretPosition(ctrl, pos) {
+            if (ctrl.setSelectionRange) {
+                ctrl.setSelectionRange(pos, pos);
+            } else if (ctrl.createTextRange) {
+                var range = ctrl.createTextRange();
+                range.move("character", pos);
+                range.select();
+            }
+        }
+    });
+</script>
 {% endblock %}
 {% block footer %}{% endblock %}

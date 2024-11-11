@@ -10,6 +10,10 @@ from django.contrib import messages
 from .models import UserProfile
 from django.contrib.auth.decorators import login_required
 from .forms import CANCER_TYPE_CHOICES
+from django.utils import timezone
+from django.http import JsonResponse
+from .forms import CustomUserCreationForm, AREA_CODE_CHOICES
+
 
 def signup(request):
     if request.method == 'POST':
@@ -20,11 +24,11 @@ def signup(request):
             password = form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
             login(request, user)
-            messages.success(request, ("Registration successful!"))
+            messages.success(request, "Registration successful!")
             return redirect('home')
     else:
         form = CustomUserCreationForm()
-    return render(request, 'registration/signup.html', {'form': form})
+    return render(request, 'registration/signup.html', {'form': form, 'area_code_choices': AREA_CODE_CHOICES})
 
 @login_required
 def profile_view(request):
@@ -58,9 +62,13 @@ def update_profile(request):
             user_form.save()
             backend = request.session.get('_auth_user_backend')
             login(request, current_user, backend=backend)
-            messages.success(request, ("Your profile has been updated!"))
+            messages.success(request, "Your profile has been updated!")
             return redirect('home')
-        return render(request, 'profile/update_profile.html', {'user_form':user_form})
+
+        return render(request, 'profile/update_profile.html', {
+            'user_form': user_form,
+            'area_code_choices': AREA_CODE_CHOICES
+        })
     else:
         messages.error(request, "You must be logged in to access that page.")
-        return redirect('home')
+        return redirect('home') 

@@ -13,3 +13,5 @@ django-widget-tweaks
 django_phonenumber_field
 django-phonenumber-field[phonenumbers]
 Pillow
+django-csp
+django-mathfilters

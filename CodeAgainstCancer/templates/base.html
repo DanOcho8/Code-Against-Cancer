@@ -64,7 +64,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">About us</a>
+                        <a class="nav-link" href="{% url 'about' %}">About Us</a>
                     </li>
                     {% comment %} {% if user.is_authenticated %}
                         <li class="nav-item">
@@ -99,44 +99,49 @@
 </header>
 
 {% if user.is_authenticated %}
-    <div
+    <aside
             id="mySidebar"
-            class="sidebar z-2 position-fixed"
-{#            onmouseover="toggleSidebar()"#}
-{#            onmouseout="toggleSidebar()"#}
+            class="sidebar z-2 position-fixed d-flex"
     >
-        <a href="{% url 'home' %}">
-        <span>
-          <i class="material-icons">home</i>
-          <span class="icon-text">Home</span>
-        </span>
-        </a>
-        <br/>
-        <a href="#">
-            <i class="material-icons">spa</i>
-            <span class="icon-text">Diet Plan</span>
-        </a>
-        <br/>
-        <a href="{% url 'update_profile' %}">
-            <i class="material-icons">manage_accounts</i>
-            <span class="icon-text">Manage Profile</span>
-        </a>
-        <br/>
-        <a href="#">
-            <i class="material-icons">group</i>
-            <span class="icon-text">Community</span>
-        </a>
-        <br/>
-        <a href="{% url 'profile' %}">
-            <i class="material-icons">person</i>
-            <span class="icon-text">My Profile</span>
-        </a>
-        <br/>
-        <a href="{% url 'resources' %}">
-            <i class="material-icons"> library_books </i>
-            <span class="icon-text">Resources</span>
-        </a>
-    </div>
+        <ul class="d-flex flex-column justify-content-center">
+            <li>
+                <a href="{% url 'home' %}" class="py-4">
+                    <i class="material-icons">home</i>
+                    <span class="icon-text">Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="py-4">
+                    <i class="material-icons">spa</i>
+                    <span class="icon-text">Diet Plan</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'update_profile' %}" class="py-4">
+                    <i class="material-icons">manage_accounts</i>
+                    <span class="icon-text">Manage Profile</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'thread_list' %}" class="py-4">
+                    <i class="material-icons">group</i>
+                    <span class="icon-text">Forum</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'profile' %}" class="py-4">
+                    <i class="material-icons">person</i>
+                    <span class="icon-text">My Profile</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'resources' %}" class="py-4">
+                    <i class="material-icons"> library_books </i>
+                    <span class="icon-text">Resources</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
 {% endif %}
 <main
         class=""
@@ -170,8 +175,8 @@
                 </div>
                 <ul class="footer-list">
                     <li><a href="">Community Guidelines</a></li>
-                    <li><a href="">Privacy Policy</a></li>
-                    <li><a href="">Third Party Licenses</a></li>
+                    <li><a href="{% url 'privacy_policy'%}">Privacy Policy</a></li>
+                    <li><a href="{% url 'faq' %}">FAQ</a></li>
                     <li><a href="{% url 'contact' %}">Contact Us</a></li>
                 </ul>
             </div>
@@ -217,6 +222,11 @@
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"
 ></script>
+<script>
+    // Timezone settings
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone; // e.g. "America/New_York"
+    document.cookie = "django_timezone=" + timezone;
+</script>
 <script src="{% static 'scripts.js' %}"></script>
 </body>
 </html>
