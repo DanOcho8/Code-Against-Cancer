@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %} Calorie Tracker {% endblock %}
+
+{% block content %}
+
+<form method="GET" action="{% url 'calorietracker:calorie_tracker' %}">
+    <input type="date" name="date" value="{{ selected_date }}">
+    <button type="submit">View</button>
+</form>
+
+<h2>Your Calorie Intake for {{ selected_date }}</h2>
+<p>Total Calories: {{ total_calories }}</p>
+<ul>
+    {% for entry in calorie_entries %}
+        <li>{{ entry.food_item.name }} - {{ entry.amount_in_grams }}g - {{ entry.calculated_calories }} calories</li>
+    {% endfor %}
+</ul>
+
+<!-- Form for adding new calorie entries -->
+<form method="POST" action="{% url 'calorietracker:add_calorie_entry' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Entry</button>
+</form>
+
+
+{% endblock %}
