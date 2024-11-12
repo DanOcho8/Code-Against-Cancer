@@ -81,6 +81,7 @@ INSTALLED_APPS = [
     "csp",
     'forum',
     'mathfilters',
+    'calorieTracker',
 ]
 
 SITE_ID = 1
