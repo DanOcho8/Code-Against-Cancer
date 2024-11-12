@@ -5,7 +5,7 @@
 
 # Set variables
 TIMESTAMP=$(date +'%Y-%m-%d_%H-%M-%S')
-DATABASE_PATH="/home/ubuntu/CaC/data/db.sqlite3"
+DATABASE_PATH="/home/ubuntu/CaC/Code-Against-Cancer/CodeAgainstCancer/db.sqlite3"
 BACKUP_DIR="/home/ubuntu/CaC/backups"
 BACKUP_FILE="$BACKUP_DIR/db_backup_$TIMESTAMP.sqlite3"
 
