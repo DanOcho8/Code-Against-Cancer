@@ -23,6 +23,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('recipes/', views.searchRecipes, name='searchRecipes'),
     path('donate/', views.donate, name='donate'),
-    path('contact/', contact, name='contact')
+    path('donate/donate_form/', views.donate_form, name='donate_form'),
+    path('contact/', contact, name='contact'),
     # Add more URL patterns as needed
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

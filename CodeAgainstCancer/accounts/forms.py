@@ -7,6 +7,8 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from phonenumber_field.formfields import PhoneNumberField
 from .area_codes import AREA_CODE_CHOICES
+from .models import Donor
+
 
 CANCER_TYPE_CHOICES = [
     ('', 'Select your cancer type:'),
@@ -184,3 +186,18 @@ class UpdateUserForm(UserChangeForm):
                 user_profile.save()
 
         return user
+
+class DonorForm(forms.ModelForm):
+    class Meta:
+        model = Donor
+        fields = ['name', 'message', 'amount']  # Include only the fields needed
+        labels = {
+            'name': 'Your Name',
+            'message': 'Leave a Message (optional)',
+            'amount': 'Donation Amount'
+        }
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your name'}),
+            'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter a message'}),
+            'amount': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter donation amount'}),
+        }

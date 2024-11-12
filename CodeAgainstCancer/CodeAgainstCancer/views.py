@@ -16,6 +16,8 @@ from django.core.mail import send_mail
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
+from accounts.forms import DonorForm
+
 #from pyexpat.errors import messages
 
 from .api_handlers import APIHandlerFactory
@@ -192,6 +194,16 @@ def donate(request):
         HttpResponse: The rendered donation page.
     """
     return render(request, "donate/donate.html")
+
+def donate_form(request):
+    if request.method == 'POST':
+        form = DonorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Additional success actions can be added here
+    else:
+        form = DonorForm()
+    return render(request, 'donate/donate_form.html', {'form': form})
 
 
 # @cache_results(timeout=300)
