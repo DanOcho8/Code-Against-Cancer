@@ -1,6 +1,8 @@
 from django.urls import include, path
 from .import views
 
+app_name = "calorieTracker"
+
 urlpatterns = [
     path('calorie/', views.calorie_tracker, name='calorie_tracker'),  # Main calorie tracker page
     path('add/', views.add_calorie_entry, name='add_calorie_entry'),  # Add a new calorie entry

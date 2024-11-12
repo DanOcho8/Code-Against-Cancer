@@ -59,6 +59,51 @@ def add_calorie_entry(request):
 
     return render(request, 'calorie/add_entry.html', {'form': form})
 
+@login_required(login_url="login")
+def delete_calorie_entry(request, entry_id):
+    # Get the calorie entry for the logged-in user or return 404 if not found
+    entry = get_object_or_404(CalorieIntakeEntry, id=entry_id, user=request.user)
+
+    # Delete the entry
+    entry.delete()
+
+    # Redirect to the calorie tracker page after deletion
+    return redirect('calorie_tracker')
+
+class EditCalorieEntryForm(forms.ModelForm):
+    class Meta:
+        model = CalorieIntakeEntry
+        fields = ['food_item', 'amount_in_grams', 'date']
+        
+    # Override to allow initial food item name instead of ID
+    food_item = forms.CharField(max_length=100)
+
+@login_required(login_url="login")
+def edit_calorie_entry(request, entry_id):
+    # Get the calorie entry for the logged-in user or return 404 if not found
+    entry = get_object_or_404(CalorieIntakeEntry, id=entry_id, user=request.user)
+
+    if request.method == 'POST':
+        form = EditCalorieEntryForm(request.POST, instance=entry)
+        if form.is_valid():
+            # Update the entry with the new data
+            entry = form.save(commit=False)
+            
+            # Update the calculated calories if necessary
+            food_item = form.cleaned_data['food_item']
+            entry.food_item, created = FoodItem.objects.get_or_create(name=food_item)
+            entry.calculated_calories = entry.food_item.calories_per_gram * entry.amount_in_grams
+            entry.save()
+
+            # Redirect to the calorie tracker page after saving
+            return redirect('calorie_tracker')
+    else:
+        # Prepopulate the form with the current entry data
+        form = EditCalorieEntryForm(instance=entry)
+        form.initial['food_item'] = entry.food_item.name  # Set the initial food item name
+
+    return render(request, 'calorie/edit_entry.html', {'form': form, 'entry': entry})
+
 class AddCalorieEntryForm(forms.Form):
     food_name = forms.CharField(max_length=100)
     amount_in_grams = forms.DecimalField(max_digits=5, decimal_places=2)
