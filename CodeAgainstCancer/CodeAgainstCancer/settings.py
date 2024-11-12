@@ -89,8 +89,9 @@ INSTALLED_APPS = [
     "phonenumber_field",
     "tests",
     "csp",
-    "forum",
-    "mathfilters",
+    'forum',
+    'mathfilters',
+    'calorieTracker',
 ]
 
 SITE_ID = 1
