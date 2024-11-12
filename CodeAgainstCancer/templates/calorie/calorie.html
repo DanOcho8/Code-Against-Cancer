@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<form method="GET" action="{% url 'calorietracker:calorie_tracker' %}">
+<form method="GET" action="{% url 'calorieTracker:calorie_tracker' %}">
     <input type="date" name="date" value="{{ selected_date }}">
     <button type="submit">View</button>
 </form>
@@ -20,7 +20,7 @@
 </ul>
 
 <!-- Form for adding new calorie entries -->
-<form method="POST" action="{% url 'calorietracker:add_calorie_entry' %}">
+<form method="POST" action="{% url 'calorieTracker:add_calorie_entry' %}">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Add Entry</button>
