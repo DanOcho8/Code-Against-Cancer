@@ -81,7 +81,7 @@
         </div>
 
         <!-- Display Replies -->
-<div class="replies" data-post-id="{{ reply.pk }}">
+<div class="replies" data-post-id="{{ post.pk }}">
   {% for reply in post.post_replies.all %}
   <div class="reply-item" style="margin-top: 20px;">
     <div style="background-color: #e8e8e8; padding: 15px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
@@ -130,7 +130,7 @@
       </div>
 
       <!-- Nested Replies Section for the current reply -->
-      <div class="replies" data-post-id="{{ nested_reply.pk }}">
+      <div class="replies" data-post-id="{{ reply.pk }}">
         {% for nested_reply in reply.post_replies.all %}
         <div class="reply-item" style="margin-top: 20px">
           <div style="background-color: #e0e0e0; padding: 15px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
@@ -231,35 +231,9 @@
         console.log('Response from server:', data);
         if (data.success) {
             console.log(`Looking for .replies[data-post-id="${data.parent_post_id}"]`);
-            // Use the parent_post_id from the response to find the correct replies section
-            const targetRepliesSection = document.querySelector(`.replies[data-post-id="${data.parent_post_id}"]`);
-            if (!targetRepliesSection) {
-                console.error('Error: Could not find the correct reply section to append to.');
-            }
-            
-            // Create a new reply element
-            const newReply = document.createElement('div');
-            newReply.classList.add('reply-item');
-            newReply.style.cssText = `
-                background-color: #e8e8e8;
-                padding: 15px;
-                border-radius: 8px;
-                margin-bottom: 10px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            `;
-            newReply.innerHTML = `
-                <p style="font-size: 16px; color: #2c3e50">${data.reply}</p>
-                <p style="font-size: 12px; color: #7f8c8d">
-                    <small>Posted by: ${data.author} at: ${data.created_at}</small>
-                </p>
-            `;
 
-            
-            targetRepliesSection.appendChild(newReply); // Append the new reply to the correct section
-            form.parentElement.style.display = 'none';
-            
-
-            form.reset(); // Reset the form
+            // Refresh the page to display the new reply with server-side formatting
+            location.reload();
         } else {
             console.error('Failed to add reply:', data.error); // Handle error if not successful
         }
@@ -267,14 +241,14 @@
     .catch(error => console.error('Error:', error));
 }
 
-
-    // Attach the submitReply function to each reply form
-    document.querySelectorAll('.reply-section form').forEach(form => {
-        form.addEventListener('submit', function(event) {
-            const parentId = this.querySelector('input[name="post_id"]').value;
-            submitReply(event, this, parentId);
-        });
+// Attach the updated submitReply function to each reply form
+document.querySelectorAll('.reply-section form').forEach(form => {
+    form.addEventListener('submit', function(event) {
+        const parentId = this.querySelector('input[name="post_id"]').value;
+        submitReply(event, this, parentId);
     });
+});
+
   </script>
   <style>
     .reply-section label[for="id_content"] {
