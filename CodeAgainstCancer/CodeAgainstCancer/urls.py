@@ -11,6 +11,7 @@ urlpatterns = [
     path('forum/', include('forum.urls')),
     path('admin/', admin.site.urls),
     path("accounts/", include("accounts.urls")),
+    path('calorieTracker/', include('calorieTracker.urls', namespace='calorieTracker')),
     path("accounts/", include("django.contrib.auth.urls")),
     path("", views.homepageView , name="home"),
     path("logout", views.user_logout , name='logout'),
