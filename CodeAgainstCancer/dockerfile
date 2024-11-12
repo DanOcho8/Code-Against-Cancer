@@ -1,0 +1,17 @@
+FROM python:3.10.15-bullseye
+
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+COPY requirements.txt requirements.txt
+
+RUN pip3 install -r requirements.txt
+
+# Copy the current directory contents into the container at /app
+COPY . .
+
+# Run collectstatic and then start Gunicorn
+CMD sh -c "python manage.py collectstatic --noinput && gunicorn CodeAgainstCancer.wsgi:application --bind 0.0.0.0:8000"
+
+EXPOSE 8000
