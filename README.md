@@ -99,10 +99,64 @@ python3 manage.py runserver
 
 Run automated test cases:
 
-```
+```bash
 python3 manage.py test
 ```
 
+## Using Docker Container
+
+### Prerequisite
+
+Ensure Docker is installed on your local machine. You can download Docker from [Docker's official website](https://www.docker.com/products/docker-desktop).
+
+### Running the Application with Docker
+
+This application includes a `docker-compose.yml` file that allows you to run it using Docker for both development and production environments.
+
+#### 1. Build Docker Images
+
+First, ensure you’re in the root project directory, then build the Docker images:
+
+#### 1. Run the Application in Development Mode
+
+To run the application in development mode, use the development profile:
+
+```bash
+docker-compose --profile development up --build
+```
+
+This command:
+
+- Starts the application with `python manage.py runserver`.
+- Maps the project directory as a volume, enabling real-time updates as you code.
+
+#### 2. Run the Application in Production Mode
+
+For production, use the `production` profile:
+
+```bash
+docker-compose --profile production up --build
+```
+
+In production mode:
+
+- The application runs with `gunicorn` for better performance.
+- Volume mapping is disabled for a stable, consistent environment.
+
+#### 5. Stopping the Docker Containers
+
+To stop the running containers, use:
+
+```bash
+docker-compose down
+```
+
+This command stops and removes the containers, networks, and any temporary volumes.
+
+### Notes
+
+- If you make changes to dependencies, update your `requirements.txt` and rebuild the images with `docker-compose build`.
+- Ensure your `.env` file is correctly configured with your environment variables before running Docker.
 
 ## Team Members
 

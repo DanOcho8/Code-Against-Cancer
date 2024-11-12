@@ -1,0 +1,33 @@
+services:
+  app_dev:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    image: code-against-cancer:dev
+    container_name: cac_dev_container
+    profiles:
+      - development
+    command: python manage.py runserver 0.0.0.0:8000 # Development command
+
+  app_prod:
+    build: .
+    ports:
+      - 80:8000
+    volumes:
+      - .:/app
+    image: code-against-cancer:prod
+    container_name: cac_prod_container
+    profiles:
+      - production
+    command: >
+      sh -c "
+      echo 'Applying database migrations' &&
+      python manage.py migrate &&
+      echo 'Clearing staticfiles directory' &&
+      rm -rf /app/staticfiles/* && 
+      echo 'Collecting static files with verbosity 2' &&
+      python manage.py collectstatic --noinput --verbosity 2 &&
+      echo 'Starting Gunicorn' &&
+      gunicorn CodeAgainstCancer.wsgi:application --bind 0.0.0.0:8000"
