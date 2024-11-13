@@ -25,6 +25,7 @@ def calorie_tracker(request):
         'calorie_entries': calorie_entries,
         'total_calories': total_calories,
         'selected_date': selected_date,
+        'form': form,
     }
     
     return render(request, 'calorie/calorie.html', context)
@@ -38,10 +39,11 @@ def add_calorie_entry(request):
             # Get data from the form
             food_name = form.cleaned_data['food_name']
             amount_in_grams = form.cleaned_data['amount_in_grams']
+            calories_per_gram = form.cleaned_data['calories_per_gram']
             date = form.cleaned_data['date']
 
             # Get or create the food item in the database
-            food_item, created = FoodItem.objects.get_or_create(name=food_name)
+            food_item, created = FoodItem.objects.get_or_create(name=food_name, defaults={'calories_per_gram': calories_per_gram})
 
             # Calculate calories
             calculated_calories = food_item.calories_per_gram * amount_in_grams
