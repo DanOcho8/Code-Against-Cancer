@@ -6,19 +6,25 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django import forms
 from .forms import AddCalorieEntryForm
+from datetime import datetime, timedelta
 
 @login_required(login_url="login")
 def calorie_tracker(request):
-
-    # Fetch user's profile from accounts app
     user = request.user
-    selected_date = request.GET.get('date', timezone.now().date())
+    selected_date = request.GET.get('date')
+
+    # Parse the date if it's provided as a string, else use today's date
+    if selected_date:
+        selected_date = datetime.strptime(selected_date, '%Y-%m-%d').date()
+    else:
+        selected_date = timezone.now().date()
+        
+    today = timezone.now().date()
+    yesterday = today - timedelta(days=1)
+    tomorrow = today + timedelta(days=1)
+
     calorie_entries = CalorieIntakeEntry.objects.filter(user=user, date=selected_date)
-
-
-    # Calculate total calories for the day
     total_calories = sum(entry.calculated_calories for entry in calorie_entries)
-    
     form = AddCalorieEntryForm()
     
     context = {
@@ -26,6 +32,9 @@ def calorie_tracker(request):
         'total_calories': total_calories,
         'selected_date': selected_date,
         'form': form,
+        'today': today,
+        'yesterday': yesterday,
+        'tomorrow': tomorrow,
     }
     
     return render(request, 'calorie/calorie.html', context)
@@ -62,7 +71,16 @@ def add_calorie_entry(request):
 @login_required(login_url="login")
 def delete_calorie_entry(request, entry_id):
 
-    selected_date = request.GET.get('date', timezone.now().date())
+    selected_date = request.GET.get('date')
+    if selected_date:
+        try:
+            # Ensure selected_date is in "YYYY-MM-DD" format if passed
+            selected_date = datetime.strptime(selected_date, '%Y-%m-%d').strftime('%Y-%m-%d')
+        except ValueError:
+            # In case of an incorrect format, default to today's date
+            selected_date = timezone.now().date().strftime('%Y-%m-%d')
+    else:
+        selected_date = timezone.now().date().strftime('%Y-%m-%d')
     entry = get_object_or_404(CalorieIntakeEntry, id=entry_id, user=request.user)
     entry.delete()
 
