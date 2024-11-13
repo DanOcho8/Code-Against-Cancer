@@ -8,14 +8,24 @@
 
 
 
-<h2>Your Calorie Intake for {{ selected_date }}</h2>
+<h2>Your Calorie Intake for
+    {% if selected_date == today %}
+        Today
+    {% elif selected_date == yesterday %}
+        Yesterday
+    {% elif selected_date == tomorrow %}
+        Tomorrow
+    {% else %}
+        {{ selected_date|date:"m-d-Y" }}
+    {% endif %}
+</h2>
 
 <form method="GET" action="{% url 'calorieTracker:calorie_tracker' %}">
     <input type="date" name="date" value="{{ selected_date }}">
     <button type="submit">View</button>
 </form>
 
-<p>Total Calories: {{ total_calories }}</p>
+
 
 <ul>
     {% for entry in calorie_entries %}
@@ -28,6 +38,7 @@
     {% endfor %}
 </ul>
 
+<p>Total Calories: {{ total_calories }}</p>
 
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEntryModal">
     Add Entry
