@@ -36,7 +36,6 @@ def add_calorie_entry(request):
     if request.method == "POST":
         form = AddCalorieEntryForm(request.POST)
         if form.is_valid():
-            # Get data from the form
             food_name = form.cleaned_data['food_name']
             amount_in_grams = form.cleaned_data['amount_in_grams']
             calories_per_gram = form.cleaned_data['calories_per_gram']
@@ -48,7 +47,7 @@ def add_calorie_entry(request):
             # Calculate calories
             calculated_calories = food_item.calories_per_gram * amount_in_grams
 
-            # Create a new CalorieIntakeEntry for the logged-in user
+
             CalorieIntakeEntry.objects.create(
                 user=request.user,
                 food_item=food_item,
@@ -57,32 +56,28 @@ def add_calorie_entry(request):
                 date=date
             )
 
-            # Redirect to the calorie tracker page after saving
-            return redirect('calorieTracker:calorie_tracker')
+            return redirect(f"{request.path.replace('/add/', '/calorie/')}?date={date}")
     return redirect('calorieTracker:calorie_tracker')
 
 @login_required(login_url="login")
 def delete_calorie_entry(request, entry_id):
-    # Get the calorie entry for the logged-in user or return 404 if not found
-    entry = get_object_or_404(CalorieIntakeEntry, id=entry_id, user=request.user)
 
-    # Delete the entry
+    selected_date = request.GET.get('date', timezone.now().date())
+    entry = get_object_or_404(CalorieIntakeEntry, id=entry_id, user=request.user)
     entry.delete()
 
-    # Redirect to the calorie tracker page after deletion
-    return redirect('calorie_tracker')
+
+    return redirect(f"{request.build_absolute_uri('/calorieTracker/calorie/')}?date={selected_date}")
 
 class EditCalorieEntryForm(forms.ModelForm):
     class Meta:
         model = CalorieIntakeEntry
         fields = ['food_item', 'amount_in_grams', 'date']
         
-    # Override to allow initial food item name instead of ID
     food_item = forms.CharField(max_length=100)
 
 @login_required(login_url="login")
 def edit_calorie_entry(request, entry_id):
-    # Get the calorie entry for the logged-in user or return 404 if not found
     entry = get_object_or_404(CalorieIntakeEntry, id=entry_id, user=request.user)
 
     if request.method == 'POST':
