@@ -9,7 +9,12 @@ services:
     container_name: cac_dev_container
     profiles:
       - development
-    command: python manage.py runserver 0.0.0.0:8000 # Development command
+    command: >
+      sh -c "
+      echo 'Applying database migrations' &&
+      python manage.py migrate &&
+      echo 'Starting development server' &&
+      python manage.py runserver 0.0.0.0:8000"
 
   app_prod:
     build: .
