@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django import forms
+from .forms import AddCalorieEntryForm
 
 @login_required(login_url="login")
 def calorie_tracker(request):
@@ -17,6 +18,8 @@ def calorie_tracker(request):
 
     # Calculate total calories for the day
     total_calories = sum(entry.calculated_calories for entry in calorie_entries)
+    
+    form = AddCalorieEntryForm()
     
     context = {
         'calorie_entries': calorie_entries,
@@ -40,7 +43,7 @@ def add_calorie_entry(request):
             # Get or create the food item in the database
             food_item, created = FoodItem.objects.get_or_create(name=food_name)
 
-            # Calculate calories (you may need to adjust this depending on your calorie calculation)
+            # Calculate calories
             calculated_calories = food_item.calories_per_gram * amount_in_grams
 
             # Create a new CalorieIntakeEntry for the logged-in user
@@ -53,11 +56,8 @@ def add_calorie_entry(request):
             )
 
             # Redirect to the calorie tracker page after saving
-            return redirect('calorie_tracker')
-    else:
-        form = AddCalorieEntryForm()
-
-    return render(request, 'calorie/add_entry.html', {'form': form})
+            return redirect('calorieTracker:calorie_tracker')
+    return redirect('calorieTracker:calorie_tracker')
 
 @login_required(login_url="login")
 def delete_calorie_entry(request, entry_id):
@@ -103,9 +103,3 @@ def edit_calorie_entry(request, entry_id):
         form.initial['food_item'] = entry.food_item.name  # Set the initial food item name
 
     return render(request, 'calorie/edit_entry.html', {'form': form, 'entry': entry})
-
-class AddCalorieEntryForm(forms.Form):
-    food_name = forms.CharField(max_length=100)
-    amount_in_grams = forms.DecimalField(max_digits=5, decimal_places=2)
-    date = forms.DateField(widget=forms.SelectDateWidget)
-

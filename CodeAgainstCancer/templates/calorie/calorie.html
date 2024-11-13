@@ -19,12 +19,33 @@
     {% endfor %}
 </ul>
 
-<!-- Form for adding new calorie entries -->
-<form method="POST" action="{% url 'calorieTracker:add_calorie_entry' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Add Entry</button>
-</form>
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEntryModal">
+    Add Entry
+</button>
+
+<!-- Modal for Adding Entry -->
+<div class="modal fade" id="addEntryModal" tabindex="-1" aria-labelledby="addEntryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addEntryModalLabel">Add Calorie Entry</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form for adding a new calorie entry -->
+                <form method="POST" action="{% url 'calorieTracker:add_calorie_entry' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Save Entry</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 {% endblock %}
