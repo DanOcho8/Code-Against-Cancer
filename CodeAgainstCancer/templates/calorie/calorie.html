@@ -6,16 +6,25 @@
 
 {% block content %}
 
+
+
+<h2>Your Calorie Intake for {{ selected_date }}</h2>
+
 <form method="GET" action="{% url 'calorieTracker:calorie_tracker' %}">
     <input type="date" name="date" value="{{ selected_date }}">
     <button type="submit">View</button>
 </form>
 
-<h2>Your Calorie Intake for {{ selected_date }}</h2>
 <p>Total Calories: {{ total_calories }}</p>
+
 <ul>
     {% for entry in calorie_entries %}
-        <li>{{ entry.food_item.name }} - {{ entry.amount_in_grams }}g - {{ entry.calculated_calories }} calories</li>
+        <li>
+            {{ entry.food_item.name }} - {{ entry.amount_in_grams }}g - {{ entry.calculated_calories }} calories
+            <a href="{% url 'calorieTracker:delete_calorie_entry' entry.id %}?date={{ selected_date }}" onclick="return confirm('Are you sure you want to delete this entry?');">
+                <img src="{% static 'images/trash.png' %}" alt="Delete" style="width: 16px; height: 16px;">
+            </a>
+        </li>
     {% endfor %}
 </ul>
 
@@ -24,7 +33,8 @@
     Add Entry
 </button>
 
-<!-- Modal for Adding Entry -->
+
+
 <div class="modal fade" id="addEntryModal" tabindex="-1" aria-labelledby="addEntryModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -33,9 +43,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Form for adding a new calorie entry -->
                 <form method="POST" action="{% url 'calorieTracker:add_calorie_entry' %}">
                     {% csrf_token %}
+                    <input type="hidden" name="date" value="{{ selected_date }}">
                     {{ form.as_p }}
                     <button type="submit" class="btn btn-primary">Save Entry</button>
                 </form>
@@ -46,6 +56,5 @@
         </div>
     </div>
 </div>
-
 
 {% endblock %}
