@@ -7,16 +7,16 @@
   }
 </style>
   <div class="container mt-5">
-    <h1 class="text-center" style="color: #115c75; text-shadow: 0 0 10px #e9eced, 0 0 20px #3495b5;">Create New Thread</h1>
+    <h1 class="text-center" style="color: #36788e; text-shadow: 0 0 10px #36788e, 0 0 20px #3495b5;">Create New Thread</h1>
     <div class="row justify-content-center">
       <div class="col-md-8">
         <form method="post" class="shadow-lg p-4 rounded">
           {% csrf_token %}
-          <div class="mb-3" style="color: #115c75;">
+          <div class="mb-3" style="color: #36788e;">
             {{ form.title.label_tag }}
             {{ form.title }}
           </div>
-          <div class="mb-3" style="color: #115c75;">
+          <div class="mb-3" style="color: #36788e;">
             {{ form.content.label_tag }}
             {{ form.content }}
           </div>
