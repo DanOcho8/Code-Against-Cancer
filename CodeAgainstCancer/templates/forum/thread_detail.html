@@ -10,12 +10,12 @@
 </style>
 <div class="thread-detail" style="text-align: center; margin-top: 20px; color: white;">
   <!-- Thread Title -->
-  <h1 style="font-size: 36px; font-weight: bold; margin-bottom: 30px; color: #115c75; text-shadow: 0 0 10px #e9eced, 0 0 20px #3495b5;">
+  <h1 style="font-size: 36px; font-weight: bold; margin-bottom: 30px; color: #36788e; text-shadow: 0 0 10px #36788e, 0 0 20px #3495b5;">
     {{ object.title }}
   </h1>
 
   <div class="posts-section" style="text-align: left; width: 60%; margin: 0 auto">
-    <h2 style="font-size: 28px; font-weight: bold; margin-bottom: 20px; color: #115c75;">
+    <h2 style="font-size: 28px; font-weight: bold; margin-bottom: 20px; color: #36788e;">
       Posts:
     </h2>
 
@@ -183,7 +183,7 @@
   <hr style="width: 60%; margin: 40px auto" />
 
   <!-- Add New Post Section -->
-  <div class="add-post" style="color: #115c75; width: 60%; margin: 0 auto; text-align: left; margin-top:-20px; padding-bottom: 60px;">
+  <div class="add-post" style="color: #36788e; width: 60%; margin: 0 auto; text-align: left; margin-top:-20px; padding-bottom: 60px;">
     <h3 style="font-size: 24px; font-weight: bold; margin-bottom: 20px">Add New Post</h3>
     <form method="post" action="{% url 'create_post' pk=object.pk %}">
       {% csrf_token %}

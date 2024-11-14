@@ -504,8 +504,8 @@ ul.forums a:hover {
   font-size: 36px;
   font-weight: bold;
   margin-bottom: 30px;
-  color: #115c75; 
-  text-shadow: 0 0 10px #e9eced, 0 0 20px #3495b5; /* Glow effect */
+  color: #36788e; 
+  text-shadow: 0 0 10px #36788e, 0 0 20px #3495b5; /* Glow effect */
 }
 
 /* Button Styling */
@@ -546,7 +546,7 @@ ul.forums a:hover {
 /* Thread Title Styling */
 .thread-title {
   font-size: 24px;
-  color: #115c75; 
+  color: #36788e; 
   text-decoration: none;
   font-weight: bold;
 }
