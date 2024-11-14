@@ -8,6 +8,9 @@ Web Based Application for Cancer Patients Who Need Nutritional Guidance
 - Django
 - Bootstrap
 - YouTube API
+- Google Maps API
+- SQLite
+- JavaScript
 
 ## Prerequisites
 
@@ -164,3 +167,4 @@ This command stops and removes the containers, networks, and any temporary volum
 - Daniel Ochoa
 - Edward Cardenas
 - Kalila Ingco
+- David Vu
