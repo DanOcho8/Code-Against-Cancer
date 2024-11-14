@@ -3,14 +3,19 @@
 {% load static %}
 
 {% block content %}
-<div class="thread-detail" style="text-align: center; margin-top: 20px">
+<style>
+  body{
+    background-color: #1a1a1a;
+  }
+</style>
+<div class="thread-detail" style="text-align: center; margin-top: 20px; color: white;">
   <!-- Thread Title -->
-  <h1 style="font-size: 36px; font-weight: bold; margin-bottom: 30px">
+  <h1 style="font-size: 36px; font-weight: bold; margin-bottom: 30px; color: #115c75; text-shadow: 0 0 10px #e9eced, 0 0 20px #3495b5;">
     {{ object.title }}
   </h1>
 
   <div class="posts-section" style="text-align: left; width: 60%; margin: 0 auto">
-    <h2 style="font-size: 28px; font-weight: bold; margin-bottom: 20px">
+    <h2 style="font-size: 28px; font-weight: bold; margin-bottom: 20px; color: #115c75;">
       Posts:
     </h2>
 
@@ -64,7 +69,7 @@
 {% endif %}
 
         <!-- Reply Button -->
-        <a href="javascript:void(0);" class="reply-button" style="color: #3498db; font-size: 14px; cursor: pointer; text-decoration: underline;" onclick="toggleReplyForm('{{ post.pk }}')">
+        <a href="javascript:void(0);" class="reply-button" style="color: #115c75; font-size: 14px; cursor: pointer; text-decoration: underline;" onclick="toggleReplyForm('{{ post.pk }}')">
           Reply
         </a>
 
@@ -74,7 +79,7 @@
             {% csrf_token %}
             {{ reply_form.as_p }}
             <input type="hidden" name="post_id" value="{{ post.pk }}" />
-            <button type="submit" style="background-color: #033241; color: white; padding: 8px 16px; border-radius: 5px; font-size: 14px; border: none; cursor: pointer;">
+            <button type="submit" style="background: linear-gradient(135deg, #033241, #0d7377); color: white; padding: 8px 16px; border-radius: 5px; font-size: 14px; border: none; cursor: pointer;">
               Reply
             </button>
           </form>
@@ -113,7 +118,7 @@
       </div>
       {% endif %}
       <!-- Nested Reply Button -->
-      <a href="javascript:void(0);" class="reply-button" style="color: #3498db; font-size: 14px; cursor: pointer; text-decoration: underline;" onclick="toggleReplyForm('{{ reply.pk }}')">
+      <a href="javascript:void(0);" class="reply-button" style="color: #115c75; font-size: 14px; cursor: pointer; text-decoration: underline;" onclick="toggleReplyForm('{{ reply.pk }}')">
         Reply
       </a>
 
@@ -123,7 +128,7 @@
           {% csrf_token %}
           {{ reply_form.as_p }}
           <input type="hidden" name="post_id" value="{{ reply.pk }}" />
-          <button type="submit" style="background-color: #033241; color: white; padding: 8px 16px; border-radius: 5px; font-size: 14px; border: none; cursor: pointer;">
+          <button type="submit" style="background: linear-gradient(135deg, #033241, #0d7377); color: white; padding: 8px 16px; border-radius: 5px; font-size: 14px; border: none; cursor: pointer;">
             Reply
           </button>
         </form>
@@ -178,12 +183,12 @@
   <hr style="width: 60%; margin: 40px auto" />
 
   <!-- Add New Post Section -->
-  <div class="add-post" style="width: 60%; margin: 0 auto; text-align: left; margin-top:-20px; padding-bottom: 60px;">
+  <div class="add-post" style="color: #115c75; width: 60%; margin: 0 auto; text-align: left; margin-top:-20px; padding-bottom: 60px;">
     <h3 style="font-size: 24px; font-weight: bold; margin-bottom: 20px">Add New Post</h3>
     <form method="post" action="{% url 'create_post' pk=object.pk %}">
       {% csrf_token %}
       {{ post_form.as_p }}
-      <button type="submit" style="background-color: #033241; color: white; padding: 10px 20px; border-radius: 5px; font-size: 16px; border: none; cursor: pointer;">
+      <button type="submit" style="background: linear-gradient(135deg, #033241, #0d7377); color: white; padding: 10px 20px; border-radius: 5px; font-size: 16px; border: none; cursor: pointer;">
         Submit
       </button>
     </form>
