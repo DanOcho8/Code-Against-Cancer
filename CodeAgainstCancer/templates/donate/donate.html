@@ -17,6 +17,7 @@
             padding: 10px;
             background-color: #f8f9fa;
             margin: 5px;
+            height: 125px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             font-size: 0.9em;
@@ -35,40 +36,13 @@
         .donation-card p {
             font-size: 0.85em;
         }
-
-        /* Style for circular amount buttons */
-        .amount-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        
-        .amount-button {
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #007bff;
-            color: white;
-            font-weight: bold;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 0.9em;
-        }
-
-        .amount-button:hover {
-            background-color: #0056b3;
-        }
     </style>
 </head>
 
 <section class="container pt-4">
     <div class="row">
         <!-- Left column with image and description -->
-        <div class="col-lg-6">
+        <div class="col-lg-5">
             <div class="donation-img">
                 <img src="https://www.foundationformmc.org/img/home/donate.jpg" alt="Donate" class="img-fluid">
             </div>
@@ -78,10 +52,10 @@
         </div>
 
         <!-- Right column with donation cards and buttons -->
-        <div class="col-lg-6">
+        <div class="col-lg-6 ms-3">
             <h2 class="text-center mt-5">Your Donation Will Provide...</h2>
 
-            <!-- Donation Cards as Buttons in Two Rows (3 on top, 2 on bottom) -->
+            <!-- Donation Cards Buttons-->
             <div class="row donation-row" style="flex-wrap: nowrap;">
                 <button class="col-sm-4 donation-card" onclick="window.location.href='donate_form'">
                     <h3>$50</h3>
@@ -114,18 +88,108 @@
         </div>
     </div>
 
-    <h3 class="text-center mt-5">Select an Amount</h3>
+    <h3 class="text-center mt-5">Contributors</h3>
+<hr style="border-top: 1px solid #ddd;">
+<p class="text-muted small mb-0" style="text-align: center;">Thank you for your incredible generosity!</p>
 
-    <!-- Circular Amount Buttons -->
-    <div class="amount-buttons">
-        <div class="amount-button">$100</div>
-        <div class="amount-button">$150</div>
-        <div class="amount-button">$250</div>
-        <div class="amount-button">$500</div>
-        <div class="amount-button">$1,000</div>
-        <div class="amount-button">$5,000</div>
-        <div class="amount-button">Other</div>
+<div class="container my-4">
+    <div class="row justify-content-center">
+        <!-- Card 1 -->
+        <div class="col-md-4 mb-4 d-flex justify-content-center">
+            <div class="card p-4 shadow-sm" style="max-height: 90%; width: 100%; max-width: 300px; background-color: #f8f9fa; border-radius: 10px;">
+                <div class="card-body text-center">
+                    <h4 class="card-title font-weight-bold" style="color: #007bff;">Anonymous</h4>
+                    <p class="card-text mb-2" style="font-size: 1.5em; color: #28a745;"><strong>$500</strong></p>
+                    <p class="card-text text-muted">"Inspiring message"</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="col-md-4 mb-4 d-flex justify-content-center">
+            <div class="card p-4 shadow-sm" style="max-height: 90%; width: 100%; max-width: 300px; background-color: #f8f9fa; border-radius: 10px;">
+                <div class="card-body text-center">
+                    <h4 class="card-title font-weight-bold" style="color: #007bff;">Anonymous</h4>
+                    <p class="card-text mb-2" style="font-size: 1.5em; color: #28a745;"><strong>$300</strong></p>
+                    <p class="card-text text-muted">"2nd message."</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="col-md-4 mb-4 d-flex justify-content-center">
+            <div class="card p-4 shadow-sm" style="max-height: 90%; width: 100%; max-width: 300px; background-color: #f8f9fa; border-radius: 10px;">
+                <div class="card-body text-center">
+                    <h4 class="card-title font-weight-bold" style="color: #007bff;">Anonymous</h4>
+                    <p class="card-text mb-2" style="font-size: 1.5em; color: #28a745;"><strong>$250</strong></p>
+                    <p class="card-text text-muted">"Another inspiring message."</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="col-md-4 mb-4 d-flex justify-content-center">
+            <div class="card p-4 shadow-sm" style="max-height: 90%; width: 100%; max-width: 300px; background-color: #f8f9fa; border-radius: 10px;">
+                <div class="card-body text-center">
+                    <h4 class="card-title font-weight-bold" style="color: #007bff;">Anonymous</h4>
+                    <p class="card-text mb-2" style="font-size: 1.5em; color: #28a745;"><strong>$450</strong></p>
+                    <p class="card-text text-muted">"Keep fighting!"</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 5 -->
+        <div class="col-md-4 mb-4 d-flex justify-content-center">
+            <div class="card p-4 shadow-sm" style="max-height: 90%; width: 100%; max-width: 300px; background-color: #f8f9fa; border-radius: 10px;">
+                <div class="card-body text-center">
+                    <h4 class="card-title font-weight-bold" style="color: #007bff;">Anonymous</h4>
+                    <p class="card-text mb-2" style="font-size: 1.5em; color: #28a745;"><strong>$700</strong></p>
+                    <p class="card-text text-muted">"Proud to support this cause."</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 6 -->
+        <div class="col-md-4 mb-4 d-flex justify-content-center">
+            <div class="card p-4 shadow-sm" style="max-height: 90%; width: 100%; max-width: 300px; background-color: #f8f9fa; border-radius: 10px;">
+                <div class="card-body text-center">
+                    <h4 class="card-title font-weight-bold" style="color: #007bff;">Anonymous</h4>
+                    <p class="card-text mb-2" style="font-size: 1.5em; color: #28a745;"><strong>$350</strong></p>
+                    <p class="card-text text-muted">"Every little bit counts."</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 7 -->
+        <div class="col-md-4 mb-4 d-flex justify-content-center">
+            <div class="card p-4 shadow-sm" style="max-height: 90%; width: 100%; max-width: 300px; background-color: #f8f9fa; border-radius: 10px;">
+                <div class="card-body text-center">
+                    <h4 class="card-title font-weight-bold" style="color: #007bff;">Anonymous</h4>
+                    <p class="card-text mb-2" style="font-size: 1.5em; color: #28a745;"><strong>$600</strong></p>
+                    <p class="card-text text-muted">"Together we can make a difference."</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 8 -->
+        <div class="col-md-4 mb-4 d-flex justify-content-center">
+            <div class="card p-4 shadow-sm" style="max-height: 90%; width: 100%; max-width: 300px; background-color: #f8f9fa; border-radius: 10px;">
+                <div class="card-body text-center">
+                    <h4 class="card-title font-weight-bold" style="color: #007bff;">Anonymous</h4>
+                    <p class="card-text mb-2" style="font-size: 1.5em; color: #28a745;"><strong>$800</strong></p>
+                    <p class="card-text text-muted">"Thank you for all you do!"</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 9 -->
+        <div class="col-md-4 mb-4 d-flex justify-content-center">
+            <div class="card p-4 shadow-sm" style="max-height: 90%; width: 100%; max-width: 300px; background-color: #f8f9fa; border-radius: 10px;">
+                <div class="card-body text-center">
+                    <h4 class="card-title font-weight-bold" style="color: #007bff;">Anonymous</h4>
+                    <p class="card-text mb-2" style="font-size: 1.5em; color: #28a745;"><strong>$1000</strong></p>
+                    <p class="card-text text-muted">"Your support means the world."</p>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+
+</div>
+
+    
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

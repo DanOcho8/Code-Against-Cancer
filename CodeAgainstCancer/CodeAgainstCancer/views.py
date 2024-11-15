@@ -196,14 +196,17 @@ def donate(request):
     return render(request, "donate/donate.html")
 
 def donate_form(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = DonorForm(request.POST)
         if form.is_valid():
-            form.save()
-            # Additional success actions can be added here
+            form.save()  # Save the form data
+            print("Redirecting to donate page...")
+            return redirect('donate')  # Redirect to the donate page after successful submission
     else:
-        form = DonorForm()
+        form = DonorForm()  # Display an empty form for GET requests
+
     return render(request, 'donate/donate_form.html', {'form': form})
+
 
 
 # @cache_results(timeout=300)

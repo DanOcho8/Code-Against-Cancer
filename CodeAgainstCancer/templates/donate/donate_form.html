@@ -44,21 +44,13 @@
                 <div class="card-body p-5">
                     <h3 class="text-center mb-4">We are grateful for your contribution!</h3>
                     
-                    <form method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
+                    <form action="{% url 'donate_form' %}" method="POST" enctype="multipart/form-data">                        {% csrf_token %}
                         
                         <!-- Donor's Name -->
                         <div class="mb-3">
                             {{ form.name.label_tag }}
                             {{ form.name|add_class:"form-control" }}
                             {{ form.name.errors }}
-                        </div>
-
-                        <!-- Donation Amount -->
-                        <div class="mb-3">
-                            {{ form.amount.label_tag }}
-                            {{ form.amount|add_class:"form-control" }}
-                            {{ form.amount.errors }}
                         </div>
 
                         <!-- Message Field -->
@@ -69,7 +61,7 @@
                         </div>
 
                         <!-- Submit Button -->
-                        <button type="submit" class="btn btn-primary w-100 mt-4">Submit Donation</button>
+                        <button type="submit" class="btn btn-primary w-100 mt-4">Submit</button>
                     </form>
                 </div>
             </div>

@@ -190,14 +190,14 @@ class UpdateUserForm(UserChangeForm):
 class DonorForm(forms.ModelForm):
     class Meta:
         model = Donor
-        fields = ['name', 'message', 'amount']  # Include only the fields needed
+        fields = ['name', 'message']
         labels = {
-            'name': 'Your Name',
-            'message': 'Leave a Message (optional)',
+            'name': 'Who is leaving this generous donation?',
+            'message': 'Would you like to leave a message? (optional)',
             'amount': 'Donation Amount'
         }
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your name'}),
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Anonymous'}),
             'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter a message'}),
             'amount': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter donation amount'}),
         }
