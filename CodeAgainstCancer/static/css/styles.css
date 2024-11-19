@@ -558,3 +558,36 @@ ul.forums a:hover {
   margin-top: 10px;
 }
 
+.thread-item {
+  padding: 20px;
+  background-color: #333;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.delete-thread-form {
+  position: absolute !important;
+  right: 10px !important;
+  bottom: 10px !important;
+}
+
+.delete-thread-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.delete-thread-btn:hover {
+  transform: scale(1.1); /* Slight hover animation */
+}
+
+.delete-icon {
+  width: 20px;
+  height: 20px;
+}
