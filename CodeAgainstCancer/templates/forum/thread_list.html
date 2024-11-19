@@ -3,26 +3,36 @@
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 {% block content %}
 <style>
-  body{
+  body {
     background-color: #1a1a1a;
   }
 </style>
-  <div class="threads-container">
-    <h1 class="threads-title">Threads</h1>
 
-    <a href="{% url 'create_thread' %}" class="create-thread-btn">
-      Create New Thread
-    </a>
+<div class="threads-container">
+  <h1 class="threads-title">Threads</h1>
 
-    <div class="thread-list">
-      {% for thread in object_list %}
-        <div class="thread-item">
-          <a href="{{ thread.get_absolute_url }}" class="thread-title">
-            {{ thread.title }}
-          </a>
-          <p class="thread-date">Created on: {{ thread.created_at|date:"F j, Y" }}</p>
-        </div>
-      {% endfor %}
-    </div>
+  <a href="{% url 'create_thread' %}" class="create-thread-btn">
+    Create New Thread
+  </a>
+
+  <div class="thread-list">
+    {% for thread in object_list %}
+      <div class="thread-item">
+        <a href="{{ thread.get_absolute_url }}" class="thread-title">
+          {{ thread.title }}
+        </a>
+        <p class="thread-date">Created on: {{ thread.created_at|date:"F j, Y" }}</p>
+        
+        {% if user == thread.author %}
+          <form action="{% url 'delete_thread' thread.pk %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="delete-thread-btn" onclick="return confirm('Are you sure you want to delete this thread?');">
+              <img src="{% static 'images/trash.png' %}" alt="Delete Thread" class="delete-icon">
+            </button>
+          </form>
+{% endif %}
+      </div>
+    {% endfor %}
   </div>
+</div>
 {% endblock %}

@@ -21,6 +21,7 @@ class CreateThreadForm(forms.ModelForm):
 
     def save(self, user, commit=True):  
         thread = super().save(commit=False)
+        thread.author = user 
         if commit:
             thread.save()
             # Create the first post as part of the thread and assign the author
