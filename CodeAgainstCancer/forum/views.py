@@ -59,8 +59,7 @@ def create_thread(request):
     if request.method == 'POST':
         form = CreateThreadForm(request.POST)
         if form.is_valid():
-            # Save the form and pass the user for the post's author
-            thread = form.save(user=request.user)
+            form.save(user=request.user)  # Pass the current user
             return redirect('thread_list')
     else:
         form = CreateThreadForm()
@@ -124,4 +123,13 @@ def delete_post(request, post_id):
         return redirect('thread_detail', pk=post.thread.pk)
     else:
         return redirect('thread_detail', pk=post.thread.pk)
+
+def delete_thread(request, pk):
+    thread = get_object_or_404(Thread, pk=pk)
+    
+    if request.user == thread.author:
+        thread.delete()
+        return redirect('thread_list')
+    else:
+        return HttpResponseForbidden("You are not allowed to delete this thread.")
     
