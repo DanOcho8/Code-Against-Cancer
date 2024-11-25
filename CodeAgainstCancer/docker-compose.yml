@@ -19,7 +19,7 @@ services:
   app_prod:
     build: .
     ports:
-      - 80:8000
+      - "8000:8000"
     volumes:
       - .:/app
     image: code-against-cancer:prod
