@@ -243,6 +243,8 @@ SECURE_SSL_REDIRECT = False # Redirects all HTTP requests to HTTPS when not in D
 X_FRAME_OPTIONS = "DENY"  # Prevents the site from being displayed in an iframe, mitigating clickjacking attacks.
 SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents the browser from guessing (sniffing) the MIME type, reducing the risk of security vulnerabilities.
 
+CSRF_TRUSTED_ORIGINS = [f"https://{host.strip()}" for host in os.getenv("ALLOWED_HOSTS", "").split(",") if host.strip()]
+
 # # HTTP Strict Transport Security (HSTS)
 SECURE_HSTS_SECONDS = (
     31536000 if not DEBUG else 0
