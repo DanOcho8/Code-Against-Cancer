@@ -238,9 +238,8 @@ SESSION_COOKIE_SECURE = (
 )  # Ensures session cookies are only sent over HTTPS, protecting them from being exposed over HTTP.
 SECURE_BROWSER_XSS_FILTER = True  # Enables the browser's built-in XSS filter to help prevent cross-site scripting (XSS) attacks.
 SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents the browser from guessing (sniffing) the MIME type, reducing the risk of security vulnerabilities.
-SECURE_SSL_REDIRECT = (
-    not DEBUG
-)  # Redirects all HTTP requests to HTTPS when not in DEBUG mode (production only).
+# Note: Set to false because Nginx will be in charge of redirecting HTTP to HTTPS
+SECURE_SSL_REDIRECT = False # Redirects all HTTP requests to HTTPS when not in DEBUG mode (production only).
 X_FRAME_OPTIONS = "DENY"  # Prevents the site from being displayed in an iframe, mitigating clickjacking attacks.
 SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents the browser from guessing (sniffing) the MIME type, reducing the risk of security vulnerabilities.
 
