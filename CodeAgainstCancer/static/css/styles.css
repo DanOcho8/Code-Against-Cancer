@@ -6,6 +6,11 @@
   transition: 0.3s all ease-in-out;
 }
 
+html {
+  scroll-behavior: smooth;
+  background-color: #033241;
+}
+
 /* reset styles  */
 ul {
   margin: 0;
@@ -158,7 +163,6 @@ a:focus {
   text-decoration-color: #ff69b4;
 }
 
-
 .sidebar a:hover {
   color: rgb(175, 174, 184);
 }
@@ -281,12 +285,12 @@ a:focus {
 /* styles to make the footer sticky */
 main {
   min-height: calc(100dvh - 140px);
+  background-color: white;
 }
 
 /* styles for footer  */
 footer {
   background-color: #033241;
-  /* font-size: 1rem; */
   font-size: 16px;
 }
 
@@ -323,7 +327,6 @@ footer {
   height: 3px;
   width: 30%;
   margin-bottom: 10px;
-  /* margin-top: -20px; */
 }
 
 .footer-logo {
@@ -384,23 +387,60 @@ footer {
 /* end of styles for homepage */
 
 /* styles for profile page  */
+.profile {
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  border: 1px solid #f1f1f1;
+  border-radius: 10px;
+}
+
 .profile p {
   color: #4f4f4f;
+  font-size: 1rem;
+}
+
+.profile h2 {
+  font-weight: bold;
 }
 
 .profile h3 {
-  /* color: white; */
-  font-weight: bolder;
+  font-size: 1.5rem;
+  font-weight: normal;
 }
 
 .profile h4 {
   color: #4f4f4f;
+  font-weight: lighter;
+  font-size: 1rem;
 }
 
-.profile img {
+/* .profile img {
   width: 250px;
   height: 250px;
   border-radius: 50%;
+} */
+
+/* Gradient border container */
+.gradient-img {
+  position: relative;
+  display: inline-block;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(-45deg, #add8e6, #ff69b4, #add8e6, #c71585);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  box-sizing: border-box;
+}
+
+/* Profile image */
+.profile-pic {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  background-color: white;
+  z-index: 1;
 }
 
 .edit-button {
@@ -496,7 +536,7 @@ ul.forums a:hover {
   text-align: center;
   padding-bottom: 60px;
   margin-top: 20px;
-  color: white; 
+  color: white;
 }
 
 /* Title Styling */
@@ -504,7 +544,7 @@ ul.forums a:hover {
   font-size: 36px;
   font-weight: bold;
   margin-bottom: 30px;
-  color: #36788e; 
+  color: #36788e;
   text-shadow: 0 0 10px #36788e, 0 0 20px #3495b5; /* Glow effect */
 }
 
@@ -546,7 +586,7 @@ ul.forums a:hover {
 /* Thread Title Styling */
 .thread-title {
   font-size: 24px;
-  color: #36788e; 
+  color: #36788e;
   text-decoration: none;
   font-weight: bold;
 }
@@ -577,7 +617,7 @@ ul.forums a:hover {
   border: none;
   padding: 0;
   cursor: pointer;
-  display: flex; 
+  display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 0.2s ease;
