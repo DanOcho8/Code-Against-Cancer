@@ -61,6 +61,11 @@ ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 CSRF_TRUSTED_ORIGINS = [ 
     "ALLOWED_HOSTS"
 ]
+if DEBUG:
+    ALLOWED_HOSTS = ["*"]  # Allow all hosts in development mode
+else:
+    ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+
 
 # API keys
 YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
