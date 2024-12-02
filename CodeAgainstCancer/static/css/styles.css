@@ -121,14 +121,14 @@ a:focus {
   z-index: 1000000000;
 }
 
-.navbar-brand,
-.nav-link {
+.main-nav .navbar-brand,
+.main-nav .nav-link {
   color: white;
   transition: all 0.3s ease-in-out;
 }
 
-.nav-link:hover,
-.navbar-brand:hover {
+.main-nav .nav-link:hover,
+.main-nav .navbar-brand:hover {
   color: white;
   background: linear-gradient(
     to right,
