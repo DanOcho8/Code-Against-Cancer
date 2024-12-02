@@ -27,6 +27,7 @@ a:hover,
 a:focus {
   text-decoration: none;
   color: inherit;
+  color: green;
 }
 
 /* styles for forms  */
@@ -113,14 +114,84 @@ a:focus {
 }
 /* end of styles for forms  */
 
-.navbar a {
-  font-family: "Montserrat", sans-serif !important;
-  color: #ffffff;
-}
+/* beginning of navbar styles  */
+
 .navbar {
-  background-color: #033241 !important;
+  background-color: #033241;
   z-index: 1000000000;
 }
+
+.navbar-brand,
+.nav-link {
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-link:hover,
+.navbar-brand:hover {
+  color: white;
+  background: linear-gradient(
+    to right,
+    #add8e6 20%,
+    #ff69b4 40%,
+    #6192a2 50%,
+    #ee60a7 70%,
+    #add8e6 80%
+  );
+  background-size: 300% 100%;
+  animation: gradient 5s ease-in-out infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.logout-button {
+  border: 1px solid #add8e6;
+  color: #add8e6;
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  text-transform: capitalize;
+}
+
+.logout-button:hover {
+  background-color: #add8e6;
+  color: #033241;
+}
+
+.login-button {
+  border: 1px solid #add8e6;
+  color: #add8e6;
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  text-transform: capitalize;
+}
+
+.login-button:hover {
+  background-color: #add8e6;
+  color: #033241;
+}
+
+.signup-button {
+  border: 1px solid #add8e6;
+  color: white;
+  background-color: #add8e6;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  text-transform: capitalize;
+}
+
+.signup-button:hover {
+  color: #033241;
+}
+/* end of navbar styles  */
 
 .small-input {
   width: 50%;
@@ -230,6 +301,7 @@ a:focus {
 .btn-google {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   background-color: #4285f4;
   color: white;
   border: 2px solid #4285f4;

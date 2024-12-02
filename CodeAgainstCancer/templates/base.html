@@ -85,17 +85,23 @@
                 <form class="d-flex justify-content-center">
                     {% if user.is_authenticated %}
                         <button
-                                class="btn btn-outline-primary"
+                                class="logout-button"
                                 formaction="{% url 'logout' %}"
                         >
-                            Logout
+                            log out
                         </button>
                     {% else %}
-                        <div>
-                            <a class="btn btn-outline-primary" href="{% url 'login' %}"
-                            >Log In</a
+                        <div class="btn-container">
+                            <a class="login-button" href="{% url 'login' %}"
                             >
-                            <a class="btn btn-primary" href="{% url 'signup' %}">Sign Up</a>
+
+                                Log In
+                            </a
+                            >
+                            <a class="signup-button" href="{% url 'signup' %}">
+
+                                Sign Up
+                            </a>
                         </div>
                     {% endif %}
                 </form>
