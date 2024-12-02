@@ -703,3 +703,17 @@ ul.forums a:hover {
   width: 20px;
   height: 20px;
 }
+
+/* recipes page styles  */
+.recipe-image {
+  height: 300px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.card-title.text-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* end of recipe page styles  */
