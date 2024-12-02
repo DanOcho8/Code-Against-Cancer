@@ -20,37 +20,46 @@
         </div>
     {% endif %}
 
-    <div class="d-flex justify-content-center align-items-center mb-0">
-        <button class="btn btn-primary me-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample1" aria-expanded="false" aria-controls="collapseWidthExample1">
-            Dietary Restrictions
-        </button>
-        
-        <button class="btn btn-primary me-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false" aria-controls="collapseWidthExample2">
-            Recommended Foods
-        </button>
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample3" aria-expanded="false" aria-controls="collapseWidthExample3">
-            Special Instructions
-        </button>
-    </div>
+  <div class="container my-4">
+    <!-- Tab Navigation -->
+    <ul class="nav nav-pills justify-content-center" id="contentTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="tab1" data-bs-toggle="tab" data-bs-target="#content1" type="button" role="tab" aria-controls="content1" aria-selected="true">
+                Dietary Restrictions
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab2" data-bs-toggle="tab" data-bs-target="#content2" type="button" role="tab" aria-controls="content2" aria-selected="false">
+                Recommended Foods
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab3" data-bs-toggle="tab" data-bs-target="#content3" type="button" role="tab" aria-controls="content3" aria-selected="false">
+                Special Instructions
+            </button>
+        </li>
+    </ul>
 
-        <div class="d-flex" style="min-height: 100px;">
-            <div class="collapse collapse-horizontal mb-2 mt-2" id="collapseWidthExample1">
-                <div class="card card-body" style="width: 500px; height: 180px;">
-                    Dietary Restrictions: {{ dietary_restrictions }}
-                </div>
-            </div>
-            <div class="collapse collapse-horizontal mb-2 mt-2" id="collapseWidthExample2">
-                <div class="card card-body" style="width: 500px; height: 180px;">
-                    Recommended Foods: {{ recommended_foods }}
-                </div>
-            </div>
-            <div class="collapse collapse-horizontal mb-2 mt-2" id="collapseWidthExample3">
-                <div class="card card-body" style="width: 500px; height: 180px;">
-                    Special Instructions: {{ special_instructions }}
-                </div>
+    <!-- Tab Content -->
+    <div class="tab-content mt-3">
+        <div class="tab-pane fade show active" id="content1" role="tabpanel" aria-labelledby="tab1">
+            <div class="card card-body">
+            {{ dietary_restrictions }}
             </div>
         </div>
-    
+        <div class="tab-pane fade" id="content2" role="tabpanel" aria-labelledby="tab2">
+            <div class="card card-body">
+                {{ recommended_foods }}
+            </div>
+        </div>
+        <div class="tab-pane fade" id="content3" role="tabpanel" aria-labelledby="tab3">
+            <div class="card card-body">
+                {{ special_instructions }}
+            </div>
+        </div>
+    </div>
+</div>
+
  <!--this is the search bar/ passes the users search result as a query in the url to the url.py then to the search recipes in views.py-->
  <!--uses GET as a HTTP method when sending form data as a query paramter to the url/ action tell where to send it too-->
     <form class="d-flex" method="GET" action="{% url 'searchRecipes' %}">
