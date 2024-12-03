@@ -6,9 +6,9 @@
 // locate you.
 let map, infoWindow;
 
-function initMap() {
+ function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -34.397, lng: 150.644 },
+    center: { lat: 34.05473, lng: -118.24515 },
     zoom: 6,
   });
   infoWindow = new google.maps.InfoWindow();
@@ -43,6 +43,75 @@ function initMap() {
     }
   });
 
+  //information in infowindow for each marker
+const locations = [
+  {
+    position: { lat: 34.17485, lng:-118.05792 },
+    title: "Cancer Support Community Greater San Gabriel Valley",
+    content:`
+      <div id="content">
+        <h3>Cancer Support Community Greater San Gabriel Valley</h3>
+        <div id="bodyContent">
+          <p><b>Address: 331 W Sierra Madre Blvd, Sierra Madre, CA 91024 </b></p> 
+          <p><b>Phone Number: +1(626)796-1083 </b><p>
+          <p><b>Website: <a href="http://www.cancersupportsgv.org/">http://www.cancersupportsgv.org</a></b><p>
+        </div>
+      </div>
+    `,
+  },
+  {
+    position: { lat: 34.04823, lng: -118.45677 },
+    title: "Cancer Support Community Los Angeles",
+    content: `
+      <div id="content">
+        <h3>Cancer Support Community Los Angeles</h3>
+        <div id="bodyContent">
+          <p><b>Address: 1990 S Bundy Dr #100, Los Angeles, CA 90025 </b></p> 
+          <p><b>Phone Number: +1(310)314-2555 </b><p>
+          <p><b>Website: <a href="http://cancersupportla.org/">https://www.cancersupportsgv.org</a></b><p>
+        </div>
+      </div>
+    `,
+  },
+  {
+    position: { lat: 33.80630, lng: -118.32809 },
+    title: "Cancer Support Community  South Bay",
+    content: `
+    <div id="content">
+      <h3>Cancer Support Community South Bay</h3>
+      <div id="bodyContent">
+        <p><b>Address: 2601 Airport Dr #100, Torrance, CA 90505 </b></p> 
+        <p><b>Phone Number: +1(310)376-3550 </b><p>
+        <p><b>Website: <a href="http://cscsouthbay.org/">http://cscsouthbay.org</a></b><p>
+      </div>
+    </div>
+  `,
+  },
+  // Add more locations as needed
+];
+
+
+//for each marker, put info in marker and title
+locations.forEach((location) => {
+  const infowindow = new google.maps.InfoWindow({
+    content: location.content,
+    ariaLabel: location.title, 
+  });
+
+  const marker = new google.maps.Marker({
+    position: location.position,
+    map,
+    title: location.title,
+  });
+
+  //when clicked, open infowindow
+  marker.addListener("click", () => {
+    infowindow.open({
+      anchor: marker,
+      map,
+    });
+  });
+});
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -56,4 +125,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 window.initMap = initMap;
+
+
+
 
