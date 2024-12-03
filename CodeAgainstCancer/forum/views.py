@@ -59,8 +59,7 @@ def create_thread(request):
     if request.method == 'POST':
         form = CreateThreadForm(request.POST)
         if form.is_valid():
-            # Save the form and pass the user for the post's author
-            thread = form.save(user=request.user)
+            form.save(user=request.user)  # Pass the current user
             return redirect('thread_list')
     else:
         form = CreateThreadForm()
@@ -91,20 +90,28 @@ def reply_to_post(request, post_id):
     if request.method == 'POST':
         content = request.POST.get('content')
         post = get_object_or_404(Post, id=post_id)
-        thread = post.thread  # Retrieve the thread from the post
+        thread = post.thread
 
         # Create the new reply
-        Post.objects.create(
+        reply = Post.objects.create(
             content=content,
             author=request.user,
-            thread=thread,  # Associate reply with the thread
-            parent_post=post  # Associate reply with the parent post (original post or another reply)
+            thread=thread,
+            parent_post=post
         )
 
-        # Redirect to the thread detail view after creating the reply
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':  # Check for AJAX request
+            return JsonResponse({
+                'success': True,
+                'reply': reply.content,
+                'author': reply.author.username,
+                'created_at': reply.created_at.strftime('%B %d, %Y, %I:%M %p'),
+                'parent_post_id': post.id
+            })
+        
+        # If not an AJAX request, redirect as usual
         return redirect('thread_detail', pk=thread.pk)
 
-    # Optionally handle non-POST requests (e.g., invalid access)
     return redirect('thread_detail', pk=post.thread.pk)
 
 
@@ -116,4 +123,13 @@ def delete_post(request, post_id):
         return redirect('thread_detail', pk=post.thread.pk)
     else:
         return redirect('thread_detail', pk=post.thread.pk)
+
+def delete_thread(request, pk):
+    thread = get_object_or_404(Thread, pk=pk)
+    
+    if request.user == thread.author:
+        thread.delete()
+        return redirect('thread_list')
+    else:
+        return HttpResponseForbidden("You are not allowed to delete this thread.")
     

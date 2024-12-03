@@ -3,7 +3,8 @@
 <html lang="en">
 <head>
     {% load static %}
-    <meta charset="utf-8"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}CodeAgainstCancer{% endblock %}</title>
     <link
             rel="icon"
@@ -38,7 +39,7 @@
 
 <body>
 <header class="z-3 sticky-top position-sticky">
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-dark navbar-expand-lg main-nav">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'home' %}">
                 <img
@@ -66,30 +67,44 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'about' %}">About Us</a>
                     </li>
-                    {% comment %} {% if user.is_authenticated %}
+                    <li class="nav-iem">
+                        <a class="nav-link" href="{% url 'donate' %}">Donation</a>
+                    </li>
+                    {% if user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'resources' %}">Resources</a>
                         </li>
-                    {% endif %} {% endcomment %}
+                 
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'searchRecipes' %}">Recipes</a>
                     </li>
+               
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'calorieTracker:calorie_tracker' %}">Calorie Tracker</a>
+                    </li>
+                 {% endif %}
 
                 </ul>
                 <form class="d-flex justify-content-center">
                     {% if user.is_authenticated %}
                         <button
-                                class="btn btn-outline-primary"
+                                class="logout-button"
                                 formaction="{% url 'logout' %}"
                         >
-                            Logout
+                            log out
                         </button>
                     {% else %}
-                        <div>
-                            <a class="btn btn-outline-primary" href="{% url 'login' %}"
-                            >Log In</a
+                        <div class="btn-container">
+                            <a class="login-button" href="{% url 'login' %}"
                             >
-                            <a class="btn btn-primary" href="{% url 'signup' %}">Sign Up</a>
+
+                                Log In
+                            </a
+                            >
+                            <a class="signup-button" href="{% url 'signup' %}">
+
+                                Sign Up
+                            </a>
                         </div>
                     {% endif %}
                 </form>
@@ -104,16 +119,30 @@
             class="sidebar z-2 position-fixed d-flex"
     >
         <ul class="d-flex flex-column justify-content-center">
+            {#            <li>#}
+            {#                <a href="{% url 'home' %}" class="py-4">#}
+            {#                    <i class="material-icons">home</i>#}
+            {#                    <span class="icon-text">Home</span>#}
+            {#                </a>#}
+            {#            </li>#}
             <li>
-                <a href="{% url 'home' %}" class="py-4">
-                    <i class="material-icons">home</i>
-                    <span class="icon-text">Home</span>
+                <a href="{% url 'searchRecipes' %}" class="py-4">
+                    <i class="material-icons">
+                        restaurant_menu
+                    </i>
+                    <span class="icon-text">Recipes</span>
                 </a>
             </li>
             <li>
-                <a href="#" class="py-4">
+                <a href="{% url 'calorieTracker:calorie_tracker' %}" class="py-4">
                     <i class="material-icons">spa</i>
-                    <span class="icon-text">Diet Plan</span>
+                    <span class="icon-text">Calorie Tracker</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'profile' %}" class="py-4">
+                    <i class="material-icons">person</i>
+                    <span class="icon-text">My Profile</span>
                 </a>
             </li>
             <li>
@@ -126,12 +155,6 @@
                 <a href="{% url 'thread_list' %}" class="py-4">
                     <i class="material-icons">group</i>
                     <span class="icon-text">Forum</span>
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'profile' %}" class="py-4">
-                    <i class="material-icons">person</i>
-                    <span class="icon-text">My Profile</span>
                 </a>
             </li>
             <li>
@@ -175,8 +198,8 @@
                 </div>
                 <ul class="footer-list">
                     <li><a href="">Community Guidelines</a></li>
-                    <li><a href="">Privacy Policy</a></li>
-                    <li><a href="">Third Party Licenses</a></li>
+                    <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+                    <li><a href="{% url 'faq' %}">FAQ</a></li>
                     <li><a href="{% url 'contact' %}">Contact Us</a></li>
                 </ul>
             </div>

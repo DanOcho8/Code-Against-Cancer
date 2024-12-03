@@ -1,21 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+  body, main {
+    background-color: #1a1a1a;
+  }
+</style>
   <div class="container mt-5">
-    <h1 class="text-center">Create New Thread</h1>
+    <h1 class="text-center" style="color: #36788e; text-shadow: 0 0 10px #36788e, 0 0 20px #3495b5;">Create New Thread</h1>
     <div class="row justify-content-center">
       <div class="col-md-8">
         <form method="post" class="shadow-lg p-4 rounded">
           {% csrf_token %}
-          <div class="mb-3">
+          <div class="mb-3" style="color: #36788e;">
             {{ form.title.label_tag }}
             {{ form.title }}
           </div>
-          <div class="mb-3">
+          <div class="mb-3" style="color: #36788e;">
             {{ form.content.label_tag }}
             {{ form.content }}
           </div>
-          <button type="submit" class="btn btn-block" style="background-color: #033241; color: white;">Create Thread</button>
+          <button type="submit" class="btn btn-block" style="background: linear-gradient(135deg, #033241, #0d7377); color: white; padding: 10px 20px; border-radius: 5px;text-decoration: none; font-size: 16px; margin-bottom: 30px; display: inline-block;">Create Thread</button>
         </form>
       </div>
     </div>

@@ -8,14 +8,16 @@ import requests
 from accounts.models import UserProfile
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.messages import get_messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.mail import send_mail
+from smtplib import SMTPException
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
-from pyexpat.errors import messages
+#from pyexpat.errors import messages
 
 from .api_handlers import APIHandlerFactory
 from .forms import ContactForm
@@ -24,6 +26,11 @@ from .utils import LoggerSingleton, cache_results
 # Create a logger instance
 logger = LoggerSingleton()
 
+
+def single_error_message(request, message_text): #makes sure a specific error message is only showed once
+    """Ensure a unique error message is added only once."""
+    if message_text not in [msg.message for msg in get_messages(request)]:
+        messages.error(request, message_text)
 
 def user_logout(request):
     """
@@ -188,75 +195,90 @@ def donate(request):
     return render(request, "donate/donate.html")
 
 
-logger = logging.getLogger(__name__)
-
-
 # @cache_results(timeout=300)
 @login_required(login_url="login")
 def searchRecipes(request):
     user = request.user
-    # check if user is logged in
-    if not user.is_authenticated:
-        return redirect("login")
-
-    query = request.GET.get("query", "")  # gets search result from user
+    query = request.GET.get("query", "")
     page = int(request.GET.get("page", 1))
     from_recipes = (page - 1) * 6
-    to_recipes = page * 6  # this keeps track of up to 6 different recipes per page
+    to_recipes = page * 6
     recipes = []
     excluded_query = ""
 
-    if (
-        request.user.is_authenticated
-    ):  # Get the logged-in user's profile and excluded ingredients
-        user = request.user
-        user_profile = get_object_or_404(UserProfile, user=user)
 
-        json_path = os.path.join(
-            settings.BASE_DIR, "static/cancer_information.json"
-        )  # Load cancer-related information from the JSON file
-        with open(json_path, "r") as json_file:
-            cancer_data = json.load(json_file)
+    user_profile = get_object_or_404(UserProfile, user=user)
+    json_path = os.path.join(settings.BASE_DIR, "static/cancer_information.json")
+    with open(json_path, "r") as json_file:
+        cancer_data = json.load(json_file)
 
-        cancer_info = cancer_data.get(
-            user_profile.cancer_type, {}
-        )  # Get cancer-specific info, including excluded ingredients
-        excluded_ingredients = cancer_info.get("excluded_ingredients", [])
-
-        excluded_query = "&".join(
-            [f"excluded={ingredient}" for ingredient in excluded_ingredients]
-        )  # changes json info to url for api
-
-    if not query:  # load random recipes if no search result is inputted
-        logger.debug("No query provided. Fetching random recipes.")
-        random_offset = random.randint(
-            0, 1000
-        )  # Adjust range based on total number of recipes available
+    cancer_info = cancer_data.get(user_profile.cancer_type, {})
+    excluded_ingredients = cancer_info.get("excluded_ingredients", [])
+    dietary_retrictions = cancer_info.get("dietary_restrictions", "")
+    recommended_foods = cancer_info.get("recommended_foods", "")
+    special_instructions = cancer_info.get("special_instructions", "")
+    
+    if any(excluded in query for excluded in excluded_ingredients):
+        # Set an error message and skip the API call
+        single_error_message(request, "Your query includes an ingredient you should avoid. Please try again without it.")
+        context = {
+            "recipes": recipes,
+            "query": query,
+            "page": page,
+            "hasNextPage": False,
+            "hasPrevPage": False,
+            "excluded_ingredients": excluded_ingredients,
+            "dietary_restrictions": dietary_retrictions,
+            "recommended_foods": recommended_foods,
+            "special_instructions": special_instructions,
+        }
+        return render(request, "recipe/recipe.html", context)
+    
+    
+    excluded_query = "&".join([f"excluded={ingredient}" for ingredient in excluded_ingredients])
+    if not query:
+        random_offset = random.randint(0, 1000)
         url = f"https://api.edamam.com/search?q=recipe&app_id={settings.APP_ID}&app_key={settings.API_KEY}&from={random_offset}&to={random_offset + 6}&{excluded_query}"
     else:
-        # Fetch recipes based on the search query and also using from recipes and to recipes are used to get different recipes in 6 recipes per page
         url = f"https://api.edamam.com/search?q={query}&app_id={settings.APP_ID}&app_key={settings.API_KEY}&from={from_recipes}&to={to_recipes}&{excluded_query}"
-
-    response = requests.get(url)
-    data = response.json()
-    recipes = data.get("hits", [])
-
-    total_recipes = data.get("count", 0)
-    hasNextPage = to_recipes < total_recipes
-    hasPrevPage = from_recipes > 0
 
     context = {
         "recipes": recipes,
         "query": query,
         "page": page,
-        "hasNextPage": hasNextPage,
-        "hasPrevPage": hasPrevPage,
-        "excluded_ingredients": (
-            excluded_ingredients if request.user.is_authenticated else None
-        ),
+        "hasNextPage": False,  # Default values for error handling
+        "hasPrevPage": False,
+        "excluded_ingredients": excluded_ingredients,
+        "dietary_restrictions": dietary_retrictions,
+        "recommended_foods": recommended_foods,
+        "special_instructions": special_instructions,
     }
 
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            data = response.json()
+            recipes = data.get("hits", [])
+            total_recipes = data.get("count", 0)
+            hasNextPage = to_recipes < total_recipes
+            hasPrevPage = from_recipes > 0
+
+            context.update({
+                "recipes": recipes,
+                "hasNextPage": hasNextPage,
+                "hasPrevPage": hasPrevPage,
+            })
+        else:
+            single_error_message(request, "Unable to fetch recipes at this time. Please try again later")
+            logger.error(f"API request failed with a status code {response.status_code}: {response.text}")
+
+    except requests.exceptions.RequestException as e:
+        logger.error(f"API request failed: {e}")
+        single_error_message(request, "Unable to fetch recipes at this time due to network issues")
+        
+        
     return render(request, "recipe/recipe.html", context)
+
 
 
 def contact(request):
@@ -272,17 +294,35 @@ def contact(request):
                 "emails/email.html", {"name": name, "email": email, "content": content}
             )
             # Send the email using Django's send_mail function
-            send_mail(
-                "Contact Form Submission",
-                "This is the message from the contact form.",  # You might want to include the content here as well
-                settings.DEFAULT_FROM_EMAIL,  # Use the configured default from email
-                ["codeagainstcancer@outlook.com"],
-                html_message=html,
-                fail_silently=False,
-            )
+            try:
+                send_mail(
+                    "Contact Form Submission",
+                    "This is the message from the contact form.",
+                    settings.DEFAULT_FROM_EMAIL,
+                    ["codeagainstcancer@outlook.com"],
+                    html_message=html,
+                    fail_silently=False,
+                )
+                messages.success(request, "Your message has been sent successfully!")
+            except SMTPException as e:
+                messages.error(
+                    request,
+                    "We encountered an issue sending your email. Please try again later.",
+                )
+            except Exception as e:
+                messages.error(
+                    request,
+                    "An unexpected error occurred. Please try again later."
+                )
             return redirect("contact")  # Redirect back to the contact page
     else:
         form = ContactForm()  # Initialize an empty form
 
     # Render the contact form with context
     return render(request, "contact/contactform.html", {"form": form})
+
+def faq(request):
+    return render(request, "resources/faq.html")
+
+def privacy_policy(request):
+    return render(request, 'resources/privacy_policy.html')

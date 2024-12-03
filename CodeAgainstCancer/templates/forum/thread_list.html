@@ -1,22 +1,38 @@
 {% extends 'base.html' %}
-
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
 {% block content %}
-  <div class="threads-container" style="text-align: center; margin-top: 20px; padding-bottom: 60px;">
-    <h1 style="font-size: 36px; font-weight: bold; margin-bottom: 30px;">Threads</h1>
+<style>
+  body, main {
+    background-color: #1a1a1a;
+  }
+</style>
 
-    <a href="{% url 'create_thread' %}" style="background-color: #033241; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-size: 16px; margin-bottom: 30px; display: inline-block;">
-      Create New Thread
-    </a>
+<div class="threads-container">
+  <h1 class="threads-title">Threads</h1>
 
-    <div class="thread-list" style="display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 30px;">
-      {% for thread in object_list %}
-        <div class="thread-item" style="width: 60%; background-color: #f8f8f8; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-          <a href="{{ thread.get_absolute_url }}" style="font-size: 24px; color: #2c3e50; text-decoration: none; font-weight: bold;">
-            {{ thread.title }}
-          </a>
-          <p style="color: #7f8c8d; font-size: 14px; margin-top: 10px;">Created on: {{ thread.created_at|date:"F j, Y" }}</p>
-        </div>
-      {% endfor %}
-    </div>
+  <a href="{% url 'create_thread' %}" class="create-thread-btn">
+    Create New Thread
+  </a>
+
+  <div class="thread-list">
+    {% for thread in object_list %}
+      <div class="thread-item">
+        <a href="{{ thread.get_absolute_url }}" class="thread-title">
+          {{ thread.title }}
+        </a>
+        <p class="thread-date">Created on: {{ thread.created_at|date:"F j, Y" }}</p>
+        
+        {% if user == thread.author %}
+          <form action="{% url 'delete_thread' thread.pk %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="delete-thread-btn" onclick="return confirm('Are you sure you want to delete this thread?');">
+              <img src="{% static 'images/trash.png' %}" alt="Delete Thread" class="delete-icon">
+            </button>
+          </form>
+{% endif %}
+      </div>
+    {% endfor %}
   </div>
+</div>
 {% endblock %}
