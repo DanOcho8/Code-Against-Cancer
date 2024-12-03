@@ -46,7 +46,7 @@ let map, infoWindow;
   //information in infowindow for each marker
 const locations = [
   {
-    position: { lat: 34.17485, lng:-118.05792 },
+    position: { lat: 34.16207, lng:-118.05962 },
     title: "Cancer Support Community Greater San Gabriel Valley",
     content:`
       <div id="content">
@@ -60,7 +60,7 @@ const locations = [
     `,
   },
   {
-    position: { lat: 34.04823, lng: -118.45677 },
+    position: { lat: 34.03431, lng: -118.45574 },
     title: "Cancer Support Community Los Angeles",
     content: `
       <div id="content">
@@ -74,7 +74,7 @@ const locations = [
     `,
   },
   {
-    position: { lat: 33.80630, lng: -118.32809 },
+    position: { lat: 33.79347, lng: -118.32912 },
     title: "Cancer Support Community  South Bay",
     content: `
     <div id="content">
@@ -88,7 +88,7 @@ const locations = [
   `,
   },
   {
-    position: { lat: 35.24562, lng: -111.93421 },
+    position: { lat: 33.46979, lng: -112.06667 },
     title: "Cancer Support Community Arizona",
     content: `
     <div id="content">
@@ -97,6 +97,160 @@ const locations = [
         <p><b>Address: 360 E Palm Ln, Phoenix, AZ 85004 </b></p> 
         <p><b>Phone Number: +1(602)712-1006 </b><p>
         <p><b>Website: <a href="http://www.cscaz.org/">http://www.cscaz.org</a></b><p>
+      </div>
+    </div>
+  `,
+  },
+  {
+    position: { lat: 45.67820, lng: -111.05146 },
+    title: "Cancer Support Community Montana",
+    content: `
+    <div id="content">
+      <h3>Cancer Support Community Montana</h3>
+      <div id="bodyContent">
+        <p><b>Address: 102 S 11th Ave, Bozeman, MT 59715 </b></p> 
+        <p><b>Phone Number: +1(406)582-1600 </b><p>
+        <p><b>Website: <a href="https://cancersupportmontana.org/">https://cancersupportmontana.org</a></b><p>
+      </div>
+    </div>
+  `,
+  },
+  {
+    position: { lat: 32.87895, lng: -96.76287 },
+    title: "Cancer Support Community North Texas",
+    content: `
+    <div id="content">
+      <h3>Cancer Support Community North Texas</h3>
+      <div id="bodyContent">
+        <p><b>Address: 8196 Walnut Hill Ln LL10, Dallas, TX 75231 </b></p> 
+        <p><b>Phone Number: +1(214)345-8230 </b><p>
+        <p><b>Website: <a href="http://cancersupporttexas.org/">http://cancersupporttexas.org</a></b><p>
+      </div>
+    </div>
+  `,
+  },
+  {
+    position: { lat: 38.60054, lng: -90.45217 },
+    title: "Cancer Support Community of Greater St Louis",
+    content: `
+    <div id="content">
+      <h3>Cancer Support Community of Greater St Louis</h3>
+      <div id="bodyContent">
+        <p><b>Address: 1058 Old Des Peres Rd, Des Peres, MO 63131 </b></p> 
+        <p><b>Phone Number: +1(314)238-2000 </b><p>
+        <p><b>Website: <a href="http://www.cancersupportstl.org/">http://www.cancersupportstl.org</a></b><p>
+      </div>
+    </div>
+  `,
+  },
+  {
+    position: { lat: 33.90701, lng: -84.34935 },
+    title: "Cancer Support Community Atlanta (Wellness Community Atlanta)",
+    content: `
+    <div id="content">
+      <h3>Cancer Support Community Atlanta (Wellness Community Atlanta)</h3>
+      <div id="bodyContent">
+        <p><b>Address: in Center Pointe, 1100 Johnson Ferry Rd NE Bldg 2, Atlanta, GA 30342 </b></p> 
+        <p><b>Phone Number: +1(404)843-1880 </b><p>
+        <p><b>Website: <a href="http://www.cscatlanta.org/">http://www.cscatlanta.org</a></b><p>
+      </div>
+    </div>
+  `,
+  },
+  {
+    position: { lat: 37.59682, lng: -83.90259 },
+    title: "Cancer Support Community East Tennessee",
+    content: `
+    <div id="content">
+      <h3>Cancer Support Community East Tennessee</h3>
+      <div id="bodyContent">
+        <p><b>Address: 6204 Baum Dr, Knoxville, TN 37919 </b></p> 
+        <p><b>Phone Number: +1(865)546-4661 </b><p>
+        <p><b>Website: <a href="http://www.cancersupportet.org/">http://www.cancersupportet.org</a></b><p>
+      </div>
+    </div>
+  `,
+  },
+  {
+    position: { lat: 40.05280, lng: -83.05218 },
+    title: "Cancer Support Community Ohio",
+    content: `
+    <div id="content">
+      <h3>Cancer Support Community Ohio</h3>
+      <div id="bodyContent">
+        <p><b>Address: 1200 Old Henderson Rd, Columbus, OH 43220 </b></p> 
+        <p><b>Phone Number: +1(614)884-4673 </b><p>
+        <p><b>Website: <a href="https://www.cancersupportohio.org/">https://www.cancersupportohio.org</a></b><p>
+      </div>
+    </div>
+  `,
+  },
+  {
+    position: { lat: 42.25744, lng: -83.68135 },
+    title: "Cancer Support Community of Greater Ann Arbor",
+    content: `
+    <div id="content">
+      <h3>Cancer Support Community of Greater Ann Arbor</h3>
+      <div id="bodyContent">
+        <p><b>Address: 2010 Hogback Rd #3, Ann Arbor, MI 48105 </b></p> 
+        <p><b>Phone Number: +1(734)975-2500 </b><p>
+        <p><b>Website: <a href="https://www.cancersupportannarbor.org/">https://www.cancersupportannarbor.org</a></b><p>
+      </div>
+    </div>
+  `,
+  },
+  {
+    position: { lat: 37.93322, lng: -122.07271 },
+    title: "Cancer Support Community San Francisco Bay Area",
+    content: `
+    <div id="content">
+      <h3>Cancer Support Community San Francisco Bay Area</h3>
+      <div id="bodyContent">
+        <p><b>Address: 3276 McNutt Ave, Walnut Creek, CA 94597 </b></p> 
+        <p><b>Phone Number: +1(925)933-0107 </b><p>
+        <p><b>Website: <a href="http://www.cancersupport.net/">http://www.cancersupport.net</a></b><p>
+      </div>
+    </div>
+  `,
+  },
+  {
+    position: { lat: 37.28286, lng: -107.87803 },
+    title: "Cancer Support Community Southwest Colorado",
+    content: `
+    <div id="content">
+      <h3>Cancer Support Community Southwest Colorado</h3>
+      <div id="bodyContent">
+        <p><b>Address: 1701 Main Ave Suite C, Durango, CO 81301 </b></p> 
+        <p><b>Phone Number: +1(970)403-3711 </b><p>
+        <p><b>Website: <a href="http://www.cancersupportswco.org/">http://www.cancersupportswco.org</a></b><p>
+      </div>
+    </div>
+  `,
+  },
+  {
+    position: { lat: 40.72824, lng: -74.00382 },
+    title: "Red Door Community formerly Gilda's Club NYC",
+    content: `
+    <div id="content">
+      <h3>Red Door Community formerly Gilda's Club NYC</h3>
+      <div id="bodyContent">
+        <p><b>Address: 195 W Houston St, New York, NY 10014 </b></p> 
+        <p><b>Phone Number: +1(212)647-9700 </b><p>
+        <p><b>Website: <a href="http://www.reddoorcommunity.org/">http://www.reddoorcommunity.org</a></b><p>
+      </div>
+    </div>
+  `,
+  },
+  {
+    position: { lat: 41.91841, lng: -87.64821 },
+    title: "Imerman Angels",
+    content: `
+    <div id="content">
+      <h3>Imerman Angels</h3>
+      <div id="bodyContent">
+        <p><b>Address: 2001 N Halsted St, Chicago, IL 60614 </b></p> 
+        <p><b>Phone Number: +1(866)463-7626 </b><p>
+        <p><b>Website: <a href="http://www.imermanangels.org/">http://www.imermanangels.org</a></b><p>
       </div>
     </div>
   `,
