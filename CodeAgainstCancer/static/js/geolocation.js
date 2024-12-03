@@ -87,7 +87,20 @@ const locations = [
     </div>
   `,
   },
-  // Add more locations as needed
+  {
+    position: { lat: 35.24562, lng: -111.93421 },
+    title: "Cancer Support Community Arizona",
+    content: `
+    <div id="content">
+      <h3>Cancer Support Community Arizona</h3>
+      <div id="bodyContent">
+        <p><b>Address: 360 E Palm Ln, Phoenix, AZ 85004 </b></p> 
+        <p><b>Phone Number: +1(602)712-1006 </b><p>
+        <p><b>Website: <a href="http://www.cscaz.org/">http://www.cscaz.org</a></b><p>
+      </div>
+    </div>
+  `,
+  },
 ];
 
 
