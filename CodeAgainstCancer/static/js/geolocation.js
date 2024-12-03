@@ -255,6 +255,75 @@ const locations = [
     </div>
   `,
   },
+  {
+    position: { lat: 41.87839, lng: -87.65227 },
+    title: "National Ovarian Cancer Coalition",
+    content: `
+    <div id="content">
+      <h3>National Ovarian Cancer Coalition</h3>
+      <div id="bodyContent">
+        <p><b>Address: 1436 W Randolph St #201, Chicago, IL 60607 </b></p> 
+        <p><b>Phone Number: +1(312)226-9410 </b><p>
+        <p><b>Website: <a href="https://ovarian.org/">https://ovarian.org/</a></b><p>
+      </div>
+    </div>
+  `,
+  },
+  {
+    position: { lat: 47.67679, lng: -122.34985 },
+    title: "Cancer Lifeline",
+    content: `
+    <div id="content">
+      <h3>Cancer Lifeline</h3>
+      <div id="bodyContent">
+        <p><b>Address: 6522 Fremont Ave N, Seattle, WA 98103 </b></p> 
+        <p><b>Phone Number: +1(206)297-2100 </b><p>
+        <p><b>Website: <a href="https://www.cancerlifeline.org//">https://www.cancerlifeline.org</a></b><p>
+      </div>
+    </div>
+  `,
+  },
+  {
+    position: { lat: 43.15213, lng: -77.59635 },
+    title: "Cancer Support Community at Gilda's Club Rochester",
+    content: `
+    <div id="content">
+      <h3>Cancer Support Community at Gilda's Club Rochester</h3>
+      <div id="bodyContent">
+        <p><b>Address: 255 Alexander St, Rochester, NY 14607 </b></p> 
+        <p><b>Phone Number: +1(585)423-9700 </b><p>
+      </div>
+    </div>
+  `,
+  },
+  {
+    position: { lat: 33.03833, lng: -117.23865 },
+    title: "Cancer Angels of San Diego",
+    content: `
+    <div id="content">
+      <h3>Cancer Angels of San Diego</h3>
+      <div id="bodyContent">
+        <p><b>Address: 2240 Encinitas Blvd #D Box 327, Encinitas, CA </b></p> 
+        <p><b>Phone Number: +1(585)423-9700 </b><p>
+        <p><b>Website: <a href="http://www.cancerangelsofsandiego.org/contact">http://www.cancerangelsofsandiego.org/contact</a></b><p>
+      </div>
+    </div>
+  `,
+  },
+  {
+    position: { lat: 33.51959, lng: -117.16751 },
+    title: "Michelle's Place Cancer Resource Center",
+    content: `
+    <div id="content">
+      <h3>Michelle's Place Cancer Resource Center</h3>
+      <div id="bodyContent">
+        <p><b>Address: 41669 Winchester Rd Ste 101, Temecula, CA 92590 </b></p> 
+        <p><b>Phone Number: +1(951)699-5455 </b><p>
+        <p><b>Website: <a href="https://www.michellesplace.org/">https://www.michellesplace.org</a></b><p>
+      </div>
+    </div>
+  `,
+  },
 ];
 
 
