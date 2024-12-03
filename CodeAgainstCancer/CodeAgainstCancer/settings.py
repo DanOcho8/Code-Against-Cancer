@@ -274,6 +274,7 @@ CSP_SCRIPT_SRC = (
     "'self'",  # Allow scripts from the same origin
     "https://cdn.jsdelivr.net",  # Bootstrap scripts (if any in the future)
     "https://code.jquery.com",  # jQuery CDN
+    "https://maps.googleapis.com",  # Allow Google Maps scripts
     "'unsafe-inline'",  # TODO: we should remove this and also remove inline scripts
 )
 CSP_FONT_SRC = (
