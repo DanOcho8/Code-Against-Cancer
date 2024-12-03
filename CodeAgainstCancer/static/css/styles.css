@@ -27,7 +27,6 @@ a:hover,
 a:focus {
   text-decoration: none;
   color: inherit;
-  color: green;
 }
 
 /* styles for forms  */
@@ -47,7 +46,11 @@ a:focus {
 
 .form-wrap {
   background-color: #fff;
-  padding: 70px;
+  /* padding: 70px; */
+}
+
+.subtitle {
+  color: #a9a9a9;
 }
 
 .form-wrap form * {
@@ -112,7 +115,60 @@ a:focus {
 .errorlist {
   color: #ff4d4d;
 }
+
+.forgot-password {
+  color: #10182f;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  display: block;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+  color: #ff69b4;
+}
 /* end of styles for forms  */
+
+/* styles for sign up form especifically for area code
+just moving the code from the style tag here  */
+.area-code-section {
+  flex-direction: column;
+  display: flex;
+  width: 100%;
+}
+
+/* Area code and phone number container */
+.phone-number-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.area-code-container {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+}
+
+/* Area code dropdown */
+.area-code-dropdown {
+  max-width: 70px;
+}
+
+/* Area code input */
+.area-code-input {
+  max-width: 60px;
+}
+
+.phone-input {
+  flex: 1;
+  width: 100%;
+}
+/* end  */
 
 /* beginning of navbar styles  */
 
@@ -430,7 +486,7 @@ footer {
   background: linear-gradient(-45deg, #add8e6, #ff69b4, #add8e6, #c71585);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
-  min-height: calc(100dvh - 140px);
+  min-height: calc(100dvh - 60px);
 }
 
 @keyframes gradient {
@@ -455,6 +511,20 @@ footer {
 .home-img {
   max-width: 400px;
   height: auto;
+}
+
+.learn-button {
+  border: 1px solid #033241;
+  color: #033241;
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  text-transform: capitalize;
+}
+
+.learn-button:hover {
+  background-color: #033241;
+  color: white;
 }
 /* end of styles for homepage */
 
@@ -486,12 +556,6 @@ footer {
   font-weight: lighter;
   font-size: 1rem;
 }
-
-/* .profile img {
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-} */
 
 /* Gradient border container */
 .gradient-img {
