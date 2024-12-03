@@ -324,6 +324,64 @@ const locations = [
     </div>
   `,
   },
+  {
+    position: { lat: 35.55402, lng: -120.71798 },
+    title: "Cancer Support Community -- California Central Coast",
+    content: `
+    <div id="content">
+      <h3>Cancer Support Community -- California Central Coast</h3>
+      <div id="bodyContent">
+        <p><b>Address: 1051 Las Tablas Rd, Templeton, CA 93465 </b></p> 
+        <p><b>Phone Number: +1(805)238-4411 </b><p>
+        <p><b>Website: <a href="http://www.cscslo.org/">http://www.cscslo.org</a></b><p>
+      </div>
+    </div>
+  `,
+  },
+  {
+    position: { lat: 48.21658, lng: -114.32359 },
+    title: "Logan Health Cancer Support Services",
+    content: `
+    <div id="content">
+      <h3>Logan Health Cancer Support Services</h3>
+      <div id="bodyContent">
+        <p><b>Address: 343 Sunnyview Ln, Kalispell, MT 59901 </b></p> 
+        <p><b>Phone Number: +1(406)752-0130 </b><p>
+        <p><b>Website: <a href="https://www.logan.org/services/cancer-care/cancer-support-services/">https://www.logan.org/services/cancer-care/cancer-support-services</a></b><p>
+      </div>
+    </div>
+  `,
+  },
+  {
+    position: { lat: 34.38047, lng: -118.53615 },
+    title: "Circle of Hope Inc",
+    content: `
+    <div id="content">
+      <h3>Circle of Hope Inc</h3>
+      <div id="bodyContent">
+        <p><b>Address: 23033 Lyons Ave #3, Newhall, CA 91321 </b></p> 
+        <p><b>Phone Number: +1(661)254-5218 </b><p>
+        <p><b>Website: <a href="http://circleofhopeinc.org/">http://circleofhopeinc.org</a></b><p>
+      </div>
+    </div>
+  `,
+  },
+  {
+    position: { lat: 40.64035, lng: -75.44262 },
+    title: "Cancer Support Community",
+    content: `
+    <div id="content">
+      <h3>Cancer Support Community</h3>
+      <div id="bodyContent">
+        <p><b>Address: 944 Marcon Blvd #110, Allentown, PA 18109 </b></p> 
+        <p><b>Phone Number: +1(610)861-7555 </b><p>
+        <p><b>Website: <a href="http://www.cancersupportglv.org/">http://www.cancersupportglv.org</a></b><p>
+      </div>
+    </div>
+  `,
+  },
+ 
+  
 ];
 
 
