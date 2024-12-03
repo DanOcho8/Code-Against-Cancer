@@ -2,235 +2,187 @@
 {% load static %}
 {% load widget_tweaks %}
 
-{% block title %}Sign Up for CodeAgainstCancer{% endblock %}
+{% block title %}Sign Up{% endblock %}
 
 {% block content %}
-<style>
-    html, body {
-      width: 100%;
-      height: 100%;
-    }
+    <div class="gradient-bg d-flex flex-column align-items-center justify-content-center">
+        <div class="container py-4 col-md-8">
+            <div class="shadow-wrap card">
+                <div class="card shadow ">
+                    <div class="card-body p-md-4">
+                        <h3 class="text-center mb-4">Create Your Account Today!</h3>
 
-    body {
-        background: linear-gradient(-45deg, #add8e6, #ff69b4, #add8e6, #c71585);
-        background-size: 400% 400%;
-        animation: gradient 15s ease infinite;
-    }
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
 
-    @keyframes gradient {
-        0% {
-            background-position: 0% 50%;
-        }
-        50% {
-            background-position: 100% 50%;
-        }
-        100% {
-            background-position: 0% 50%;
-        }
-    }
-
-  /* Area code and phone number container */
-.phone-number-container {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-}
-
-.area-code-container {
-    display: flex;
-    align-items: center;
-}
-
-/* Area code dropdown */
-.area-code-dropdown {
-    width: 70px;
-    flex: 0 0 auto;
-}
-
-/* Area code input */
-.area-code-input {
-    width: 60px;
-    flex: 0 0 auto;
-    margin-left: 5px;
-}
-</style>
-
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow mb-5">
-                <div class="card-body p-5">
-                    <h3 class="text-center mb-4">Sign Up for CodeAgainstCancer</h3>
-
-                    <form method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-
-                        <!-- Username -->
-                        <div class="mb-3">
-                            {{ form.username.label_tag }}
-                            {{ form.username|add_class:"form-control" }}
-                            {{ form.username.errors }}
-                        </div>
-
-                        <!-- First Name and Last Name side by side -->
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                {{ form.first_name.label_tag }}
-                                {{ form.first_name|add_class:"form-control" }}
-                                {{ form.first_name.errors }}
+                            <!-- Username -->
+                            <div class="mb-3">
+                                {{ form.username.label_tag }}
+                                {{ form.username|add_class:"form-control" }}
+                                {{ form.username.errors }}
                             </div>
-                            <div class="col-md-6 mb-3">
-                                {{ form.last_name.label_tag }}
-                                {{ form.last_name|add_class:"form-control" }}
-                                {{ form.last_name.errors }}
+
+                            <!-- First Name and Last Name side by side -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    {{ form.first_name.label_tag }}
+                                    {{ form.first_name|add_class:"form-control" }}
+                                    {{ form.first_name.errors }}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    {{ form.last_name.label_tag }}
+                                    {{ form.last_name|add_class:"form-control" }}
+                                    {{ form.last_name.errors }}
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Email -->
-                        <div class="mb-3">
-                            {{ form.email.label_tag }}
-                            {{ form.email|add_class:"form-control" }}
-                            {{ form.email.errors }}
-                        </div>
+                            <!-- Email -->
+                            <div class="mb-3">
+                                {{ form.email.label_tag }}
+                                {{ form.email|add_class:"form-control" }}
+                                {{ form.email.errors }}
+                            </div>
 
-                        <div class="mb-3" style="flex-grow: 1;">
-                            <div class="phone-number-container">
-                                <!-- Area Code Section -->
-                                <div class="area-code-section">
-                                    <label for="area-code-dropdown">Area Code</label>
-                                    <div class="area-code-container">
-                                        <!-- Dropdown -->
-                                        <select class="form-control area-code-dropdown" id="area-code-dropdown">
-                                            <option value="">Select</option>
-                                            {% for code, country in area_code_choices %}
-                                                <option value="{{ code }}">{{ country }}</option>
-                                            {% endfor %}
-                                        </select>
-                                        <!-- Area code input -->
-                                        {{ form.area_code|add_class:"form-control area-code-input" }}
+                            <div class="mb-3">
+                                <div class="phone-number-container">
+                                    <!-- Area Code Section -->
+                                    <div class="area-code-section">
+                                        <label for="area-code-dropdown">Phone Number</label>
+                                        <div class="area-code-container">
+                                            <!-- Dropdown -->
+                                            <select class="form-control area-code-dropdown" id="area-code-dropdown">
+                                                <option value="">&#9660;</option>
+                                                {% for code, country in area_code_choices %}
+                                                    <option value="{{ code }}">{{ country }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <!-- Area code input -->
+                                            {{ form.area_code|add_class:"form-control area-code-input" }}
+                                            {#<div class="number-section">#}
+                                            <!-- Phone Number Section -->
+                                            {# <label for="id_phone_number">Phone Number</label>#}
+                                            {{ form.phone_number|add_class:"form-control phone-input" }}
+                                            {#</div>#}
+                                        </div>
                                     </div>
+
                                 </div>
-                        
-                                <!-- Phone Number Section -->
-                                <div class="mb-3" style="flex-grow: 1;">
-                                    <label for="id_phone_number">Phone Number</label>
-                                    {{ form.phone_number|add_class:"form-control phone-input" }}
+
+                                <!-- Error Messages -->
+                                {{ form.area_code.errors }}
+                                {{ form.phone_number.errors }}
+                            </div>
+
+                            <!-- Password1 and Password2 -->
+                            <div class="mb-3">
+                                {{ form.password1.label_tag }}
+                                {{ form.password1|add_class:"form-control" }}
+                                {{ form.password1.errors }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form.password2.label_tag }}
+                                {{ form.password2|add_class:"form-control" }}
+                                {{ form.password2.errors }}
+                            </div>
+
+                            <!-- Cancer Type and Cancer Stage side by side -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    {{ form.cancer_type.label_tag }}
+                                    {{ form.cancer_type|add_class:"form-control" }}
+                                    {{ form.cancer_type.errors }}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    {{ form.cancer_stage.label_tag }}
+                                    {{ form.cancer_stage|add_class:"form-control" }}
+                                    {{ form.cancer_stage.errors }}
                                 </div>
                             </div>
-                        
-                            <!-- Error Messages -->
-                            {{ form.area_code.errors }}
-                            {{ form.phone_number.errors }}
-                        </div>
 
-                        <!-- Password1 and Password2 -->
-                        <div class="mb-3">
-                            {{ form.password1.label_tag }}
-                            {{ form.password1|add_class:"form-control" }}
-                            {{ form.password1.errors }}
-                        </div>
-
-                        <div class="mb-3">
-                            {{ form.password2.label_tag }}
-                            {{ form.password2|add_class:"form-control" }}
-                            {{ form.password2.errors }}
-                        </div>
-
-                        <!-- Cancer Type and Cancer Stage side by side -->
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                {{ form.cancer_type.label_tag }}
-                                {{ form.cancer_type|add_class:"form-control" }}
-                                {{ form.cancer_type.errors }}
+                            <!-- Date Diagnosed and Gender side by side -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    {{ form.date_diagnosed.label_tag }}
+                                    {{ form.date_diagnosed|add_class:"form-control" }}
+                                    {{ form.date_diagnosed.errors }}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    {{ form.gender.label_tag }}
+                                    {{ form.gender|add_class:"form-control" }}
+                                    {{ form.gender.errors }}
+                                </div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                {{ form.cancer_stage.label_tag }}
-                                {{ form.cancer_stage|add_class:"form-control" }}
-                                {{ form.cancer_stage.errors }}
+
+                            <!-- Profile Picture -->
+                            <div class="mb-3">
+                                {{ form.profile_pic.label_tag }}
+                                {{ form.profile_pic|add_class:"form-control-file" }}
+                                {{ form.profile_pic.errors }}
                             </div>
-                        </div>
 
-                        <!-- Date Diagnosed and Gender side by side -->
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                {{ form.date_diagnosed.label_tag }}
-                                {{ form.date_diagnosed|add_class:"form-control" }}
-                                {{ form.date_diagnosed.errors }}
+                            <!-- Consent to Text -->
+                            <div class="form-check mb-3">
+                                <input type="checkbox" class="form-check-input" id="consent_to_text"
+                                       name="consent_to_text" {% if form.consent_to_text.value %}checked{% endif %}>
+                                <label for="consent_to_text" class="form-check-label">I consent to receive text message
+                                    reminders</label>
+                                {{ form.consent_to_text.errors }}
                             </div>
-                            <div class="col-md-6 mb-3">
-                                {{ form.gender.label_tag }}
-                                {{ form.gender|add_class:"form-control" }}
-                                {{ form.gender.errors }}
-                            </div>
-                        </div>
 
-                        <!-- Profile Picture -->
-                        <div class="mb-3">
-                            {{ form.profile_pic.label_tag }}
-                            {{ form.profile_pic|add_class:"form-control-file" }}
-                            {{ form.profile_pic.errors }}
-                        </div>
-
-                        <!-- Consent to Text -->
-                        <div class="form-check mb-3">
-                            <input type="checkbox" class="form-check-input" id="consent_to_text" name="consent_to_text" {% if form.consent_to_text.value %}checked{% endif %}>
-                            <label for="consent_to_text" class="form-check-label">I consent to receive text message reminders</label>
-                            {{ form.consent_to_text.errors }}
-                        </div>
-
-                        <!-- Submit Button -->
-                        <button type="submit" class="btn btn-primary w-100 mt-4">Sign Up</button>
-                    </form>
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-primary rounded-pill w-100 mt-4">Sign Up</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const areaCodeInput = document.getElementById("id_area_code");
-    const areaCodeDropdown = document.getElementById("area-code-dropdown");
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const areaCodeInput = document.getElementById("id_area_code");
+            const areaCodeDropdown = document.getElementById("area-code-dropdown");
 
-    areaCodeDropdown.addEventListener("change", function() {
-        areaCodeInput.value = this.value;
-    });
+            areaCodeDropdown.addEventListener("change", function () {
+                areaCodeInput.value = this.value;
+            });
 
-    if (areaCodeInput.value === "") {
-        areaCodeInput.value = "+";
-    }
+            if (areaCodeInput.value === "") {
+                areaCodeInput.value = "+";
+            }
 
-    areaCodeInput.addEventListener("focus", function() {
-        if (!areaCodeInput.value.startsWith("+")) {
-            areaCodeInput.value = "+" + areaCodeInput.value;
-        }
-        setCaretPosition(areaCodeInput, areaCodeInput.value.length);
-    });
+            areaCodeInput.addEventListener("focus", function () {
+                if (!areaCodeInput.value.startsWith("+")) {
+                    areaCodeInput.value = "+" + areaCodeInput.value;
+                }
+                setCaretPosition(areaCodeInput, areaCodeInput.value.length);
+            });
 
-    areaCodeInput.addEventListener("keydown", function(e) {
-        if (areaCodeInput.selectionStart <= 1 && (e.key === "Backspace" || e.key === "ArrowLeft")) {
-            e.preventDefault();
-            setCaretPosition(areaCodeInput, 1);
-        }
-    });
+            areaCodeInput.addEventListener("keydown", function (e) {
+                if (areaCodeInput.selectionStart <= 1 && (e.key === "Backspace" || e.key === "ArrowLeft")) {
+                    e.preventDefault();
+                    setCaretPosition(areaCodeInput, 1);
+                }
+            });
 
-    areaCodeInput.addEventListener("input", function() {
-        if (!areaCodeInput.value.startsWith("+")) {
-            areaCodeInput.value = "+" + areaCodeInput.value.replace(/\+/g, "");
-        }
-    });
+            areaCodeInput.addEventListener("input", function () {
+                if (!areaCodeInput.value.startsWith("+")) {
+                    areaCodeInput.value = "+" + areaCodeInput.value.replace(/\+/g, "");
+                }
+            });
 
-    function setCaretPosition(ctrl, pos) {
-        if (ctrl.setSelectionRange) {
-            ctrl.setSelectionRange(pos, pos);
-        } else if (ctrl.createTextRange) {
-            var range = ctrl.createTextRange();
-            range.move("character", pos);
-            range.select();
-        }
-    }
-});
-</script>
+            function setCaretPosition(ctrl, pos) {
+                if (ctrl.setSelectionRange) {
+                    ctrl.setSelectionRange(pos, pos);
+                } else if (ctrl.createTextRange) {
+                    var range = ctrl.createTextRange();
+                    range.move("character", pos);
+                    range.select();
+                }
+            }
+        });
+    </script>
 
 {% endblock %}
 {% block footer %}{% endblock %}
