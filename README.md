@@ -105,6 +105,23 @@ Run automated test cases:
 ```bash
 python3 manage.py test
 ```
+For locust performance testing:
+1. make sure locust is installed, this is in requirements.txt so it should already be on your computer if you downloaded the requirements
+2. navigate to the locustfiles folder
+```bash
+cd locustfiles
+```
+3. Run the locust test with this command
+```bash
+locust 
+```
+4. Navigate to this website to input the test constraints
+http://localhost:8089/
+
+5. Put the websites URL into the host
+   example: http://127.0.0.1:8000/
+6. Run the test
+
 
 ## Using Docker Container
 
