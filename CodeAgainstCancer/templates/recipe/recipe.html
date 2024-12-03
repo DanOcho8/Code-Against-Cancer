@@ -46,17 +46,17 @@
             <!-- Tab Content -->
             <div class="tab-content mt-3">
                 <div class="tab-pane fade show active" id="content1" role="tabpanel" aria-labelledby="tab1">
-                    <div class="card card-body">
+                    <div class="card card-body lh-sm">
                         {{ dietary_restrictions }}
                     </div>
                 </div>
                 <div class="tab-pane fade" id="content2" role="tabpanel" aria-labelledby="tab2">
-                    <div class="card card-body">
+                    <div class="card card-body lh-sm">
                         {{ recommended_foods }}
                     </div>
                 </div>
                 <div class="tab-pane fade" id="content3" role="tabpanel" aria-labelledby="tab3">
-                    <div class="card card-body">
+                    <div class="card card-body lh-sm">
                         {{ special_instructions }}
                     </div>
                 </div>
@@ -76,7 +76,7 @@
             {% if recipes %}
                 <div class="row g-4">
                     {% for item in recipes %}
-                        <div class="col-6 col-md-4">
+                        <div class="col-12 col-sm-6 col-md-4">
                             <div class="card h-100">
                                 <!-- Image with consistent size -->
                                 <img src="{{ item.recipe.image }}" class="card-img-top recipe-image" alt="Recipe Image">
