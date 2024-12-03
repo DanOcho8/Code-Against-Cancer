@@ -7,7 +7,8 @@
     <div class="container">
         <h1 class="text-center pt-4">Your Cancer Support Hub</h1>
         <p>
-            Cancer is a difficult journey, but you don&#39;t have to navigate it alone. Whether you&#39;re seeking advice,
+            Cancer is a difficult journey, but you don&#39;t have to navigate it alone. Whether you&#39;re seeking
+            advice,
             emotional support, or practical guidance, we&#39;re committed to standing by your side at every stage. Our
             goal is to connect you with valuable resources that offer comfort, strength, and expert assistance tailored
             to your needs. Take a moment to explore the options below&mdash;there&#39;s help available to guide you
@@ -107,7 +108,8 @@
                                 data-bs-parent="#accordionExample"
                         >
                             <div class="accordion-body">
-                                <p class="mb-1">Here are some forums where you can find support and connect with others:</p>
+                                <p class="mb-1">Here are some forums where you can find support and connect with
+                                    others:</p>
                                 <ul class="forums">
                                     <li><a href="https://www.reddit.com/r/cancer/" target="_blank"
                                            rel="noopener noreferrer">Reddit: Cancer</a></li>
@@ -205,6 +207,8 @@
                             </div>
                         </div>
                     </div>
+
+
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button
@@ -224,15 +228,41 @@
                                 data-bs-parent="#accordionExample"
                         >
                             <div class="accordion-body">
-                                   <p> Below is a map of known cancer support groups. For more resources, check with your local hospital/medical center for potential support groups in your area!"</p>
+                                <p> Below is a map of known cancer support groups. For more resources, check with your
+                                    local hospital/medical center for potential support groups in your area!"</p>
                                 <h4>Google Maps</h4>
-                                   
-                                
-                                <!-- This is the code block for the geolocation map from the documentation-->
-                                   <div id="map"></div>
-                            
 
-                            </ul>
+
+                                <!-- This is the code block for the geolocation map from the documentation-->
+                                <div id="map"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                 <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button
+                                    class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapseFour"
+                                    aria-expanded="false"
+                                    aria-controls="collapseFour"
+                            >
+                                Other important websites
+                            </button>
+                        </h2>
+                        <div
+                                id="collapseFour"
+                                class="accordion-collapse collapse"
+                                data-bs-parent="#accordionExample"
+                        >
+                            <div class="accordion-body">
+                                <p>These platforms offer information on treatment options, guidance for managing
+                                    symptoms, and more. Click the links to explore further and find the help you
+                                    need.</p>
+                                <h4 class="mt-4">General Information</h4>
+                                <ul>
                                     <li><a href="https://www.cancer.org/" target="_blank"
                                            rel="noopener noreferrer">American Cancer Society</a></li>
                                     <li><a href="https://www.cancer.gov/" target="_blank"
@@ -300,9 +330,9 @@
     <!-- Include the external resources.js script -->
     <script src="{% static 'js/resources.js' %}"></script>
     <script
-              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSZlxZLx15HdGxztbTuUHCrnNQInwqraI&callback=initMap"
-              async defer
-       ></script>
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSZlxZLx15HdGxztbTuUHCrnNQInwqraI&callback=initMap"
+            async defer
+    ></script>
     <script src="{% static 'js/geolocation.js' %}"></script>
 {% endblock %}
 
