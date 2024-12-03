@@ -215,7 +215,7 @@
                                     aria-expanded="false"
                                     aria-controls="collapseThree"
                             >
-                                Other important websites
+                                Support Groups Near Me
                             </button>
                         </h2>
                         <div
@@ -224,13 +224,15 @@
                                 data-bs-parent="#accordionExample"
                         >
                             <div class="accordion-body">
-                                <p>
-                                    These platforms offer information on treatment options, guidance
-                                    for managing symptoms, and more. Click the links to explore further and find the
-                                    help you need.
-                                </p>
-                                <h4>General information</h4>
-                                <ul class="forums">
+                                   <p> Below is a map of known cancer support groups. For more resources, check with your local hospital/medical center for potential support groups in your area!"</p>
+                                <h4>Google Maps</h4>
+                                   
+                                
+                                <!-- This is the code block for the geolocation map from the documentation-->
+                                   <div id="map"></div>
+                            
+
+                            </ul>
                                     <li><a href="https://www.cancer.org/" target="_blank"
                                            rel="noopener noreferrer">American Cancer Society</a></li>
                                     <li><a href="https://www.cancer.gov/" target="_blank"
@@ -297,5 +299,11 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <!-- Include the external resources.js script -->
     <script src="{% static 'js/resources.js' %}"></script>
+    <script
+              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSZlxZLx15HdGxztbTuUHCrnNQInwqraI&callback=initMap"
+              async defer
+       ></script>
+    <script src="{% static 'js/geolocation.js' %}"></script>
 {% endblock %}
 
+ 
