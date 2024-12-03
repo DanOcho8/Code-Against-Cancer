@@ -2,42 +2,15 @@
 {% load static %}
 {% load widget_tweaks %}
 
-{% block title %}Sign Up for CodeAgainstCancer{% endblock %}
+{% block title %}Sign Up{% endblock %}
 
 {% block content %}
-    <style>
-        /* Area code and phone number container */
-        .phone-number-container {
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-        }
-
-        .area-code-container {
-            display: flex;
-            align-items: center;
-        }
-
-        /* Area code dropdown */
-        .area-code-dropdown {
-            width: 70px;
-            flex: 0 0 auto;
-        }
-
-        /* Area code input */
-        .area-code-input {
-            width: 60px;
-            flex: 0 0 auto;
-            margin-left: 5px;
-        }
-    </style>
-
     <div class="gradient-bg d-flex flex-column align-items-center justify-content-center">
         <div class="container py-4 col-md-8">
             <div class="shadow-wrap card">
                 <div class="card shadow ">
-                    <div class="card-body p-5">
-                        <h3 class="text-center mb-4">Sign Up for CodeAgainstCancer</h3>
+                    <div class="card-body p-md-4">
+                        <h3 class="text-center mb-4">Create Your Account Today!</h3>
 
                         <form method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
@@ -70,29 +43,29 @@
                                 {{ form.email.errors }}
                             </div>
 
-                            <div class="mb-3" style="flex-grow: 1;">
+                            <div class="mb-3">
                                 <div class="phone-number-container">
                                     <!-- Area Code Section -->
                                     <div class="area-code-section">
-                                        <label for="area-code-dropdown">Area Code</label>
+                                        <label for="area-code-dropdown">Phone Number</label>
                                         <div class="area-code-container">
                                             <!-- Dropdown -->
                                             <select class="form-control area-code-dropdown" id="area-code-dropdown">
-                                                <option value="">Select</option>
+                                                <option value="">&#9660;</option>
                                                 {% for code, country in area_code_choices %}
                                                     <option value="{{ code }}">{{ country }}</option>
                                                 {% endfor %}
                                             </select>
                                             <!-- Area code input -->
                                             {{ form.area_code|add_class:"form-control area-code-input" }}
+                                            {#<div class="number-section">#}
+                                            <!-- Phone Number Section -->
+                                            {# <label for="id_phone_number">Phone Number</label>#}
+                                            {{ form.phone_number|add_class:"form-control phone-input" }}
+                                            {#</div>#}
                                         </div>
                                     </div>
 
-                                    <!-- Phone Number Section -->
-                                    <div class="mb-3" style="flex-grow: 1;">
-                                        <label for="id_phone_number">Phone Number</label>
-                                        {{ form.phone_number|add_class:"form-control phone-input" }}
-                                    </div>
                                 </div>
 
                                 <!-- Error Messages -->
