@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Add Calorie Entry{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center pt-4">Add Calorie Entry</h1>
+    <p class="text-center">Search for food items and there nutritional info.</p>
+
+    <form class="d-flex mb-4" method="GET" action="{% url 'calorieTracker:add_entry' %}">
+        <input type="hidden" name="date" value="{{ selected_date }}">
+        <input class="form-control me-2" type="search" name="query" placeholder="Search for food items..." value="{{ query }}">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEntryModal">
+            Manual Food Entry
+        </button>
+    </form>
+
+    {% if messages %}
+        <div class="mt-3">
+            {% for message in messages %}
+                <div class="alert alert-danger text-center">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if results %}
+        <div class="container">
+            <ul class="list-group">
+                {% for item in results %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>{{ item.description }}</strong>
+                            <p>Calories per 100g: {{ item.calories }}</p>
+                            <p>Protein per 100g: {{item.protein}}g</p>
+                        </div>
+                        <form method="POST" action="{% url 'calorieTracker:add_entry' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="food_name" value="{{ item.description }}">
+                            <input type="hidden" name="calories_per_gram" value="{{ item.calories|floatformat:2 }}">
+                            <input type="hidden" name="date" value="{{ selected_date }}">
+                            <input class="form-control me-2" type="number" name="amount_in_grams" placeholder="Grams" required>
+                            <button class="btn btn-primary" type="submit">Add</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <p class="text-center">No results found. Try searching for a different food item.</p>
+    {% endif %}
+
+    <div class="modal fade" id="addEntryModal" tabindex="-1" aria-labelledby="addEntryModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addEntryModalLabel">Add Calorie Entry Manually</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{% url 'calorieTracker:add_entry' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="date" value="{{ selected_date }}">
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary">Save Entry</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

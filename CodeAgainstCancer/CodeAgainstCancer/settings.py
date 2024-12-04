@@ -68,7 +68,7 @@ YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
 
 APP_ID = os.getenv("APP_ID")
 API_KEY = os.getenv("API_KEY")
-
+USDA_API_KEY = os.getenv("USDA_API_KEY")
 # Application definition
 
 INSTALLED_APPS = [
