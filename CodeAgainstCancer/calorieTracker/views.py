@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django import forms
 from .forms import AddCalorieEntryForm
 from datetime import datetime, timedelta
+import requests
 
 @login_required(login_url="login")
 def calorie_tracker(request):
@@ -42,31 +43,68 @@ def calorie_tracker(request):
 
 @login_required(login_url="login")
 def add_calorie_entry(request):
-    if request.method == "POST":
+    user = request.user
+    selected_date = request.GET.get("date", timezone.now().date())
+    query = request.GET.get("query", "")
+    results = []
+
+    if request.method == "GET" and query:
+        # Handle USDA API search
+        api_url = f"https://api.nal.usda.gov/fdc/v1/foods/search?query={query}&api_key={settings.USDA_API_KEY}"
+        try:
+            response = requests.get(api_url)
+            if response.status_code == 200:
+                data = response.json()
+                results = [
+                    {
+                        "description": food["description"],
+                        "calories": next((n["value"] for n in food.get("foodNutrients", []) if n["nutrientName"] == "Energy"), 0),
+                        "picture": food.get("foodCategoryImage"),  # Assuming USDA provides image URLs here
+                    }
+                    for food in data.get("foods", [])
+                ]
+            else:
+                results = []
+        except requests.exceptions.RequestException:
+            results = []
+
+    elif request.method == "POST":
+        # Handle manual food item entry
         form = AddCalorieEntryForm(request.POST)
         if form.is_valid():
-            food_name = form.cleaned_data['food_name']
-            amount_in_grams = form.cleaned_data['amount_in_grams']
-            calories_per_gram = form.cleaned_data['calories_per_gram']
-            date = form.cleaned_data['date']
+            food_name = form.cleaned_data["food_name"]
+            amount_in_grams = form.cleaned_data["amount_in_grams"]
+            calories_per_gram = form.cleaned_data["calories_per_gram"]
+            date = form.cleaned_data["date"]
 
-            # Get or create the food item in the database
-            food_item, created = FoodItem.objects.get_or_create(name=food_name, defaults={'calories_per_gram': calories_per_gram})
+            # Add or retrieve the food item
+            food_item, created = FoodItem.objects.get_or_create(
+                name=food_name, defaults={"calories_per_gram": calories_per_gram}
+            )
 
-            # Calculate calories
+            # Calculate total calories
             calculated_calories = food_item.calories_per_gram * amount_in_grams
 
-
+            # Create the calorie entry
             CalorieIntakeEntry.objects.create(
                 user=request.user,
                 food_item=food_item,
                 amount_in_grams=amount_in_grams,
                 calculated_calories=calculated_calories,
-                date=date
+                date=date,
             )
 
             return redirect(f"{request.path.replace('/add/', '/calorie/')}?date={date}")
-    return redirect('calorieTracker:calorie_tracker')
+
+    context = {
+        "selected_date": selected_date,
+        "query": query,
+        "results": results,
+        "form": AddCalorieEntryForm(),
+    }
+
+    return render(request, "calorie/add_entry.html", context)
+
 
 @login_required(login_url="login")
 def delete_calorie_entry(request, entry_id):
