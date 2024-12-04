@@ -8,6 +8,7 @@ from django import forms
 from .forms import AddCalorieEntryForm
 from datetime import datetime, timedelta
 import requests
+from django.conf import settings
 
 @login_required(login_url="login")
 def calorie_tracker(request):
@@ -59,6 +60,7 @@ def add_calorie_entry(request):
                     {
                         "description": food["description"],
                         "calories": next((n["value"] for n in food.get("foodNutrients", []) if n["nutrientName"] == "Energy"), 0),
+                        "protein": next((n["value"] for n in food.get("foodNutrients", []) if n["nutrientName"] == "Protein"), 0),
                         "picture": food.get("foodCategoryImage"),  # Assuming USDA provides image URLs here
                     }
                     for food in data.get("foods", [])
