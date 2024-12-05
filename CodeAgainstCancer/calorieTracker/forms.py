@@ -18,6 +18,12 @@ class AddCalorieEntryForm(forms.Form):
         label="Calories per Gram",
         widget=forms.NumberInput(attrs={'placeholder': 'Enter calories per gram'})
     )
+    protein_per_gram = forms.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        label="Protein per Gram",
+        widget=forms.NumberInput(attrs={'placeholder': 'Enter protein per gram'})
+    )
     date = forms.DateField(
         widget=forms.SelectDateWidget,
         label="Date"
