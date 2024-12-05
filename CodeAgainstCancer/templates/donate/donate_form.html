@@ -72,36 +72,26 @@
             <div class="donate-card shadow mb-5">
                 <div class="card-body p-5">
                     <h3 class="text-center mb-4">We are grateful for your contribution!</h3>
-                        <form action="{% url 'donate_form' %}" method="POST">
-                            {% csrf_token %}
-                            
-                            <!-- Donor's Email -->
-                            <div class="mb-3">
-                                {{ form.email.label_tag }}
-                                {{ form.email|add_class:"form-control" }}
-                                {{ form.email.errors }}
-                            </div>
-                            
-                            <!-- Donor's Name -->
-                            <div class="mb-3">
-                                {{ form.name.label_tag }}
-                                {{ form.name|add_class:"form-control" }}
-                                {{ form.name.errors }}
-                            </div>
-                            
-                            <!-- Message Field -->
-                            <div class="mb-3">
-                                {{ form.message.label_tag }}
-                                {{ form.message|add_class:"form-control" }}
-                                {{ form.message.errors }}
-                            </div>
-                            
-                            <!-- Buttons -->
-                            <div class="button-container">
-                                <button type="submit" name="action" value="leave_message" class="submit-btn">Leave a message!</button>
-                                <button type="submit" name="action" value="no_thanks" class="submit-btn">No thanks!</button>
-                            </div>
-                        </form>
+                    
+                    <form action="{% url 'donate_form' %}" method="POST" enctype="multipart/form-data">                        {% csrf_token %}
+                        
+                        <!-- Donor's Name -->
+                        <div class="mb-3">
+                            {{ form.name.label_tag }}
+                            {{ form.name|add_class:"form-control" }}
+                            {{ form.name.errors }}
+                        </div>
+
+                        <!-- Message Field -->
+                        <div class="mb-3">
+                            {{ form.message.label_tag }}
+                            {{ form.message|add_class:"form-control" }}
+                            {{ form.message.errors }}
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary w-100 mt-4">Submit</button>
+                    </form>
                 </div>
             </div>
         </div>

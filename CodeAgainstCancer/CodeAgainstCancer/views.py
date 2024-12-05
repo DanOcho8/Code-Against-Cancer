@@ -244,7 +244,6 @@ def donate_form(request):
     else:
         form = DonorForm()  # Provide an empty form for GET requests
 
-    return render(request, 'donate/donate_form.html', {'form': form})
 
 # @cache_results(timeout=300)
 @login_required(login_url="login")

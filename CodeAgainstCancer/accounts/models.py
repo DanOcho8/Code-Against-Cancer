@@ -14,4 +14,12 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
-    
+
+class Donor(models.Model):
+    name = models.CharField(max_length=50)
+    message = models.TextField(blank=True, null=True, max_length=150)
+    amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} - ${self.amount}"

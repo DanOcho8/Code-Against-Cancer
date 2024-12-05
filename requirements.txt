@@ -18,3 +18,4 @@ django-csp
 django-mathfilters
 locust
 gunicorn==23.0.0
+whitenoise

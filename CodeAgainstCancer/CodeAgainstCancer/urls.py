@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.contrib.auth import views as auth_views
 from . import views
-from .views import contact
+from .views import contact, paypal_ipn_listener
 
 urlpatterns = [
     path('forum/', include('forum.urls')),
