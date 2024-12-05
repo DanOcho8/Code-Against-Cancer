@@ -13,124 +13,120 @@
     
     <style>
 
-        body {
-            background-color: #e3f2fd; /* Light blue color */
-        }
-        .donation-img img {
-            width: 100%; /* Allow image to fill the column smoothly */
-            height: auto; /* Maintain aspect ratio */
-            max-width: 800px; /* Cap the maximum width for larger screens */
-            max-height: none; /* No height restriction */
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Add shadow for emphasis */
-            display: block; /* Remove inline spacing issues */
-        }
+body {
+    background-color: #e3f2fd;
+}
 
-        /* Remove borders and spacing around the header */
-        header {
-            margin: 0;
-            padding: 0;
-            border: none;
-        }
+.donation-img img {
+    width: 100%;
+    height: auto;
+    max-width: 800px;
+    max-height: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    display: block;
+}
 
-        /* Ensure the image aligns flush with the top and left */
-        .donation-column {
-            padding: 0; /* Remove padding */
-            margin: 0; /* Remove margin */
-        }
+header {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
 
-        /* Adjust text alignment and spacing */
-        .donation-column h1 {
-            font-size: 2.5rem; /* Increase font size */
-            font-weight: bold;
-            margin-top: 20px;
-        }
+.donation-column {
+    padding: 0;
+    margin: 0;
+}
 
-        .donation-column p {
-            font-size: 1.25rem; /* Increase paragraph font size */
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
+.donation-column h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-top: 20px;
+}
 
-        /* General styles for the donation cards */
-        .donation-card {
-            background: #ffffff;
-            border: 1px solid #e5e5e5;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: left;
-            padding: 20px;
-            margin: 15px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+.donation-column p {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
 
-        .donation-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-        }
+.donation-card {
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    padding: 20px;
+    margin: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-        .donation-card h3 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-            color: #333333;
-            font-weight: bold;
-        }
+.donation-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
 
-        .donation-card ul {
-            list-style-type: disc;
-            padding-left: 20px; /* Indent bullet points */
-            margin: 0;
-        }
+.donation-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #333333;
+    font-weight: bold;
+}
 
-        .donation-card ul li {
-            font-size: 0.95em;
-            color: #666666;
-            margin-bottom: 5px;
-        }
+.donation-card ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0;
+}
 
-        /* Styles for the background container */
-        .donation-container {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
-        }
-        .donate-btn {
-            color: #ffffff; /* Text color */
-            letter-spacing: 2px;
-            font-size: 15px; /* Font size */
-            text-align: center; /* Center the text */
-            line-height: 25px; /* Line height */
-            text-decoration: none; /* Remove underline */
-            display: block; /* Ensure block-level behavior */
-            background-color: #10182f; /* Primary background color */
-            border: 2px solid #10182f; /* Border matching the background */
-            border-radius: 50px; /* Rounded-pill effect */
-            padding: 10px 20px; /* Padding inside the button */
-            width: 30%; /* Full width */
-            margin-top: 40px; /* Space above the button */
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Smooth transition */
-    }
+.donation-card ul li {
+    font-size: 0.95em;
+    color: #666666;
+    margin-bottom: 5px;
+}
 
-    /* Hover effect */
-    .donate-btn:hover {
-        background-color: #fff; /* White background on hover */
-        color: #10182f; /* Text color changes on hover */
-        border-color: #10182f; /* Border color changes on hover */
-        text-decoration: underline; /* Add underline effect on hover */
-    }
+.donation-container {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.donate-btn {
+    color: #ffffff;
+    letter-spacing: 2px;
+    font-size: 15px;
+    text-align: center;
+    line-height: 25px;
+    text-decoration: none;
+    display: block;
+    background-color: #10182f;
+    border: 2px solid #10182f;
+    border-radius: 50px;
+    padding: 10px 20px;
+    width: 30%;
+    margin-top: 40px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.donate-btn:hover {
+    background-color: #fff;
+    color: #10182f;
+    border-color: #10182f;
+    text-decoration: underline;
+}
     </style>
 </head>
 
 <section class="container-fluid p-0" style="background-color: #f8f9fa;">
     <div class="row justify-content-between">
-        <!-- Left column with image and description -->
+        <!-- Left column with image -->
         <div class="col-lg-5 donation-column" style="max-width: 45%; width:45%; height:auto;">
             <div class="donation-img">
                 <img src="https://www.foundationformmc.org/img/home/donate.jpg" alt="Donate" class="img-fluid" >
             </div>
         </div>
 
-        <!-- Right column with donation cards inside a visible background container -->
+        <!-- Right column with donation cards -->
         <div class="col-lg-7" style="padding-right: 100px; max-width: 600px; margin-top: 30px;">
             <h1 class="mt-3" style="margin-top: 20px;">Help fund cancer research today.</h1>
             <p>Your tax-deductible donation could help in the fight against cancer.</p>
@@ -209,7 +205,6 @@
         </div>
         <div class="center-container" style="display: flex; justify-content: center; align-items: center;">
             <button class="donate-btn" onclick="window.location.href='{% url 'donate_form' %}'">DONATE NOW</button>
-          <!-- <button class="donate-btn" onclick="window.location.href='https://www.paypal.com/donate/?business=U5J34AALMLXS6&no_recurring=0&item_name=CodeAgainstCancer+Donation&currency_code=USD'">DONATE NOW</button> -->
         </div>
     </div>
     

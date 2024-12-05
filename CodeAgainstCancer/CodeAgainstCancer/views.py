@@ -191,11 +191,11 @@ def donate(request):
 
     # Calculate the total donation amount from verified donors
     total_amount = Donor.objects.filter(validated=True).aggregate(Sum('amount'))['amount__sum'] or 0
-    print(f"Total amount from verified donors: {total_amount}")  # Debug total amount
+    print(f"Total amount from verified donors: {total_amount}")
 
     # Fetch the top 9 verified donors, ordered by the most recent
     verified_donors = Donor.objects.filter(validated=True).order_by('-amount', '-date')[:9]
-    print(f"Verified donors query: {verified_donors}")  # Debug verified donors query
+    print(f"Verified donors query: {verified_donors}")
 
     # Placeholder data for when there are fewer than 9 verified donors
     placeholders = [
@@ -210,7 +210,6 @@ def donate(request):
         {"name": "Anonymous", "amount": 1000, "message": "Keep up the great work."},
     ]
 
-    # Prepare the real donor data
     real_donors_dicts = [
         {"name": donor.name or "Anonymous", "amount": donor.amount, "message": donor.message or ""}
         for donor in verified_donors
@@ -219,7 +218,7 @@ def donate(request):
 
     # Combine real donors with placeholders to ensure exactly 9 entries
     donors = real_donors_dicts + placeholders[len(real_donors_dicts):]
-    print(f"Final donor list passed to template: {donors}")  # Debug final donor list
+    print(f"Final donor list passed to template: {donors}")
 
     return render(request, 'donate/donate.html', {'donors': donors, 'total_amount': total_amount})
 
@@ -236,10 +235,10 @@ def donate_form(request):
         if action == "leave_message":
             if form.is_valid():
                 form.save()  # Save the donor object
-            return redirect(paypal_url)  # Redirect to PayPal
+            return redirect(paypal_url) 
 
         elif action == "no_thanks":
-            return redirect(paypal_url)  # Redirect to PayPal without saving
+            return redirect(paypal_url)
 
     else:
         form = DonorForm()  # Provide an empty form for GET requests
