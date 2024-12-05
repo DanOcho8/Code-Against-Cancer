@@ -50,17 +50,17 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+CURRENT_URL = os.getenv('CURRENT_URL', 'http://127.0.0.1:8000')
+
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    ''
+    CURRENT_URL.split('//')[-1]
 ]
-
-CSRF_TRUSTED_ORIGINS = [
-    ''  # Replace with your ngrok URL
+# MUST INCLUDE CURRENT URL
+CSRF_TRUSTED_ORIGINS = [ 
+    CURRENT_URL
 ]
-
-PAYPAL_TEST = True
 
 
 # API keys

@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.contrib.auth import views as auth_views
 from . import views
-from .views import contact, paypal_ipn_listener
+from .views import contact
 
 urlpatterns = [
     path('forum/', include('forum.urls')),
@@ -25,7 +25,5 @@ urlpatterns = [
     path('donate/', views.donate, name='donate'),
     path('donate/donate_form/', views.donate_form, name='donate_form'),
     path('contact/', contact, name='contact'),
-    path('paypal-ipn/', paypal_ipn_listener, name='paypal_ipn'),
-    path('paypal/', include('paypal.standard.ipn.urls')),
     # Add more URL patterns as needed
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

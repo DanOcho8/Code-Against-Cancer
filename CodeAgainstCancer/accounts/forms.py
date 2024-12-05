@@ -190,13 +190,15 @@ class UpdateUserForm(UserChangeForm):
 class DonorForm(forms.ModelForm):
     class Meta:
         model = Donor
-        fields = ['name', 'message']
+        fields = ['email', 'name', 'message', 'amount']  # Ensure email and amount are included
         labels = {
+            'email': 'What is your email address?',
             'name': 'Who is leaving this generous donation?',
-            'message': 'Would you like to leave a message? (optional)',
-            'amount': 'Donation Amount'
+            'message': 'Would you like to leave a message?',
+            'amount': 'Donation Amount',
         }
         widgets = {
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'example@email.com'}),
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Anonymous'}),
             'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter a message'}),
             'amount': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter donation amount'}),

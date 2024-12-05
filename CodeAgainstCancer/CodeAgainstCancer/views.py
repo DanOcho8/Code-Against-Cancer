@@ -19,7 +19,6 @@ from django.template.loader import render_to_string
 from accounts.forms import DonorForm
 from django.db.models import Sum
 from django.views.decorators.csrf import csrf_exempt
-from urllib.parse import parse_qsl, urlencode
 
 #from pyexpat.errors import messages
 
@@ -187,15 +186,18 @@ def about(request):
 
 def donate(request):
     """
-    Handle the donation page and render the wall of contributors.
+    Handle the donation page and render the wall of top verified contributors.
     """
 
-    total_amount = Donor.objects.aggregate(Sum('amount'))['amount__sum'] or 0
+    # Calculate the total donation amount from verified donors
+    total_amount = Donor.objects.filter(validated=True).aggregate(Sum('amount'))['amount__sum'] or 0
+    print(f"Total amount from verified donors: {total_amount}")  # Debug total amount
 
-    # Fetch the top 9 donors, ordered by the most recent
-    donors = Donor.objects.order_by('-date')[:9]
+    # Fetch the top 9 verified donors, ordered by the most recent
+    verified_donors = Donor.objects.filter(validated=True).order_by('-amount', '-date')[:9]
+    print(f"Verified donors query: {verified_donors}")  # Debug verified donors query
 
-    # Placeholder data for when there are fewer than 9 donors
+    # Placeholder data for when there are fewer than 9 verified donors
     placeholders = [
         {"name": "Anonymous", "amount": 500, "message": "Inspiring message"},
         {"name": "Anonymous", "amount": 300, "message": "Keep up the fight!"},
@@ -208,89 +210,41 @@ def donate(request):
         {"name": "Anonymous", "amount": 1000, "message": "Keep up the great work."},
     ]
 
-    # Combine real donors and placeholders
+    # Prepare the real donor data
     real_donors_dicts = [
         {"name": donor.name or "Anonymous", "amount": donor.amount, "message": donor.message or ""}
-        for donor in donors
+        for donor in verified_donors
     ]
-    donors = real_donors_dicts + placeholders[len(real_donors_dicts):]
+    print(f"Real donors data: {real_donors_dicts}")  # Debug real donors data
 
-    # Debugging: Check what is being passed to the template
-    print(f"Donors passed to template: {donors}")
+    # Combine real donors with placeholders to ensure exactly 9 entries
+    donors = real_donors_dicts + placeholders[len(real_donors_dicts):]
+    print(f"Final donor list passed to template: {donors}")  # Debug final donor list
 
     return render(request, 'donate/donate.html', {'donors': donors, 'total_amount': total_amount})
 
-def donate_form(request, donor_id=None):
+def donate_form(request):
     """
-    Handles the donor form submission and redirects appropriately based on user action.
+    Handle donor form submissions for leaving a message or skipping to PayPal.
     """
-
-    if donor_id:
-        # Fetch the donor object using the donor_id
-        donor = get_object_or_404(Donor, id=donor_id)
-    else:
-        # Create a new donor object with a placeholder amount and default fields
-        donor = Donor.objects.create(amount=0.0)
-        # Redirect to the same view with the newly created donor_id
-        return redirect('donate_form', donor_id=donor.id)
+    paypal_url = "https://www.paypal.com/donate/?business=U5J34AALMLXS6&no_recurring=0&item_name=CodeAgainstCancer+Donation&currency_code=USD"
 
     if request.method == "POST":
         action = request.POST.get("action")
+        form = DonorForm(request.POST)
+
         if action == "leave_message":
-            # Save the name and message fields to the donor object
-            form = DonorForm(request.POST, instance=donor)
             if form.is_valid():
-                form.save()
-        # Redirect to the donor wall regardless of the action
-        return redirect('donate_wall')  # Assuming this is the name for the contributor wall
+                form.save()  # Save the donor object
+            return redirect(paypal_url)  # Redirect to PayPal
+
+        elif action == "no_thanks":
+            return redirect(paypal_url)  # Redirect to PayPal without saving
 
     else:
-        # Initialize the form with the existing donor instance
-        form = DonorForm(instance=donor)
+        form = DonorForm()  # Provide an empty form for GET requests
 
-    return render(request, 'donate/donate_form.html', {'form': form, 'donor': donor})
-
-
-logger = logging.getLogger(__name__)
-
-def paypal_ipn_listener(request):
-    if request.method == 'POST':
-        try:
-            # Capture raw IPN data as bytes
-            raw_ipn_data = request.body  # bytes
-            logger.info(f"Raw IPN data received (bytes): {raw_ipn_data}")
-
-            # Prepend 'cmd=_notify-validate' as bytes
-            verify_data = b'cmd=_notify-validate&' + raw_ipn_data
-            logger.info(f"Data sent for verification (bytes): {verify_data}")
-
-            # Send data back to PayPal for verification
-            verify_url = 'https://ipnpb.sandbox.paypal.com/cgi-bin/webscr'
-            headers = {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Connection': 'close',
-            }
-            response = requests.post(verify_url, data=verify_data, headers=headers, timeout=30)
-            logger.info(f"PayPal verification response status: {response.status_code}")
-            logger.info(f"PayPal verification response text: '{response.text}'")
-
-            # Handle PayPal's response
-            if response.text.strip() == "VERIFIED":
-                logger.info("IPN verified successfully.")
-                # Proceed with processing
-                return HttpResponse("VERIFIED", status=200)
-            else:
-                logger.warning("Invalid IPN")
-                return HttpResponse("INVALID", status=200)
-        except Exception as e:
-            logger.error(f"Error processing IPN: {e}")
-            return HttpResponse("Error", status=200)
-    else:
-        logger.warning("Non-POST request received at IPN listener.")
-        return HttpResponse("Method Not Allowed", status=405)
-
-
-
+    return render(request, 'donate/donate_form.html', {'form': form})
 
 # @cache_results(timeout=300)
 @login_required(login_url="login")

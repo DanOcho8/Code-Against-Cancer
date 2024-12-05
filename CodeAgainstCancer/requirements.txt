@@ -16,3 +16,4 @@ Pillow
 django-csp
 django-mathfilters
 django-paypal
+python-decouple
