@@ -5,7 +5,7 @@ import random
 import time
 
 import requests
-from accounts.models import UserProfile
+from accounts.models import UserProfile, Donor
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.messages import get_messages
@@ -17,6 +17,9 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from accounts.forms import DonorForm
+from django.db.models import Sum
+from django.views.decorators.csrf import csrf_exempt
+from urllib.parse import parse_qsl, urlencode
 
 #from pyexpat.errors import messages
 
@@ -182,30 +185,110 @@ def about(request):
     """
     return render(request, "about/about.html")
 
-
 def donate(request):
     """
-    Handle the donation page request.
-
-    Args:
-        request (HttpRequest): The HTTP request object.
-
-    Returns:
-        HttpResponse: The rendered donation page.
+    Handle the donation page and render the wall of contributors.
     """
-    return render(request, "donate/donate.html")
 
-def donate_form(request):
-    if request.method == "POST":
-        form = DonorForm(request.POST)
-        if form.is_valid():
-            form.save()  # Save the form data
-            print("Redirecting to donate page...")
-            return redirect('donate')  # Redirect to the donate page after successful submission
+    total_amount = Donor.objects.aggregate(Sum('amount'))['amount__sum'] or 0
+
+    # Fetch the top 9 donors, ordered by the most recent
+    donors = Donor.objects.order_by('-date')[:9]
+
+    # Placeholder data for when there are fewer than 9 donors
+    placeholders = [
+        {"name": "Anonymous", "amount": 500, "message": "Inspiring message"},
+        {"name": "Anonymous", "amount": 300, "message": "Keep up the fight!"},
+        {"name": "Anonymous", "amount": 250, "message": "Together we are stronger."},
+        {"name": "Anonymous", "amount": 450, "message": "Supporting this cause."},
+        {"name": "Anonymous", "amount": 700, "message": "Proud to be a donor."},
+        {"name": "Anonymous", "amount": 350, "message": "Every bit counts."},
+        {"name": "Anonymous", "amount": 600, "message": "Making a difference."},
+        {"name": "Anonymous", "amount": 800, "message": "Thank you for your work!"},
+        {"name": "Anonymous", "amount": 1000, "message": "Keep up the great work."},
+    ]
+
+    # Combine real donors and placeholders
+    real_donors_dicts = [
+        {"name": donor.name or "Anonymous", "amount": donor.amount, "message": donor.message or ""}
+        for donor in donors
+    ]
+    donors = real_donors_dicts + placeholders[len(real_donors_dicts):]
+
+    # Debugging: Check what is being passed to the template
+    print(f"Donors passed to template: {donors}")
+
+    return render(request, 'donate/donate.html', {'donors': donors, 'total_amount': total_amount})
+
+def donate_form(request, donor_id=None):
+    """
+    Handles the donor form submission and redirects appropriately based on user action.
+    """
+
+    if donor_id:
+        # Fetch the donor object using the donor_id
+        donor = get_object_or_404(Donor, id=donor_id)
     else:
-        form = DonorForm()  # Display an empty form for GET requests
+        # Create a new donor object with a placeholder amount and default fields
+        donor = Donor.objects.create(amount=0.0)
+        # Redirect to the same view with the newly created donor_id
+        return redirect('donate_form', donor_id=donor.id)
 
-    return render(request, 'donate/donate_form.html', {'form': form})
+    if request.method == "POST":
+        action = request.POST.get("action")
+        if action == "leave_message":
+            # Save the name and message fields to the donor object
+            form = DonorForm(request.POST, instance=donor)
+            if form.is_valid():
+                form.save()
+        # Redirect to the donor wall regardless of the action
+        return redirect('donate_wall')  # Assuming this is the name for the contributor wall
+
+    else:
+        # Initialize the form with the existing donor instance
+        form = DonorForm(instance=donor)
+
+    return render(request, 'donate/donate_form.html', {'form': form, 'donor': donor})
+
+
+logger = logging.getLogger(__name__)
+
+def paypal_ipn_listener(request):
+    if request.method == 'POST':
+        try:
+            # Capture raw IPN data as bytes
+            raw_ipn_data = request.body  # bytes
+            logger.info(f"Raw IPN data received (bytes): {raw_ipn_data}")
+
+            # Prepend 'cmd=_notify-validate' as bytes
+            verify_data = b'cmd=_notify-validate&' + raw_ipn_data
+            logger.info(f"Data sent for verification (bytes): {verify_data}")
+
+            # Send data back to PayPal for verification
+            verify_url = 'https://ipnpb.sandbox.paypal.com/cgi-bin/webscr'
+            headers = {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Connection': 'close',
+            }
+            response = requests.post(verify_url, data=verify_data, headers=headers, timeout=30)
+            logger.info(f"PayPal verification response status: {response.status_code}")
+            logger.info(f"PayPal verification response text: '{response.text}'")
+
+            # Handle PayPal's response
+            if response.text.strip() == "VERIFIED":
+                logger.info("IPN verified successfully.")
+                # Proceed with processing
+                return HttpResponse("VERIFIED", status=200)
+            else:
+                logger.warning("Invalid IPN")
+                return HttpResponse("INVALID", status=200)
+        except Exception as e:
+            logger.error(f"Error processing IPN: {e}")
+            return HttpResponse("Error", status=200)
+    else:
+        logger.warning("Non-POST request received at IPN listener.")
+        return HttpResponse("Method Not Allowed", status=405)
+
 
 
 

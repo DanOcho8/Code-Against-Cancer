@@ -50,7 +50,18 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    ''
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    ''  # Replace with your ngrok URL
+]
+
+PAYPAL_TEST = True
+
 
 # API keys
 YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
@@ -81,6 +92,7 @@ INSTALLED_APPS = [
     "csp",
     'forum',
     'mathfilters',
+    'paypal.standard.ipn',
 ]
 
 SITE_ID = 1
@@ -253,3 +265,26 @@ CSP_FRAME_SRC = (
 )
 CSP_BASE_URI = ("'self'",)  # Allow base tag to refer to your Django app
 CSP_OBJECT_SRC = ("'none'",)  # Block plugins like Flash (outdated, but good practice)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'ipn_listener.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        '__main__': {
+            'handlers': ['file'],
+            'level': 'INFO',
+        },
+    },
+}
