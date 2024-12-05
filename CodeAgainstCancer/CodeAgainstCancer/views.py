@@ -20,6 +20,7 @@ from django.template.loader import render_to_string
 from accounts.forms import DonorForm
 from django.db.models import Sum
 from django.views.decorators.csrf import csrf_exempt
+from urllib.parse import parse_qsl, urlencode
 
 #from pyexpat.errors import messages
 
@@ -244,6 +245,7 @@ def donate_form(request):
     else:
         form = DonorForm()  # Provide an empty form for GET requests
 
+    return render(request, 'donate/donate_form.html', {'form': form})
 
 # @cache_results(timeout=300)
 @login_required(login_url="login")

@@ -147,6 +147,106 @@ header {
                     Your contribution provides tangible benefits like nutritious meals, emotional support, and critical resources for families, while fostering community connections through local support groups and educational tools. 
                     Together, we can improve the quality of life for patients, advance cancer research, and bring hope to those affected by this disease.
                 </p>
+            </div>
         </div>
-    </section>
+
+        <!-- Image Section -->
+        <div class="col-lg-6 d-flex justify-content-center align-items-center">
+            <div class="home-img">
+                <img
+                    src="https://www.freemalaysiatoday.com/_next/image/?url=https%3A%2F%2Fmedia.freemalaysiatoday.com%2Fwp-content%2Fuploads%2F2024%2F02%2F2f94a27b-chemo.jpg&w=1920&q=75"
+                    class="img-fluid"
+                    alt="children cancer patients"
+                    style="border-radius: 15px; overflow: hidden;"
+                />
+            </div>
+        </div>
+    </div>
+</section>
+
+    <div class="donation-container">
+        <h2 class="text-center mt-3" style="margin-bottom: 20px;">Your Donation Will Help...</h2>
+        <div class="row justify-content-center">
+            <!-- Tier 1 -->
+            <div class="col-md-4">
+                <div class="donation-card">
+                    <h3 style= "text-align: center; margin-bottom: 20px;" >Support Patients Directly</h3>
+                    <ul>
+                        <li>Provides essential resources for cancer patients, including transportation to treatments, emotional support programs, and access to care.</li>
+                        <li>Funds nutritional meal plans tailored to boost recovery and improve quality of life during treatment.</li>
+                        <li>Helps offer educational workshops to empower patients with knowledge about their condition and care options.</li>
+                        <li>Supports awareness campaigns</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Tier 2 -->
+            <div class="col-md-4">
+                <div class="donation-card">
+                    <h3 style= "text-align: center; margin-bottom: 20px;">Advancing Cancer Research</h3>
+                    <ul>
+                        <li>Supports cutting-edge research to develop innovative treatments and therapies tailored to specific cancer types.</li>
+                        <li>Funds laboratory operations, enabling scientists to explore new breakthroughs in cancer prevention and treatment.</li>
+                        <li>Provides grants to researchers working on high-potential projects aimed at improving survival rates and reducing side effects.</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Tier 3 -->
+            <div class="col-md-4">
+                <div class="donation-card">
+                    <h3 style= "text-align: center; margin-bottom: 20px;">Community Outreach and Prevention</h3>
+                    <ul>
+                        <li>Supports cutting-edge research to develop innovative treatments and therapies tailored to specific cancer types.</li>
+                        <li>Funds laboratory operations, enabling scientists to explore new breakthroughs in cancer prevention and treatment.
+                        </li>
+                        <li>Provides grants to researchers working on high-potential projects aimed at improving survival rates and reducing side effects.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="center-container" style="display: flex; justify-content: center; align-items: center;">
+            <!-- <button class="donate-btn" onclick="window.location.href='{% url 'donate_form' %}'">DONATE NOW</button> -->
+           <button class="donate-btn" onclick="window.location.href='https://www.paypal.com/donate/?business=U5J34AALMLXS6&no_recurring=0&item_name=CodeAgainstCancer+Donation&currency_code=USD'">DONATE NOW</button>
+        </div>
+    </div>
+    
+    <!-- Contributors Section -->
+    <h3 class="text-center mt-5">Contributors</h3>
+    <hr style="border-top: 1px solid #ddd;">
+    <p class="text-muted small mb-0" style="text-align: center;">Thank you for your incredible generosity!</p>
+    
+        <!-- Debugging Output 
+        <p>Total donors: {{ donors|length }}</p>
+        <pre>{{ donors }}</pre>
+        -->
+
+        <h3 class="text-center mt-4 mb-4">We've amassed a total of <strong style="color: #28a745">${{ total_amount }}</strong> towards cancer research!</h3>
+        
+        <div class="container my-4">
+            <div class="row justify-content-center">
+                {% for donor in donors %}
+                    <div class="col-md-4 mb-4 d-flex justify-content-center">
+                        <div class="card p-4 shadow-sm" style="max-height: 90%; width: 100%; max-width: 300px; background-color: #f8f9fa; border-radius: 10px;">
+                            <div class="card-body text-center">
+                                <h4 class="card-title font-weight-bold" style="color: #007bff;">
+                                    {{ donor.name }}
+                                </h4>
+                                <p class="card-text mb-2" style="font-size: 1.5em; color: #28a745;">
+                                    <strong>${{ donor.amount }}</strong>
+                                </p>
+                                <p class="card-text text-muted">
+                                    {{ donor.message }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>No contributors yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+        
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
 {% endblock %}
