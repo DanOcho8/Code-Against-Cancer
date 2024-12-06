@@ -29,6 +29,13 @@ a:focus {
   color: inherit;
 }
 
+/* class for when the user is signed in on desktop  */
+@media (min-width: 768px) {
+  .desktop-margin {
+    margin-left: 50px;
+  }
+}
+
 /* styles for forms  */
 .login {
   display: flex;
@@ -588,7 +595,7 @@ footer {
   border: 2px solid transparent;
   padding: 10px 20px;
   border-radius: 50px;
-  min-width: 260px;
+  width: 100%;
 }
 
 /* on hover animate faster  */

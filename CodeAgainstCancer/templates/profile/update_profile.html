@@ -2,43 +2,15 @@
 {% load static %}
 {% load widget_tweaks %}
 
-{% block title %}Update Your Account{% endblock %}
+{% block title %}Edit Profile | CaC{% endblock %}
 
 {% block content %}
 
-<style>
-  /* Area code and phone number container */
-.phone-number-container {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-}
-
-.area-code-container {
-    display: flex;
-    align-items: center;
-}
-
-/* Area code dropdown */
-.area-code-dropdown {
-    width: 70px;
-    flex: 0 0 auto;
-}
-
-/* Area code input */
-.area-code-input {
-    width: 60px;
-    flex: 0 0 auto;
-    margin-left: 5px;
-}
-</style>
-
-<div class="gradient-bg">
-    <div class="container py-3">
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
+    <div class="gradient-bg d-flex flex-column align-items-center justify-content-center">
+        <div class="container py-4 col-md-8">
+            <div class="shadow-wrap card">
                 <div class="card shadow">
-                    <div class="card-body p-5">
+                    <div class="card-body p-2">
                         <h3 class="text-center mb-4">Update Your Profile</h3>
 
                         <form method="POST" enctype="multipart/form-data">
@@ -72,31 +44,24 @@
                                 {{ user_form.email.errors }}
                             </div>
 
-                            <div class="mb-3" style="flex-grow: 1;">
+                            <div class="mb-3">
+                                <label for="area-code-dropdown">Phone Number</label>
                                 <div class="phone-number-container">
-                                    <!-- Area Code Section -->
-                                    <div class="area-code-section">
-                                        <label for="area-code-dropdown">Area Code</label>
-                                        <div class="area-code-container">
-                                            <!-- Dropdown -->
-                                            <select class="form-control area-code-dropdown" id="area-code-dropdown">
-                                                <option value="">Select</option>
-                                                {% for code, country in area_code_choices %}
-                                                    <option value="{{ code }}">{{ country }}</option>
-                                                {% endfor %}
-                                            </select>
-                                            <!-- Area code input -->
-                                            {{ user_form.area_code|add_class:"form-control area-code-input" }}
-                                        </div>
-                                    </div>
-                            
-                                    <!-- Phone Number Section -->
-                                    <div class="mb-3" style="flex-grow: 1;">
-                                        <label for="id_phone_number">Phone Number</label>
+                                    <div class="area-code-container">
+                                        <!-- Dropdown -->
+                                        <select class="form-control area-code-dropdown" id="area-code-dropdown">
+                                            <option value="">&#9660;</option>
+                                            {% for code, country in area_code_choices %}
+                                                <option value="{{ code }}">{{ country }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <!-- Area code input -->
+                                        {{ user_form.area_code|add_class:"form-control area-code-input" }}
+                                        <!-- Phone Number Input -->
                                         {{ user_form.phone_number|add_class:"form-control phone-input" }}
                                     </div>
                                 </div>
-                            
+
                                 <!-- Error Messages -->
                                 {{ user_form.area_code.errors }}
                                 {{ user_form.phone_number.errors }}
@@ -131,10 +96,14 @@
                             </div>
 
                             <!-- Profile Picture -->
-                            <div class="mb-3">
-                                {{ user_form.profile_pic.label_tag }}
-                                {{ user_form.profile_pic|add_class:"form-control-file" }}
-                                {{ user_form.profile_pic.errors }}
+                            <div class="mb-3 d-flex flex-wrap flex-column">
+                                <label>{{ user_form.profile_pic.label }}</label>
+                                <div class="position-relative">
+                                    {{ user_form.profile_pic|add_class:"form-control-file text-truncate w-100" }}
+                                </div>
+                                <div class="text-danger">
+                                    {{ user_form.profile_pic.errors }}
+                                </div>
                             </div>
 
                             <!-- Consent to Receive Text Messages -->
@@ -148,7 +117,7 @@
                             </div>
 
                             <!-- Submit Button -->
-                            <div class="d-flex justify-content-center">
+                            <div class="d-flex justify-content-center px-2">
                                 <button type="submit" class="edit-button">Update Account</button>
                             </div>
                         </form>
@@ -157,51 +126,50 @@
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const areaCodeInput = document.getElementById("id_area_code");
-        const areaCodeDropdown = document.getElementById("area-code-dropdown");
-    
-        areaCodeDropdown.addEventListener("change", function() {
-            areaCodeInput.value = this.value;
-        });
-    
-        if (areaCodeInput.value === "") {
-            areaCodeInput.value = "+";
-        }
-    
-        areaCodeInput.addEventListener("focus", function() {
-            if (!areaCodeInput.value.startsWith("+")) {
-                areaCodeInput.value = "+" + areaCodeInput.value;
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const areaCodeInput = document.getElementById("id_area_code");
+            const areaCodeDropdown = document.getElementById("area-code-dropdown");
+
+            areaCodeDropdown.addEventListener("change", function () {
+                areaCodeInput.value = this.value;
+            });
+
+            if (areaCodeInput.value === "") {
+                areaCodeInput.value = "+";
             }
-            setCaretPosition(areaCodeInput, areaCodeInput.value.length);
-        });
-    
-        areaCodeInput.addEventListener("keydown", function(e) {
-            if (areaCodeInput.selectionStart <= 1 && (e.key === "Backspace" || e.key === "ArrowLeft")) {
-                e.preventDefault();
-                setCaretPosition(areaCodeInput, 1);
+
+            areaCodeInput.addEventListener("focus", function () {
+                if (!areaCodeInput.value.startsWith("+")) {
+                    areaCodeInput.value = "+" + areaCodeInput.value;
+                }
+                setCaretPosition(areaCodeInput, areaCodeInput.value.length);
+            });
+
+            areaCodeInput.addEventListener("keydown", function (e) {
+                if (areaCodeInput.selectionStart <= 1 && (e.key === "Backspace" || e.key === "ArrowLeft")) {
+                    e.preventDefault();
+                    setCaretPosition(areaCodeInput, 1);
+                }
+            });
+
+            areaCodeInput.addEventListener("input", function () {
+                if (!areaCodeInput.value.startsWith("+")) {
+                    areaCodeInput.value = "+" + areaCodeInput.value.replace(/\+/g, "");
+                }
+            });
+
+            function setCaretPosition(ctrl, pos) {
+                if (ctrl.setSelectionRange) {
+                    ctrl.setSelectionRange(pos, pos);
+                } else if (ctrl.createTextRange) {
+                    var range = ctrl.createTextRange();
+                    range.move("character", pos);
+                    range.select();
+                }
             }
         });
-    
-        areaCodeInput.addEventListener("input", function() {
-            if (!areaCodeInput.value.startsWith("+")) {
-                areaCodeInput.value = "+" + areaCodeInput.value.replace(/\+/g, "");
-            }
-        });
-    
-        function setCaretPosition(ctrl, pos) {
-            if (ctrl.setSelectionRange) {
-                ctrl.setSelectionRange(pos, pos);
-            } else if (ctrl.createTextRange) {
-                var range = ctrl.createTextRange();
-                range.move("character", pos);
-                range.select();
-            }
-        }
-    });
-</script>
+    </script>
 {% endblock %}
 {% block footer %}{% endblock %}
