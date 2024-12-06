@@ -2,7 +2,7 @@
 {% load static %}
 {% load widget_tweaks %}
 
-{% block title %}Sign Up{% endblock %}
+{% block title %}Sign Up | CaC{% endblock %}
 
 {% block content %}
     <div class="gradient-bg d-flex flex-column align-items-center justify-content-center">
@@ -43,6 +43,7 @@
                                 {{ form.email.errors }}
                             </div>
 
+{#Temporatily removing phone number field since we are not using it.#}
                             <div class="mb-3">
                                 <div class="phone-number-container">
                                     <!-- Area Code Section -->
@@ -65,9 +66,7 @@
                                             {#</div>#}
                                         </div>
                                     </div>
-
                                 </div>
-
                                 <!-- Error Messages -->
                                 {{ form.area_code.errors }}
                                 {{ form.phone_number.errors }}
