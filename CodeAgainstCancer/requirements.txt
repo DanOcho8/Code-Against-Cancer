@@ -19,3 +19,4 @@ django-csp
 django-mathfilters
 gunicorn==23.0.0
 whitenoise
+django-paypal

@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Donate to CodeAgainstCancer{% endblock %}
+
+{% block content %}
+<style>
+    html, body {
+        width: 100%;
+        height: 100%;
+    }
+
+    body {
+        background: linear-gradient(-45deg, #add8e6, #ff69b4, #add8e6, #c71585);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+    }
+
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .donate-card {
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 40px;
+    }
+
+    .submit-btn {
+        color: #ffffff;
+        font-size: 15px;
+        text-align: center;
+        line-height: 25px;
+        text-decoration: none;
+        display: block;
+        background-color: #10182f;
+        border: 2px solid #10182f;
+        border-radius: 50px;
+        padding: 10px 20px;
+        width: 30%;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    .submit-btn:hover {
+        background-color: #fff;
+        color: #10182f;
+        border-color: #10182f;
+        text-decoration: underline;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="donate-card shadow mb-5">
+                <div class="card-body p-5">
+                    <h3 class="text-center mb-4">We are grateful for your contribution!</h3>
+                        <form action="{% url 'donate_form' %}" method="POST">
+                            {% csrf_token %}
+                            
+                            <!-- Donor's Email -->
+                            <div class="mb-3">
+                                {{ form.email.label_tag }}
+                                {{ form.email|add_class:"form-control" }}
+                                {{ form.email.errors }}
+                            </div>
+                            
+                            <!-- Donor's Name -->
+                            <div class="mb-3">
+                                {{ form.name.label_tag }}
+                                {{ form.name|add_class:"form-control" }}
+                                {{ form.name.errors }}
+                            </div>
+                            
+                            <!-- Message Field -->
+                            <div class="mb-3">
+                                {{ form.message.label_tag }}
+                                {{ form.message|add_class:"form-control" }}
+                                {{ form.message.errors }}
+                            </div>
+                            
+                            <!-- Buttons -->
+                            <div class="button-container">
+                                <button type="submit" name="action" value="leave_message" class="submit-btn">Leave a message!</button>
+                                <button type="submit" name="action" value="no_thanks" class="submit-btn">No thanks!</button>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block footer %}{% endblock %}
