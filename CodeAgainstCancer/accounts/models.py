@@ -20,7 +20,6 @@ class Donor(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     name = models.CharField(max_length=50, blank=True, null=True, default="Anonymous")
     message = models.TextField(blank=True, null=True, max_length=150)
-    amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     validated = models.BooleanField(default=False)
     

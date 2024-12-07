@@ -35,11 +35,6 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from .utils import LoggerSingleton
-
-# Create a logger instance
-logger = LoggerSingleton()
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -53,18 +48,19 @@ load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# Set DEBUG based on an environment variable, defaulting to True if not set
-DEBUG = bool(int(os.getenv("DEBUG", 1)))
-logger.info(f"DEBUG mode is {'on' if DEBUG else 'off'}")
+DEBUG = True
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
-CSRF_TRUSTED_ORIGINS = [ 
-    "ALLOWED_HOSTS"
+CURRENT_URL = os.getenv('CURRENT_URL', 'http://127.0.0.1:8000')
+
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    CURRENT_URL.split('//')[-1]
 ]
-if DEBUG:
-    ALLOWED_HOSTS = ["*"]  # Allow all hosts in development mode
-else:
-    ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+# MUST INCLUDE CURRENT URL
+CSRF_TRUSTED_ORIGINS = [ 
+    CURRENT_URL
+]
 
 
 # API keys
@@ -72,7 +68,7 @@ YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
 
 APP_ID = os.getenv("APP_ID")
 API_KEY = os.getenv("API_KEY")
-USDA_API_KEY = os.getenv("USDA_API_KEY")
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -96,7 +92,7 @@ INSTALLED_APPS = [
     "csp",
     'forum',
     'mathfilters',
-    'calorieTracker',
+    #'calorieTracker',
 ]
 
 SITE_ID = 1
@@ -140,17 +136,6 @@ MIDDLEWARE = [
     "allauth.account.middleware.AccountMiddleware",
     "forum.middleware.TimezoneMiddleware",
 ]
-
-# Conditionally add Whitenoise middleware if DEBUG is False (for production only)
-if not DEBUG:
-    MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
-
-# Whitenoise storage backend for static files, only effective in production
-STATICFILES_STORAGE = (
-    "whitenoise.storage.CompressedManifestStaticFilesStorage"
-    if not DEBUG
-    else "django.contrib.staticfiles.storage.StaticFilesStorage"
-)
 
 ROOT_URLCONF = "CodeAgainstCancer.urls"
 
@@ -214,7 +199,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATIC_URL = "/static/"
+STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
     "static/",
@@ -233,35 +218,23 @@ LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
 
 # Security settings
-CSRF_COOKIE_SECURE = (
-    not DEBUG
-)  # Ensures the CSRF cookie is only sent over HTTPS (production only).
+CSRF_COOKIE_SECURE = not DEBUG  # Ensures the CSRF cookie is only sent over HTTPS (production only).
 CSRF_COOKIE_SAMESITE = "Lax"  # Restricts CSRF cookie from being sent with cross-site requests, except for top-level navigations.
 SESSION_COOKIE_SAMESITE = "Lax"
-SESSION_COOKIE_SECURE = (
-    not DEBUG
-)  # Ensures session cookies are only sent over HTTPS, protecting them from being exposed over HTTP.
+SESSION_COOKIE_SECURE = not DEBUG # Ensures session cookies are only sent over HTTPS, protecting them from being exposed over HTTP.
 SECURE_BROWSER_XSS_FILTER = True  # Enables the browser's built-in XSS filter to help prevent cross-site scripting (XSS) attacks.
 SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents the browser from guessing (sniffing) the MIME type, reducing the risk of security vulnerabilities.
-# Note: Set to false because Nginx will be in charge of redirecting HTTP to HTTPS
-SECURE_SSL_REDIRECT = False # Redirects all HTTP requests to HTTPS when not in DEBUG mode (production only).
+SECURE_SSL_REDIRECT = not DEBUG # Redirects all HTTP requests to HTTPS when not in DEBUG mode (production only).
 X_FRAME_OPTIONS = "DENY"  # Prevents the site from being displayed in an iframe, mitigating clickjacking attacks.
 SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents the browser from guessing (sniffing) the MIME type, reducing the risk of security vulnerabilities.
 
-CSRF_TRUSTED_ORIGINS = [f"https://{host.strip()}" for host in os.getenv("ALLOWED_HOSTS", "").split(",") if host.strip()]
+# HTTP Strict Transport Security (HSTS)
+SECURE_HSTS_SECONDS = 31536000 if not DEBUG else 0 # Enforces HTTPS by telling browsers to only use HTTPS for the next 1 year (or 0 in development).
+SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG # Ensures HSTS is applied to all subdomains in production.
+SECURE_HSTS_PRELOAD = not DEBUG # Allows your site to be included in browsers' HSTS preload lists (used in production).
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents the browser from guessing (sniffing) the MIME type, reducing the risk of security vulnerabilities.
 
-# # HTTP Strict Transport Security (HSTS)
-SECURE_HSTS_SECONDS = (
-    31536000 if not DEBUG else 0
-)  # Enforces HTTPS by telling browsers to only use HTTPS for the next 1 year (or 0 in development).
-SECURE_HSTS_INCLUDE_SUBDOMAINS = (
-    not DEBUG
-)  # Ensures HSTS is applied to all subdomains in production.
-SECURE_HSTS_PRELOAD = (
-    not DEBUG
-)  # Allows your site to be included in browsers' HSTS preload lists (used in production).
-
-# Content Security Policy (CSP)
+# Content Security Policy (CSP) (if using django-csp)
 CSP_DEFAULT_SRC = ("'none'",)
 CSP_STYLE_SRC = (
     "'self'",  # Allow styles from the same origin
@@ -273,8 +246,6 @@ CSP_STYLE_SRC = (
 CSP_SCRIPT_SRC = (
     "'self'",  # Allow scripts from the same origin
     "https://cdn.jsdelivr.net",  # Bootstrap scripts (if any in the future)
-    "https://code.jquery.com",  # jQuery CDN
-    "https://maps.googleapis.com",  # Allow Google Maps scripts
     "'unsafe-inline'",  # TODO: we should remove this and also remove inline scripts
 )
 CSP_FONT_SRC = (

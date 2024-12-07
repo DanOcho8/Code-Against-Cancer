@@ -13,14 +13,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.mail import send_mail
-from smtplib import SMTPException
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from accounts.forms import DonorForm
 from django.db.models import Sum
 from django.views.decorators.csrf import csrf_exempt
-from urllib.parse import parse_qsl, urlencode
 
 #from pyexpat.errors import messages
 
@@ -346,35 +344,17 @@ def contact(request):
                 "emails/email.html", {"name": name, "email": email, "content": content}
             )
             # Send the email using Django's send_mail function
-            try:
-                send_mail(
-                    "Contact Form Submission",
-                    "This is the message from the contact form.",
-                    settings.DEFAULT_FROM_EMAIL,
-                    ["codeagainstcancer@outlook.com"],
-                    html_message=html,
-                    fail_silently=False,
-                )
-                messages.success(request, "Your message has been sent successfully!")
-            except SMTPException as e:
-                messages.error(
-                    request,
-                    "We encountered an issue sending your email. Please try again later.",
-                )
-            except Exception as e:
-                messages.error(
-                    request,
-                    "An unexpected error occurred. Please try again later."
-                )
+            send_mail(
+                "Contact Form Submission",
+                "This is the message from the contact form.",  # You might want to include the content here as well
+                settings.DEFAULT_FROM_EMAIL,  # Use the configured default from email
+                ["codeagainstcancer@outlook.com"],
+                html_message=html,
+                fail_silently=False,
+            )
             return redirect("contact")  # Redirect back to the contact page
     else:
         form = ContactForm()  # Initialize an empty form
 
     # Render the contact form with context
     return render(request, "contact/contactform.html", {"form": form})
-
-def faq(request):
-    return render(request, "resources/faq.html")
-
-def privacy_policy(request):
-    return render(request, 'resources/privacy_policy.html')

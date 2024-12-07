@@ -11,7 +11,7 @@ urlpatterns = [
     path('forum/', include('forum.urls')),
     path('admin/', admin.site.urls),
     path("accounts/", include("accounts.urls")),
-    path('calorieTracker/', include('calorieTracker.urls', namespace='calorieTracker')),
+    #path('calorieTracker/', include('calorieTracker.urls', namespace='calorieTracker')),
     path("accounts/", include("django.contrib.auth.urls")),
     path("", views.homepageView , name="home"),
     path("logout", views.user_logout , name='logout'),
@@ -26,7 +26,7 @@ urlpatterns = [
     path('donate/', views.donate, name='donate'),
     path('donate/donate_form/', views.donate_form, name='donate_form'),
     path('contact/', contact, name='contact'),
-    path('faq/', views.faq, name='faq'),
-    path('privacy_policy', views.privacy_policy, name='privacy_policy')
+   # path('faq/', views.faq, name='faq'),
+    # path('privacy_policy', views.privacy_policy, name='privacy_policy')
     # Add more URL patterns as needed
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
