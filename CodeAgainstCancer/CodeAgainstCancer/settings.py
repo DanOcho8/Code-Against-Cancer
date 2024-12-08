@@ -62,6 +62,10 @@ if DEBUG:
 else:
     ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 
+CSRF_TRUSTED_ORIGINS = [ 
+    os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+]
+
 
 # API keys
 YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
@@ -290,3 +294,26 @@ CSP_FRAME_SRC = (
 )
 CSP_BASE_URI = ("'self'",)  # Allow base tag to refer to your Django app
 CSP_OBJECT_SRC = ("'none'",)  # Block plugins like Flash (outdated, but good practice)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'ipn_listener.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        '__main__': {
+            'handlers': ['file'],
+            'level': 'INFO',
+        },
+    },
+}
