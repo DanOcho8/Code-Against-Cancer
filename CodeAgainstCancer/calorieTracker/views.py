@@ -16,11 +16,18 @@ from django.http import Http404
 @login_required(login_url="login")
 def calorie_tracker(request):
     user = request.user
-    selected_date = request.GET.get('date', timezone.now().date())
-
-    # Ensure selected_date is always a date object
+    selected_date = request.GET.get("date")
     if isinstance(selected_date, str):
-        selected_date = datetime.strptime(selected_date, '%Y-%m-%d').date()
+        try:
+            selected_date = datetime.strptime(selected_date, '%Y-%m-%d').date()
+        except ValueError:
+            selected_date = None
+
+    # Fallback to today if no date is provided or invalid
+    if not selected_date:
+        selected_date = timezone.now().date()
+        
+    print(f"DEBUG: selected_date={selected_date}")
 
     calorie_entries = CalorieIntakeEntry.objects.filter(user=user, date=selected_date)
     searched_food_items = SearchedFoodItem.objects.filter(user=user, date=selected_date)
@@ -52,7 +59,19 @@ def calorie_tracker(request):
 @login_required(login_url="login")
 def add_calorie_entry(request):
     user = request.user
-    selected_date = request.GET.get("date") or request.POST.get("date") or timezone.now().date()
+    selected_date = request.POST.get("date") or request.GET.get("date")
+    if isinstance(selected_date, str):
+        try:
+            selected_date = datetime.strptime(selected_date, '%Y-%m-%d').date()
+        except ValueError:
+            selected_date = None
+
+    # Fallback to today if no date is provided or invalid
+    if not selected_date:
+        selected_date = timezone.now().date()
+
+    print(f"DEBUG: selected_date (POST or GET) = {selected_date}")
+    
     query = request.GET.get("query", "")
     results = []
     redirect_url = f"{reverse('calorieTracker:calorie_tracker')}?date={selected_date}"
