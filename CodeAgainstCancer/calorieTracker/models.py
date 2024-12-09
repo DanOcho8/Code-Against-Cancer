@@ -13,6 +13,7 @@ class CalorieIntakeEntry(models.Model):
     food_item = models.ForeignKey(FoodItem, on_delete=models.CASCADE)
     amount_in_grams = models.DecimalField(max_digits=5, decimal_places=2)
     calculated_calories = models.DecimalField(max_digits=6, decimal_places=2)
+    calculated_protein = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
 
 

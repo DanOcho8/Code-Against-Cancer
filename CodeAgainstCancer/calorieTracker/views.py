@@ -14,41 +14,37 @@ from django.urls import reverse
 @login_required(login_url="login")
 def calorie_tracker(request):
     user = request.user
-    selected_date = request.GET.get('date')
+    selected_date = request.GET.get('date', timezone.now().date())
 
-    # Parse the date if it's provided as a string, else use today's date
-    if selected_date:
-        try:
-            selected_date = datetime.strptime(selected_date, '%Y-%m-%d').date()
-        except ValueError:
-            try:
-                selected_date = datetime.strptime(selected_date, '%b. %d, %Y').date()
-            except ValueError:
-                selected_date = timezone.now().date()  # Default to today's date if parsing fails
-    else:
-        selected_date = timezone.now().date()
-        
-    today = timezone.now().date()
-    yesterday = today - timedelta(days=1)
-    tomorrow = today + timedelta(days=1)
+    # Ensure selected_date is always a date object
+    if isinstance(selected_date, str):
+        selected_date = datetime.strptime(selected_date, '%Y-%m-%d').date()
 
     calorie_entries = CalorieIntakeEntry.objects.filter(user=user, date=selected_date)
     searched_food_items = SearchedFoodItem.objects.filter(user=user, date=selected_date)
-    total_calories = sum(entry.calculated_calories for entry in calorie_entries) + sum(item.total_calories for item in searched_food_items)
-    total_protein = sum(entry.food_item.protein_per_gram * entry.amount_in_grams for entry in calorie_entries) + sum(item.total_protein for item in searched_food_items)
-    
+
+    total_calories = (
+        sum(entry.calculated_calories for entry in calorie_entries) + 
+        sum(item.total_calories for item in searched_food_items)
+    )
+    total_protein = (
+        sum(entry.food_item.protein_per_gram * entry.amount_in_grams for entry in calorie_entries) + 
+        sum(item.total_protein for item in searched_food_items)
+    )
+
     context = {
         'calorie_entries': calorie_entries,
         'searched_food_items': searched_food_items,
         'total_calories': total_calories,
         'total_protein': total_protein,
         'selected_date': selected_date,
-        'today': today,
-        'yesterday': yesterday,
-        'tomorrow': tomorrow,
+        'today': timezone.now().date(),
+        'yesterday': timezone.now().date() - timedelta(days=1),
+        'tomorrow': timezone.now().date() + timedelta(days=1),
     }
-    
+
     return render(request, 'calorie/calorie.html', context)
+
 
 
 @login_required(login_url="login")
@@ -81,15 +77,17 @@ def add_calorie_entry(request):
             results = []
             
             
-        if request.method == "POST":
+    elif request.method == "POST":
+        
+        if request.POST.get("food_name") and request.POST.get("searched_calories_per_gram"):
             food_name = request.POST.get("food_name")
-            calories_per_gram = float(request.POST.get("calories_per_gram", 0)) / 100  # Convert per 100g to per gram
-            protein_per_gram = float(request.POST.get("protein_per_gram", 0)) / 100  # Convert per 100g to per gram
+            searched_calories_per_gram = float(request.POST.get("searched_calories_per_gram", 0))
+            searched_protein_per_gram = float(request.POST.get("searched_protein_per_gram", 0))
             amount_in_grams = float(request.POST.get("amount_in_grams", 0))
 
             # Calculate total calories and protein
-            total_calories = calories_per_gram * amount_in_grams
-            total_protein = protein_per_gram * amount_in_grams
+            total_calories = searched_calories_per_gram * amount_in_grams
+            total_protein = searched_protein_per_gram * amount_in_grams
 
             # Save the searched food item
             SearchedFoodItem.objects.create(
@@ -102,39 +100,39 @@ def add_calorie_entry(request):
 
             return redirect(redirect_url)
 
-    elif request.method == "POST":
-        # Handle manual food item entry
-        form = AddCalorieEntryForm(request.POST)
-        if form.is_valid():
-            food_name = form.cleaned_data["food_name"]
-            amount_in_grams = form.cleaned_data["amount_in_grams"]
-            calories_per_gram = form.cleaned_data["calories_per_gram"]
-            protein_per_gram = form.cleaned_data["protein_per_gram"]
+        else:
+            # Handle manual food item entry
+            form = AddCalorieEntryForm(request.POST)
+            if form.is_valid():
+                food_name = form.cleaned_data["food_name"]
+                amount_in_grams = form.cleaned_data["amount_in_grams"]
+                calories_per_gram = form.cleaned_data["calories_per_gram"]
+                protein_per_gram = form.cleaned_data["protein_per_gram"]
 
-            # Add or retrieve the food item
-            food_item, created = FoodItem.objects.get_or_create(
-                name=food_name,
-                defaults={
-                            "calories_per_gram": calories_per_gram,
-                            "protein_per_gram": protein_per_gram,
-                    }
-            )
+                # Add or retrieve the food item
+                food_item, created = FoodItem.objects.get_or_create(
+                    name=food_name,
+                    defaults={
+                                "calories_per_gram": calories_per_gram,
+                                "protein_per_gram": protein_per_gram,
+                        }
+                )
 
-            # Calculate total calories
-            calculated_calories = food_item.calories_per_gram * amount_in_grams
-            calculated_protein = food_item.protein_per_gram * amount_in_grams
+                # Calculate total calories
+                calculated_calories = food_item.calories_per_gram * amount_in_grams
+                calculated_protein = food_item.protein_per_gram * amount_in_grams
 
-            # Create the calorie entry
-            CalorieIntakeEntry.objects.create(
-                user=request.user,
-                food_item=food_item,
-                amount_in_grams=amount_in_grams,
-                calculated_calories=calculated_calories,
-                calculated_protein=calculated_protein,
-                date=selected_date,
-            )
+                # Create the calorie entry
+                CalorieIntakeEntry.objects.create(
+                    user=request.user,
+                    food_item=food_item,
+                    amount_in_grams=amount_in_grams,
+                    calculated_calories=calculated_calories,
+                    calculated_protein=calculated_protein,
+                    date=selected_date,
+                )
 
-        return redirect(redirect_url)
+            return redirect(redirect_url)
 
     context = {
         "selected_date": selected_date,

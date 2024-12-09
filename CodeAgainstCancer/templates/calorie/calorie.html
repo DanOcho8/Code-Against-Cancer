@@ -21,7 +21,7 @@
 </h2>
 
 <form method="GET" action="{% url 'calorieTracker:calorie_tracker' %}">
-    <input type="date" name="date" value="{{ selected_date }}">
+    <input type="date" name="date" value="{{ selected_date|date:'Y-m-d' }}">
     <button type="submit">View</button>
 </form>
 
@@ -30,10 +30,12 @@
 <ul>
     {% for entry in calorie_entries %}
         <li>
-            {{ entry.food_item.name }} - {{ entry.amount_in_grams }}g - {{ entry.calculated_calories }} calories
-            <a href="{% url 'calorieTracker:delete_calorie_entry' entry.id %}?date={{ selected_date }}" onclick="return confirm('Are you sure you want to delete this entry?');">
+            {{ entry.food_item.name }} - {{ entry.amount_in_grams }}g - {{ entry.calculated_calories }} calories - {{ entry.calculated_protein }} protein
+            <a href="{% url 'calorieTracker:delete_calorie_entry' entry.id %}?date={{ selected_date|date:'Y-m-d' }}" 
+                onclick="return confirm('Are you sure you want to delete this entry?');">
                 <img src="{% static 'images/trash.png' %}" alt="Delete" style="width: 16px; height: 16px;">
             </a>
+
         </li>
     {% endfor %}
 </ul>
@@ -42,7 +44,7 @@
     {% for item in searched_food_items %}
         <li>
             {{ item.description }} - {{ item.total_calories|floatformat:2 }} calories - {{ item.total_protein|floatformat:2 }}g protein
-            <a href="{% url 'calorieTracker:delete_calorie_entry' item.id %}?date={{ selected_date }}" onclick="return confirm('Are you sure you want to delete this entry?');">
+            <a href="{% url 'calorieTracker:delete_calorie_entry' item.id %}?date={{ selected_date|date:'Y-m-d' }}" onclick="return confirm('Are you sure you want to delete this entry?');">
                 <img src="{% static 'images/trash.png' %}" alt="Delete" style="width: 16px; height: 16px;">
             </a>
         </li>
@@ -54,7 +56,7 @@
 <p>Total Calories: {{ total_calories }}</p>
 <p>Total Protein: {{ total_protein }}</p>
 
-<a href="{% url 'calorieTracker:add_entry' %}?date={{ selected_date }}" class="btn btn-primary">
+<a href="{% url 'calorieTracker:add_entry' %}?date={{ selected_date|date:'Y-m-d' }}" class="btn btn-primary">
     Add Entry
 </a>
 
