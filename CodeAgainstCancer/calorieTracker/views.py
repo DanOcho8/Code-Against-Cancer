@@ -30,7 +30,7 @@ def calorie_tracker(request):
         sum(item.total_calories for item in searched_food_items)
     )
     total_protein = (
-        sum(entry.food_item.protein_per_gram * entry.amount_in_grams for entry in calorie_entries) + 
+        sum(entry.calculated_protein for entry in calorie_entries) + 
         sum(item.total_protein for item in searched_food_items)
     )
 
@@ -111,14 +111,23 @@ def add_calorie_entry(request):
                 calories_per_gram = form.cleaned_data["calories_per_gram"]
                 protein_per_gram = form.cleaned_data["protein_per_gram"]
 
-                # Add or retrieve the food item
-                food_item, created = FoodItem.objects.get_or_create(
+            food_item = FoodItem.objects.filter(name=food_name).first()
+
+            # This Updates it if the item already exits
+            if food_item:
+                # Update the existing item with the new values
+                food_item.calories_per_gram = calories_per_gram
+                food_item.protein_per_gram = protein_per_gram
+                food_item.save()
+            else:
+                # Create a new item
+                food_item = FoodItem.objects.create(
                     name=food_name,
-                    defaults={
-                                "calories_per_gram": calories_per_gram,
-                                "protein_per_gram": protein_per_gram,
-                        }
+                    calories_per_gram=calories_per_gram,
+                    protein_per_gram=protein_per_gram,
+                    is_custom=True
                 )
+
 
                 # Calculate total calories
                 calculated_calories = food_item.calories_per_gram * amount_in_grams
