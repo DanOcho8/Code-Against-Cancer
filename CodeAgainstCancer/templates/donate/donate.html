@@ -4,63 +4,248 @@
 {% block title %}Donate | CaC{% endblock %}
 
 {% block content %}
-    <section class="container pt-4">
-        <div class="row">
-            <div class="col-lg-6 ">
-                <div class="donation-img">
 
-                    <img src="https://www.foundationformmc.org/img/home/donate.jpg" alt="" class="img-fluid">
-                </div>
-                <h1 class="">Help fund cancer research today.</h1>
-                <p>Your tax-deductible donation could help in the fight against cancer</p>
-                <p class="">
-                    Your contribution can make a real difference in the fight against cancer. Help fund cutting-edge
-                    research by donating to one of these trusted organizations.
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    
+    <style>
+
+body {
+    background-color: #e3f2fd;
+}
+
+.donation-img img {
+    width: 100%;
+    height: auto;
+    max-width: 800px;
+    max-height: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    display: block;
+}
+
+header {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.donation-column {
+    padding: 0;
+    margin: 0;
+}
+
+.donation-column h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.donation-column p {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.donation-card {
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    padding: 20px;
+    margin: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.donation-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.donation-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #333333;
+    font-weight: bold;
+}
+
+.donation-card ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0;
+}
+
+.donation-card ul li {
+    font-size: 0.95em;
+    color: #666666;
+    margin-bottom: 5px;
+}
+
+.donation-container {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.donate-btn {
+    color: #ffffff;
+    letter-spacing: 2px;
+    font-size: 15px;
+    text-align: center;
+    line-height: 25px;
+    text-decoration: none;
+    display: block;
+    background-color: #10182f;
+    border: 2px solid #10182f;
+    border-radius: 50px;
+    padding: 10px 20px;
+    width: 30%;
+    margin-top: 40px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.donate-btn:hover {
+    background-color: #fff;
+    color: #10182f;
+    border-color: #10182f;
+    text-decoration: underline;
+}
+    </style>
+</head>
+
+<section class="container-fluid p-0" style="background-color: #f8f9fa;">
+    <div class="row justify-content-between">
+        <!-- Left column with image -->
+        <div class="col-lg-5 donation-column" style="max-width: 45%; width:45%; height:auto;">
+            <div class="donation-img">
+                <img src="https://www.foundationformmc.org/img/home/donate.jpg" alt="Donate" class="img-fluid" >
+            </div>
+        </div>
+
+        <!-- Right column with donation cards -->
+        <div class="col-lg-7" style="padding-right: 100px; max-width: 600px; margin-top: 30px;">
+            <h1 class="mt-3" style="margin-top: 20px;">Help fund cancer research today.</h1>
+            <p>Your tax-deductible donation could help in the fight against cancer.</p>
+            <p>Your contribution can make a real difference in the fight against cancer. Help fund cutting-edge research by donating to one of these trusted organizations.</p>
+        </div>
+    </div>
+</section>
+
+    <!-- 2nd Section -->
+<section class="container-fluid py-5" style="border-radius: 15px; overflow: hidden;">
+    <div class="row container mx-auto d-flex align-items-center justify-content-between">
+        <!-- Text Section -->
+        <div class="col-lg-6 d-flex flex-column align-items-center justify-content-center text-left px-4">
+            <div>
+                <h3 class="Section2" style="text-align: center; margin-bottom: 20px;">Why should you donate?</h3>
+                <p>
+                    Donating to support cancer patients and research creates a meaningful impact by funding life-saving treatments and empowering patients with personalized nutritional guidance to maintain strength during treatment. 
+                    Your contribution provides tangible benefits like nutritious meals, emotional support, and critical resources for families, while fostering community connections through local support groups and educational tools. 
+                    Together, we can improve the quality of life for patients, advance cancer research, and bring hope to those affected by this disease.
                 </p>
             </div>
-            <div class="col-lg-6 flex mt-0">
-                <div class="mb-2">
+        </div>
 
-                    <h2>First subtitle for resource group</h2>
-                    <ul class="list-group">
-                        <li class="list-group-item">An item</li>
-                        <li class="list-group-item">A second item</li>
-                        <li class="list-group-item">A third item</li>
-                        <li class="list-group-item">A fourth item</li>
-                        <li class="list-group-item">And a fifth one</li>
+        <!-- Image Section -->
+        <div class="col-lg-6 d-flex justify-content-center align-items-center">
+            <div class="home-img">
+                <img
+                    src="https://www.freemalaysiatoday.com/_next/image/?url=https%3A%2F%2Fmedia.freemalaysiatoday.com%2Fwp-content%2Fuploads%2F2024%2F02%2F2f94a27b-chemo.jpg&w=1920&q=75"
+                    class="img-fluid"
+                    alt="children cancer patients"
+                    style="border-radius: 15px; overflow: hidden;"
+                />
+            </div>
+        </div>
+    </div>
+</section>
+
+    <div class="donation-container">
+        <h2 class="text-center mt-3" style="margin-bottom: 20px;">Your Donation Will Help...</h2>
+        <div class="row justify-content-center">
+            <!-- Card 1 -->
+            <div class="col-md-4">
+                <div class="donation-card">
+                    <h3 style= "text-align: center; margin-bottom: 20px;" >Support Patients Directly</h3>
+                    <ul>
+                        <li>Provides essential resources for cancer patients, including transportation to treatments, emotional support programs, and access to care.</li>
+                        <li>Funds nutritional meal plans tailored to boost recovery and improve quality of life during treatment.</li>
+                        <li>Helps offer educational workshops to empower patients with knowledge about their condition and care options.</li>
+                        <li>Supports awareness campaigns</li>
                     </ul>
                 </div>
-                <div class="mb-2">
-
-                    <h2>second subtitle for resource group</h2>
-                    <ul class="list-group">
-                        <li class="list-group-item">An item</li>
-                        <li class="list-group-item">A second item</li>
-                        <li class="list-group-item">A third item</li>
+            </div>
+            <!-- Card 2 -->
+            <div class="col-md-4">
+                <div class="donation-card">
+                    <h3 style= "text-align: center; margin-bottom: 20px;">Advancing Cancer Research</h3>
+                    <ul>
+                        <li>Supports cutting-edge research to develop innovative treatments and therapies tailored to specific cancer types.</li>
+                        <li>Funds laboratory operations, enabling scientists to explore new breakthroughs in cancer prevention and treatment.</li>
+                        <li>Provides grants to researchers working on high-potential projects aimed at improving survival rates and reducing side effects.</li>
                     </ul>
                 </div>
-                <div class="mb-2">
-
-                    <h2>third subtitle for resource group</h2>
-                    <ul class="list-group">
-                        <li class="list-group-item">An item</li>
-                        <li class="list-group-item">A second item</li>
-                        <li class="list-group-item">A third item</li>
-                        <li class="list-group-item">A fourth item</li>
-                    </ul>
-                </div>
-                <div class="mb-5">
-
-                    <h2>Fourth subtitle for resource group</h2>
-                    <ul class="list-group">
-                        <li class="list-group-item">An item</li>
-                        <li class="list-group-item">A second item</li>
-                        <li class="list-group-item">A third item</li>
-                        <li class="list-group-item">A fourth item</li>
-                        <li class="list-group-item">And a fifth one</li>
+            </div>
+            <!-- Card 3 -->
+            <div class="col-md-4">
+                <div class="donation-card">
+                    <h3 style= "text-align: center; margin-bottom: 20px;">Community Outreach and Prevention</h3>
+                    <ul>
+                        <li>Supports cutting-edge research to develop innovative treatments and therapies tailored to specific cancer types.</li>
+                        <li>Funds laboratory operations, enabling scientists to explore new breakthroughs in cancer prevention and treatment.
+                        </li>
+                        <li>Provides grants to researchers working on high-potential projects aimed at improving survival rates and reducing side effects.</li>
                     </ul>
                 </div>
             </div>
         </div>
-    </section>
+        <div class="center-container" style="display: flex; justify-content: center; align-items: center;">
+            <button class="donate-btn" onclick="window.location.href='{% url 'donate_form' %}'">DONATE NOW</button>
+        </div>
+    </div>
+    
+    <!-- Contributors Section -->
+    <h3 class="text-center mt-5">Contributors</h3>
+    <hr style="border-top: 1px solid #ddd;">
+    <p class="text-muted small mb-0" style="text-align: center;">Thank you for your incredible generosity!</p>
+    
+        <!-- Debugging Output 
+        <p>Total donors: {{ donors|length }}</p>
+        <pre>{{ donors }}</pre>
+        -->
+
+        <h3 class="text-center mt-4 mb-4">We've amassed a total of <strong style="color: #28a745">${{ total_amount }}</strong> towards cancer research!</h3>
+        
+        <div class="container my-4">
+            <div class="row justify-content-center">
+                {% for donor in donors %}
+                    <div class="col-md-4 mb-4 d-flex justify-content-center">
+                        <div class="card p-4 shadow-sm" style="max-height: 90%; width: 100%; max-width: 300px; background-color: #f8f9fa; border-radius: 10px;">
+                            <div class="card-body text-center">
+                                <h4 class="card-title font-weight-bold" style="color: #007bff;">
+                                    {{ donor.name }}
+                                </h4>
+                                <p class="card-text mb-2" style="font-size: 1.5em; color: #28a745;">
+                                    <strong>${{ donor.amount }}</strong>
+                                </p>
+                                <p class="card-text text-muted">
+                                    {{ donor.message }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>No contributors yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+        
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
 {% endblock %}

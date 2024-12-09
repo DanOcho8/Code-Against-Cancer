@@ -5,7 +5,7 @@ import random
 import time
 
 import requests
-from accounts.models import UserProfile
+from accounts.models import UserProfile, Donor
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.messages import get_messages
@@ -17,6 +17,10 @@ from smtplib import SMTPException
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
+from accounts.forms import DonorForm
+from django.db.models import Sum
+from django.views.decorators.csrf import csrf_exempt
+
 #from pyexpat.errors import messages
 
 from .api_handlers import APIHandlerFactory
@@ -181,19 +185,66 @@ def about(request):
     """
     return render(request, "about/about.html")
 
-
 def donate(request):
     """
-    Handle the donation page request.
-
-    Args:
-        request (HttpRequest): The HTTP request object.
-
-    Returns:
-        HttpResponse: The rendered donation page.
+    Handle the donation page and render the wall of top verified contributors.
     """
-    return render(request, "donate/donate.html")
 
+    # Calculate the total donation amount from verified donors
+    total_amount = Donor.objects.filter(validated=True).aggregate(Sum('amount'))['amount__sum'] or 0
+    print(f"Total amount from verified donors: {total_amount}")
+
+    # Fetch the top 9 verified donors, ordered by the most recent
+    verified_donors = Donor.objects.filter(validated=True).order_by('-amount', '-date')[:9]
+    print(f"Verified donors query: {verified_donors}")
+
+    # Placeholder data for when there are fewer than 9 verified donors
+    placeholders = [
+        {"name": "Anonymous", "amount": 500, "message": "Inspiring message"},
+        {"name": "Anonymous", "amount": 300, "message": "Keep up the fight!"},
+        {"name": "Anonymous", "amount": 250, "message": "Together we are stronger."},
+        {"name": "Anonymous", "amount": 450, "message": "Supporting this cause."},
+        {"name": "Anonymous", "amount": 700, "message": "Proud to be a donor."},
+        {"name": "Anonymous", "amount": 350, "message": "Every bit counts."},
+        {"name": "Anonymous", "amount": 600, "message": "Making a difference."},
+        {"name": "Anonymous", "amount": 800, "message": "Thank you for your work!"},
+        {"name": "Anonymous", "amount": 1000, "message": "Keep up the great work."},
+    ]
+
+    real_donors_dicts = [
+        {"name": donor.name or "Anonymous", "amount": donor.amount, "message": donor.message or ""}
+        for donor in verified_donors
+    ]
+    print(f"Real donors data: {real_donors_dicts}")  # Debug real donors data
+
+    # Combine real donors with placeholders to ensure exactly 9 entries
+    donors = real_donors_dicts + placeholders[len(real_donors_dicts):]
+    print(f"Final donor list passed to template: {donors}")
+
+    return render(request, 'donate/donate.html', {'donors': donors, 'total_amount': total_amount})
+
+def donate_form(request):
+    """
+    Handle donor form submissions for leaving a message or skipping to PayPal.
+    """
+    paypal_url = "https://www.paypal.com/donate/?business=U5J34AALMLXS6&no_recurring=0&item_name=CodeAgainstCancer+Donation&currency_code=USD"
+
+    if request.method == "POST":
+        action = request.POST.get("action")
+        form = DonorForm(request.POST)
+
+        if action == "leave_message":
+            if form.is_valid():
+                form.save()  # Save the donor object
+            return redirect(paypal_url) 
+
+        elif action == "no_thanks":
+            return redirect(paypal_url)
+
+    else:
+        form = DonorForm()  # Provide an empty form for GET requests
+
+    return render(request, 'donate/donate_form.html', {'form': form})
 
 # @cache_results(timeout=300)
 @login_required(login_url="login")
