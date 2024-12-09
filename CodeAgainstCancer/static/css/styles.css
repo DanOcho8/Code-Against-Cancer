@@ -687,7 +687,6 @@ ul.forums a:hover {
   font-weight: bold;
   margin-bottom: 30px;
   color: #36788e;
-  text-shadow: 0 0 10px #36788e, 0 0 20px #3495b5; /* Glow effect */
 }
 
 /* Button Styling */
