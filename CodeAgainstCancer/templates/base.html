@@ -70,19 +70,30 @@
                     <li class="nav-iem">
                         <a class="nav-link" href="{% url 'donate' %}">Donation</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'thread_list' %}">Forum</a>
+                    </li>
+                    {#  block only visible if user is authenticated#}
+                    {# block only shown on mobile #}
                     {% if user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'resources' %}">Resources</a>
                         </li>
-                 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'searchRecipes' %}">Recipes</a>
-                    </li>
-               
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'calorieTracker:calorie_tracker' %}">Calorie Tracker</a>
-                    </li>
-                 {% endif %}
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'searchRecipes' %}">Recipes</a>
+                        </li>
+
+                        <li class="d-md-none nav-item">
+                            <a class="nav-link" href="{% url 'calorieTracker:calorie_tracker' %}">Calorie Tracker</a>
+                        </li>
+                        <li class="d-md-none nav-item">
+                            <a class="nav-link" href="">My Profile</a>
+                        </li>
+                        <li class="d-md-none nav-item">
+                            <a class="nav-link" href="">Manage Profile</a>
+                        </li>
+                    {% endif %}
 
                 </ul>
                 <form class="d-flex justify-content-center">
@@ -116,7 +127,7 @@
 {% if user.is_authenticated %}
     <aside
             id="mySidebar"
-            class="sidebar z-2 position-fixed d-flex"
+            class="sidebar z-2 position-fixed d-none d-md-flex"
     >
         <ul class="d-flex flex-column justify-content-center">
             {#            <li>#}
@@ -167,14 +178,12 @@
     </aside>
 {% endif %}
 <main
-        class=""
-        style="{% if user.is_authenticated %}margin-left: 50px;{% else %}margin-left: 0;{% endif %}"
+        class="{% if user.is_authenticated %}desktop-margin{% endif %}"
 >
     {% block content %} {% endblock %}
 </main>
 {% block footer %}
-    <footer class="z-1 position-relative"
-            style="{% if user.is_authenticated %}margin-left: 50px;{% else %}margin-left: 0;{% endif %}"
+    <footer class="z-1 position-relative {% if user.is_authenticated %}desktop-margin{% endif %}"
     >
         <div class="footer-container">
             <div>

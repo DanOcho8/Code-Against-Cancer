@@ -2,7 +2,7 @@
 {% load static %}
 
 
-{% block title %} Calorie Tracker {% endblock %}
+{% block title %} Calorie Tracker | CaC{% endblock %}
 
 {% block content %}
 
@@ -60,4 +60,5 @@
     Add Entry
 </a>
 
+    {% include 'calorie/widgets/bmi_calculator.html' %}
 {% endblock %}

@@ -1,0 +1,36 @@
+<div class="card m-4">
+    <div class="card-header">
+        <h5>BMI Calculator</h5>
+    </div>
+    <div class="card-body">
+        <form method="POST" action="" class="row g-3">
+            {% csrf_token %}
+            <div class="col-md-12">
+                <label for="height" class="form-label">Height (inches)</label>
+                <input type="number" id="height" name="height" class="form-control" placeholder="Enter your height" required>
+            </div>
+            <div class="col-md-12">
+                <label for="weight" class="form-label">Weight (pounds)</label>
+                <input type="number" id="weight" name="weight" class="form-control" placeholder="Enter your weight" required>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary w-100">Calculate BMI</button>
+            </div>
+        </form>
+
+        {% if bmi %}
+        <div class="alert alert-info mt-3">
+            <strong>Your BMI:</strong> {{ bmi }}<br>
+            {% if bmi < 18.5 %}
+                <span class="text-warning">You are underweight.</span>
+            {% elif bmi >= 18.5 and bmi < 24.9 %}
+                <span class="text-success">You have a normal weight.</span>
+            {% elif bmi >= 25 and bmi < 29.9 %}
+                <span class="text-warning">You are overweight.</span>
+            {% else %}
+                <span class="text-danger">You are obese.</span>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
