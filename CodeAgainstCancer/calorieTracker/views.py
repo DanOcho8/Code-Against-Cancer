@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 import requests
 from django.conf import settings
 from django.urls import reverse
-from django.http import Http404
+from django.http import Http404, HttpResponseNotAllowed
 
 
 @login_required(login_url="login")
@@ -71,6 +71,7 @@ def add_calorie_entry(request):
         selected_date = timezone.now().date()
 
     print(f"DEBUG: selected_date (POST or GET) = {selected_date}")
+    saved_entries = FoodItem.objects.filter(user=user)
     
     query = request.GET.get("query", "")
     results = []
@@ -88,7 +89,7 @@ def add_calorie_entry(request):
                         "description": food["description"],
                         "calories": next((n["value"] for n in food.get("foodNutrients", []) if n["nutrientName"] == "Energy"), 0),
                         "protein": next((n["value"] for n in food.get("foodNutrients", []) if n["nutrientName"] == "Protein"), 0),
-                        "picture": food.get("foodCategoryImage"),  # Assuming USDA provides image URLs here
+                        "picture": food.get("foodCategoryImage"),
                     }
                     for food in data.get("foods", [])
                 ]
@@ -120,9 +121,27 @@ def add_calorie_entry(request):
             )
 
             return redirect(redirect_url)
+        
+        elif request.POST.get("saved_food_name") and request.POST.get("saved_calories_per_gram"):
+            saved_food_name = request.POST.get("saved_food_name")
+            saved_calories_per_gram = float(request.POST.get("saved_calories_per_gram", 0))
+            saved_protein_per_gram = float(request.POST.get("saved_protein_per_gram", 0))
+            saved_amount_in_grams = float(request.POST.get("saved_amount_in_grams", 0))
+            
+            total_saved_calories = saved_calories_per_gram * saved_amount_in_grams
+            total_saved_protein = saved_protein_per_gram * saved_amount_in_grams
+            
+            SearchedFoodItem.objects.create(
+                user=user,
+                description=saved_food_name,
+                total_calories=total_saved_calories,
+                total_protein=total_saved_protein,
+                date=selected_date,
+            )
+            
+            return redirect(redirect_url)
 
         else:
-            # Handle manual food item entry
             form = AddCalorieEntryForm(request.POST)
             if form.is_valid():
                 food_name = form.cleaned_data["food_name"]
@@ -130,25 +149,24 @@ def add_calorie_entry(request):
                 calories_per_gram = form.cleaned_data["calories_per_gram"]
                 protein_per_gram = form.cleaned_data["protein_per_gram"]
 
-            food_item = FoodItem.objects.filter(name=food_name).first()
+            food_item = FoodItem.objects.filter(name=food_name, user=user).first()
 
-            # This Updates it if the item already exits
+            # Check if the item exists for the current user
             if food_item:
-                # Update the existing item with the new values
                 food_item.calories_per_gram = calories_per_gram
                 food_item.protein_per_gram = protein_per_gram
                 food_item.save()
             else:
-                # Create a new item
+                # Create a new item for the current user
                 food_item = FoodItem.objects.create(
                     name=food_name,
+                    user=user,
                     calories_per_gram=calories_per_gram,
                     protein_per_gram=protein_per_gram,
                     is_custom=True
                 )
 
 
-                # Calculate total calories
                 calculated_calories = food_item.calories_per_gram * amount_in_grams
                 calculated_protein = food_item.protein_per_gram * amount_in_grams
 
@@ -169,6 +187,7 @@ def add_calorie_entry(request):
         "query": query,
         "results": results,
         "form": AddCalorieEntryForm(),
+        'saved_entries': saved_entries,
     }
 
     return render(request, "calorie/add_entry.html", context)
@@ -176,32 +195,40 @@ def add_calorie_entry(request):
 
 @login_required(login_url="login")
 def delete_calorie_entry(request, entry_id):
+    if request.method != "POST":
+        return HttpResponseNotAllowed(["POST"])  # Allow only POST requests
 
-    selected_date = request.GET.get('date')
+    selected_date = request.POST.get('date')
     if selected_date:
         try:
-            # Ensure selected_date is in "YYYY-MM-DD" format if passed
-            selected_date = datetime.strptime(selected_date, '%Y-%m-%d').strftime('%Y-%m-%d')
+            selected_date = datetime.strptime(selected_date, '%Y-%m-%d').date()
         except ValueError:
-            # In case of an incorrect format, default to today's date
-            selected_date = timezone.now().date().strftime('%Y-%m-%d')
+            selected_date = timezone.now().date()
     else:
-        selected_date = timezone.now().date().strftime('%Y-%m-%d')
+        selected_date = timezone.now().date()
+
+    # Attempt to delete from CalorieIntakeEntry
     entry = CalorieIntakeEntry.objects.filter(id=entry_id, user=request.user).first()
-    
     if entry:
         entry.delete()
     else:
-        # If not found in CalorieIntakeEntry, try SearchedFoodItem
+        # Attempt to delete from SearchedFoodItem
         searched_entry = SearchedFoodItem.objects.filter(id=entry_id, user=request.user).first()
         if searched_entry:
             searched_entry.delete()
         else:
-            # If the entry doesn't exist in either table, raise a 404
-            raise Http404("Entry not found.")
+            # Attempt to delete from FoodItem (Saved Entries)
+            food_item = FoodItem.objects.filter(id=entry_id, user=request.user).first()
+            if food_item:
+                food_item.delete()
+            else:
+                # If the entry doesn't exist in any table, raise a 404 error
+                raise Http404("Entry not found.")
 
+    # Redirect to the appropriate page with the selected date
+    redirect_to = request.POST.get("redirect_to", "calorieTracker:calorie_tracker")
+    return redirect(f"{reverse(redirect_to)}?date={selected_date}")
 
-    return redirect(f"{request.build_absolute_uri('/calorieTracker/calorie/')}?date={selected_date}")
 
 class EditCalorieEntryForm(forms.ModelForm):
     class Meta:

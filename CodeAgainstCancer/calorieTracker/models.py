@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User  # Or import your custom User model if you have one
 
 class FoodItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     calories_per_gram = models.DecimalField(max_digits=5, decimal_places=2)
     protein_per_gram = models.DecimalField(max_digits=5, decimal_places=2, default=0)
