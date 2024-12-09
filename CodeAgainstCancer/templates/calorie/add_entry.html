@@ -39,8 +39,8 @@
                         <form method="POST" action="{% url 'calorieTracker:add_entry' %}">
                             {% csrf_token %}
                             <input type="hidden" name="food_name" value="{{ item.description }}">
-                            <input type="hidden" name="searched_calories_per_gram" value="{{ item.calories|floatformat:2|add:"/100" }}">
-                            <input type="hidden" name="searched_protein_per_gram" value="{{ item.protein|floatformat:2|add:"/100" }}">
+                            <input type="hidden" name="searched_calories_per_gram" value="{{ item.calories|floatformat:2 }}">
+                            <input type="hidden" name="searched_protein_per_gram" value="{{ item.protein|floatformat:2 }}">
                             <input type="hidden" name="date" value="{{ selected_date|date:'Y-m-d' }}">
                             <input class="form-control me-2" type="number" name="amount_in_grams" placeholder="Grams" required>
                             <button class="btn btn-primary" type="submit">Add</button>

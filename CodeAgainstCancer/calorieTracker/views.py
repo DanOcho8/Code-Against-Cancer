@@ -10,6 +10,8 @@ from datetime import datetime, timedelta
 import requests
 from django.conf import settings
 from django.urls import reverse
+from django.http import Http404
+
 
 @login_required(login_url="login")
 def calorie_tracker(request):
@@ -81,8 +83,8 @@ def add_calorie_entry(request):
         
         if request.POST.get("food_name") and request.POST.get("searched_calories_per_gram"):
             food_name = request.POST.get("food_name")
-            searched_calories_per_gram = float(request.POST.get("searched_calories_per_gram", 0))
-            searched_protein_per_gram = float(request.POST.get("searched_protein_per_gram", 0))
+            searched_calories_per_gram = float(request.POST.get("searched_calories_per_gram", 0)) / 100
+            searched_protein_per_gram = float(request.POST.get("searched_protein_per_gram", 0)) / 100
             amount_in_grams = float(request.POST.get("amount_in_grams", 0))
 
             # Calculate total calories and protein
@@ -157,8 +159,18 @@ def delete_calorie_entry(request, entry_id):
             selected_date = timezone.now().date().strftime('%Y-%m-%d')
     else:
         selected_date = timezone.now().date().strftime('%Y-%m-%d')
-    entry = get_object_or_404(CalorieIntakeEntry, id=entry_id, user=request.user)
-    entry.delete()
+    entry = CalorieIntakeEntry.objects.filter(id=entry_id, user=request.user).first()
+    
+    if entry:
+        entry.delete()
+    else:
+        # If not found in CalorieIntakeEntry, try SearchedFoodItem
+        searched_entry = SearchedFoodItem.objects.filter(id=entry_id, user=request.user).first()
+        if searched_entry:
+            searched_entry.delete()
+        else:
+            # If the entry doesn't exist in either table, raise a 404
+            raise Http404("Entry not found.")
 
 
     return redirect(f"{request.build_absolute_uri('/calorieTracker/calorie/')}?date={selected_date}")
