@@ -24,7 +24,3 @@ class AddCalorieEntryForm(forms.Form):
         label="Protein per Gram",
         widget=forms.NumberInput(attrs={'placeholder': 'Enter protein per gram'})
     )
-    date = forms.DateField(
-        widget=forms.SelectDateWidget,
-        label="Date"
-    )
