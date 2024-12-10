@@ -20,7 +20,22 @@ class CalorieIntakeEntry(models.Model):
 
 class SearchedFoodItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    description = models.CharField(max_length=255)  # Description of the food item
-    total_calories = models.DecimalField(max_digits=7, decimal_places=2)  # Total calories for the entry
-    total_protein = models.DecimalField(max_digits=7, decimal_places=2)  # Total protein for the entry
-    date = models.DateField()  # Date the food item is consumed
+    description = models.CharField(max_length=255)
+    total_calories = models.DecimalField(max_digits=7, decimal_places=2)
+    total_protein = models.DecimalField(max_digits=7, decimal_places=2)
+    date = models.DateField()
+    
+class CalorieCalculatorEntry(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    weight = models.DecimalField(max_digits=5, decimal_places=2)
+    height = models.DecimalField(max_digits=5, decimal_places=2)
+    age = models.IntegerField()
+    biological_sex = models.CharField(max_length=10)
+    body_fat_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    activity_level = models.CharField(max_length=20)
+    goal_weight = models.DecimalField(max_digits=5, decimal_places=2)
+    bmi = models.DecimalField(max_digits=5, decimal_places=2)
+    bmr = models.DecimalField(max_digits=6, decimal_places=2)
+    tdee = models.DecimalField(max_digits=6, decimal_places=2)
+    calorie_target = models.DecimalField(max_digits=6, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)

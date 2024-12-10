@@ -1,32 +1,42 @@
 from django.shortcuts import render, redirect
-from .models import CalorieIntakeEntry, FoodItem, SearchedFoodItem
+from .models import CalorieIntakeEntry, FoodItem, SearchedFoodItem, CalorieCalculatorEntry
 from accounts.models import UserProfile
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django import forms
-from .forms import AddCalorieEntryForm
+from .forms import AddCalorieEntryForm, CalorieCalculator
 from datetime import datetime, timedelta
 import requests
 from django.conf import settings
 from django.urls import reverse
 from django.http import Http404, HttpResponseNotAllowed
+from decimal import Decimal
+from django.shortcuts import get_object_or_404
 
 
 @login_required(login_url="login")
 def calorie_tracker(request):
     user = request.user
     selected_date = request.GET.get("date")
+    
+    # Try to retrieve existing calculator entry for the user
+    try:
+        calculator_entry = CalorieCalculatorEntry.objects.get(user=user)
+        form = CalorieCalculator(instance=calculator_entry)
+        calculator_entry_exists = True
+    except CalorieCalculatorEntry.DoesNotExist:
+        form = CalorieCalculator()
+        calculator_entry_exists = False
+
     if isinstance(selected_date, str):
         try:
             selected_date = datetime.strptime(selected_date, '%Y-%m-%d').date()
         except ValueError:
             selected_date = None
-
-    # Fallback to today if no date is provided or invalid
     if not selected_date:
         selected_date = timezone.now().date()
-        
+
     print(f"DEBUG: selected_date={selected_date}")
 
     calorie_entries = CalorieIntakeEntry.objects.filter(user=user, date=selected_date)
@@ -41,6 +51,22 @@ def calorie_tracker(request):
         sum(item.total_protein for item in searched_food_items)
     )
 
+    # calculate calorie and protein target and percentage
+    calorie_target = request.session.get('calorie_target')
+    protein_target = request.session.get('protein_target')
+
+    calorie_target = Decimal(calorie_target) if calorie_target else None
+    protein_target = Decimal(protein_target) if protein_target else None
+
+    calorie_percentage = (
+        min((Decimal(total_calories) / calorie_target) * 100, 100) 
+        if calorie_target else 0
+    )
+    protein_percentage = (
+        min((Decimal(total_protein) / protein_target) * 100, 100) 
+        if protein_target else 0
+    )
+
     context = {
         'calorie_entries': calorie_entries,
         'searched_food_items': searched_food_items,
@@ -50,9 +76,16 @@ def calorie_tracker(request):
         'today': timezone.now().date(),
         'yesterday': timezone.now().date() - timedelta(days=1),
         'tomorrow': timezone.now().date() + timedelta(days=1),
+        'form': form,
+        'calorie_percentage': round(calorie_percentage, 2) if calorie_target else None,
+        'protein_percentage': round(protein_percentage, 2) if protein_target else None,
+        'calorie_target': Decimal(calorie_target) if calorie_target else None,
+        'protein_target': Decimal(protein_target) if protein_target else None,
+        'calculator_entry_exists': calculator_entry_exists,
     }
 
     return render(request, 'calorie/calorie.html', context)
+
 
 
 
@@ -225,7 +258,6 @@ def delete_calorie_entry(request, entry_id):
                 # If the entry doesn't exist in any table, raise a 404 error
                 raise Http404("Entry not found.")
 
-    # Redirect to the appropriate page with the selected date
     redirect_to = request.POST.get("redirect_to", "calorieTracker:calorie_tracker")
     return redirect(f"{reverse(redirect_to)}?date={selected_date}")
 
@@ -261,3 +293,84 @@ def edit_calorie_entry(request, entry_id):
         form.initial['food_item'] = entry.food_item.name  # Set the initial food item name
 
     return render(request, 'calorie/edit_entry.html', {'form': form, 'entry': entry})
+
+def calculate_bmi_calories(request):
+    if request.method == "POST":
+        form = CalorieCalculator(request.POST)
+        if form.is_valid():
+            weight = form.cleaned_data['weight']
+            height = form.cleaned_data['height']
+            age = int(form.cleaned_data['age'])
+            biological_sex = form.cleaned_data['biological_sex']
+            body_fat_percentage = form.cleaned_data.get('body_fat_percentage')
+            activity_level = form.cleaned_data['activity_level']
+            goal_weight = form.cleaned_data['goal_weight']
+
+            # Perform BMI Calculation
+            bmi = weight / ((height / Decimal(100)) ** 2)
+
+            # Perform BMR (Mifflin-St Jeor Equation)
+            if biological_sex == 'male':
+                bmr = Decimal(10) * weight + Decimal(6.25) * height - Decimal(5) * age + Decimal(5)
+            else:
+                bmr = Decimal(10) * weight + Decimal(6.25) * height - Decimal(5) * age - Decimal(161)
+
+            # TDEE calculation
+            activity_multiplier = {
+                'sedentary': Decimal('1.2'),
+                'light': Decimal('1.375'),
+                'moderate': Decimal('1.55'),
+                'very_active': Decimal('1.725'),
+                'super_active': Decimal('1.9')
+            }
+            tdee = bmr * activity_multiplier[activity_level]
+
+            # Adjust for goal weight
+            calorie_target = tdee - Decimal(500) if weight > goal_weight else tdee + Decimal(500)
+
+            # Check if an entry exists for the user
+            calorie_entry, created = CalorieCalculatorEntry.objects.update_or_create(
+                user=request.user,
+                defaults={
+                    "weight": weight,
+                    "height": height,
+                    "age": age,
+                    "biological_sex": biological_sex,
+                    "body_fat_percentage": body_fat_percentage,
+                    "activity_level": activity_level,
+                    "goal_weight": goal_weight,
+                    "bmi": bmi,
+                    "bmr": bmr,
+                    "tdee": tdee,
+                    "calorie_target": calorie_target,
+                }
+            )
+
+            # Update session data
+            request.session['bmi'] = round(float(bmi), 2)
+            request.session['calorie_target'] = round(float(calorie_target), 2)
+            request.session['protein_target'] = round(float(weight * Decimal('1.6')), 2)
+
+            return redirect('calorieTracker:calorie_tracker')
+
+    else:
+        form = CalorieCalculator()
+
+    return render(request, 'calorie/calorie.html', {'form': form})
+
+
+@login_required(login_url="login")
+def edit_calculator(request):
+    user_entry = get_object_or_404(CalorieCalculatorEntry, user=request.user)
+
+    if request.method == "POST":
+        form = CalorieCalculator(request.POST, instance=user_entry)
+        if form.is_valid():
+            updated_entry = form.save()
+            request.session['calorie_target'] = round(float(updated_entry.calorie_target), 2)
+            request.session['protein_target'] = round(float(updated_entry.weight * Decimal('1.6')), 2)
+            return redirect('calorieTracker:calorie_tracker')
+    else:
+        form = CalorieCalculator(instance=user_entry)
+
+    return render(request, "calorie/calorie.html", {"form": form})

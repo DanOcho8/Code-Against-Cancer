@@ -8,5 +8,7 @@ urlpatterns = [
     path('add/', views.add_calorie_entry, name='add_entry'),  # Add a new calorie entry
     path('delete/<int:entry_id>/', views.delete_calorie_entry, name='delete_calorie_entry'),  # Delete a specific entry
     path('edit/<int:entry_id>/', views.edit_calorie_entry, name='edit_calorie_entry'),  # Edit a specific entry
-    
+    path('calculate/', views.calculate_bmi_calories, name='calculate_bmi_calories'),
+    path('edit-calculator/', views.edit_calculator, name='edit_calculator'),
+
 ]
