@@ -533,6 +533,18 @@ footer {
   background-color: #033241;
   color: white;
 }
+
+.icon-wrapper i {
+  font-size: 40px; /* Adjust size as needed */
+  margin: 0;
+  padding: 5px;
+}
+
+/* Align text with icons */
+.Mission p {
+  margin-top: 0;
+  line-height: 1.5;
+}
 /* end of styles for homepage */
 
 /* styles for profile page  */
@@ -809,13 +821,15 @@ ul.forums a:hover {
   line-height: 30px; /* Match the height for proper alignment */
   transition: width 0.4s ease-in-out; /* Smooth transition */
   height: 100%;
-  background: linear-gradient(-45deg, #add8e6, #ff69b4, #add8e6, #c71585); /* Gradient effect */
+  background: linear-gradient(
+    -45deg,
+    #add8e6,
+    #ff69b4,
+    #add8e6,
+    #c71585
+  ); /* Gradient effect */
   background-size: 400% 400%;
   animation: gradient 15s ease infinite; /* Apply gradient animation */
 }
-
-
-
-
 
 /*end of calorie tracker styles */
