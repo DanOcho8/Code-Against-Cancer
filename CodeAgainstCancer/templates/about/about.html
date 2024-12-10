@@ -6,14 +6,13 @@
 {% block content %}
     <div class="container">
         <section class="py-4">
-
             <h2 class="text-center">Our Mission</h2>
             <p class="text-center mission">
                 To empower every individual affected by cancer to take control of their health, find strength in
                 community, and live a full, active life with the support they need.
             </p>
-
         </section>
+
         <section class="row">
             <div class="col-lg-6 d-flex justify-content-center align-items-center flex-column">
                 <img src="https://images.pexels.com/photos/6798885/pexels-photo-6798885.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
@@ -38,14 +37,41 @@
                 </div>
             </div>
         </section>
+
+        <section class="my-5">
+            <h2 class="text-center">What Inspired Us</h2>
+            <div class="row">
+                <div class="col-lg-4 d-flex justify-content-center">
+                    <img src="{{ STATIC_URL }}images/miguel_cardenas.jpg" 
+                         alt="Miguel Angel Cardenas" 
+                         class="img-fluid rounded shadow">
+                </div>
+                <div class="col-lg-8">
+                    <p>
+                        Our story begins with a remarkable man, Miguel Angel Cardenas, affectionately known as “Dreamer.” Born on April 4, 1964, in Tijuana, Mexico, Miguel’s life was a testament to resilience and determination. He was raised by his young single mother, Maria Mendoza, in a small, rough neighborhood where he started selling gum on the streets at the age of six to help scrape by. Despite these humble beginnings, Miguel never stopped dreaming of a better future.
+                    </p>
+                    <p>
+                        At 15, Miguel and his mother immigrated to the United States, arriving in Los Angeles with only the clothes on their backs. In a challenging environment, Miguel earned the nickname “Dreamer” because of his big aspirations. He worked tirelessly as a busboy, dishwasher, butcher, and more, all while pursuing education. With determination, he transferred from a community college to UCLA, graduating with a 4.0 GPA in Biology.
+                    </p>
+                    <p>
+                        Along the way, Miguel met the love of his life, Irma Gomez, at 19, and they built a family and a life together. Despite juggling multiple jobs and raising five children, Miguel and Irma opened businesses, invested in real estate, and moved their family to a peaceful neighborhood. Through hard work and ambition, they created a thriving real estate business in Las Vegas.
+                    </p>
+                    <p>
+                        In February 2023, Miguel was diagnosed with stage 4 colon cancer. Navigating this journey was overwhelming, with long wait times for specialists and limited access to immediate nutritional guidance. During this time, my brother and I (Edward) took on the role of cooking and researching the best foods for him. Despite our efforts, Miguel’s condition worsened, and he passed away on December 2, 2023.
+                    </p>
+                    <p>
+                        Miguel’s journey inspired the creation of CodeAgainstCancer. This app is dedicated to providing families with the resources, support, and community we wish we had during our own experience. It honors Miguel’s legacy by helping others navigate their cancer journey with hope and resilience. Together with my amazing team—Daniel, Kali, David, and Edwin—we are building this platform to empower others and keep Miguel’s dreams alive.
+                    </p>
+                </div>
+            </div>
+        </section>
+
         <section class="mb-4 mt-0 mt-lg-4">
-            <p class="">
+            <p>
                 CodeAgainstCancer is a non-profit organization that aims to help cancer patients and their families by
-                providing them
-                with the resources they need to fight cancer. We understand that cancer can be a difficult journey. We
-                are
-                here to help
-                you every step of the way. Below are some resources that can help you get the support you need.
+                providing them with the resources they need to fight cancer. For logged-in users, additional specialized 
+                resources are accessible in the left-hand sidebar, tailored to your cancer type and stage. Our platform ensures 
+                personalized support and community connection every step of the way.
             </p>
         </section>
     </div>
