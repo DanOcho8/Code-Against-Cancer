@@ -79,6 +79,35 @@
         Add Entry
     </a>
 
+    <div class="text-center mb-4 mt-4">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#calorieModal">
+            Calorie Calculator
+        </button>
+    </div>
+
+    <!-- Calorie and BMI Calculator Modal -->
+    <div class="modal fade" id="calorieModal" tabindex="-1" aria-labelledby="calorieModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="calorieModalLabel">Calorie and BMI Calculator</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{% url 'calorieTracker:calculate_bmi_calories' %}">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary w-100">Calculate</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     {% include 'calorie/widgets/bmi_calculator.html' %}
 </div>
 {% endblock %}
