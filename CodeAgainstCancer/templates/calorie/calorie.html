@@ -73,31 +73,143 @@
     </div>
     
 
-    <!-- Add Entry Button -->
     <a href="{% url 'calorieTracker:add_entry' %}?date={{ selected_date|date:'Y-m-d' }}" 
        class="btn btn-primary mt-4">
         Add Entry
     </a>
 
+    <!--calorie buttons/edit-->
     <div class="text-center mb-4 mt-4">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#calorieModal">
-            Calorie Calculator
-        </button>
+        {% if calculator_entry_exists %}
+            <button 
+                id="editCalorieButton" 
+                type="button" 
+                class="btn btn-warning" 
+                data-bs-toggle="modal" 
+                data-bs-target="#calorieModal">
+                Edit Calorie Calculator
+            </button>
+        {% else %}
+            <button 
+                id="calorieButton" 
+                type="button" 
+                class="btn btn-primary" 
+                data-bs-toggle="modal" 
+                data-bs-target="#calorieModal">
+                Calorie Calculator
+            </button>
+        {% endif %}
     </div>
+    
+    
+    <!--goal display-->
+    {% if calorie_target and protein_target %}
+    <div class="row justify-content-center mt-5 mb-4">
+        <div class="col-auto">
+            <p class="fw-bold fs-4">Goal Calories: <span class="text-success">{{ calorie_target|floatformat:2 }}</span></p>
+        </div>
+        <div class="col-auto">
+            <p class="fw-bold fs-4">Goal Protein: <span class="text-success">{{ protein_target|floatformat:2 }}g</span></p>
+        </div>
+    </div>
+    
+    <!-- Progress Bars -->
+    <div id="progressSection" class="row justify-content-center mt-5">
+        <div class="col-md-6 text-center">
+            <h5>Calories Progress</h5>
+            <div class="progress" style="height: 30px;">
+                <div 
+                    class="progress-bar bg-success" 
+                    role="progressbar" 
+                    style="width: {{ calorie_percentage }}%;" 
+                    aria-valuenow="{{ calorie_percentage }}" 
+                    aria-valuemin="0" 
+                    aria-valuemax="100">
+                    {{ calorie_percentage }}%
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-md-6 text-center">
+            <h5>Protein Progress</h5>
+            <div class="progress" style="height: 30px;">
+                <div 
+                    class="progress-bar bg-primary" 
+                    role="progressbar" 
+                    style="width: {{ protein_percentage }}%;" 
+                    aria-valuenow="{{ protein_percentage }}" 
+                    aria-valuemin="0" 
+                    aria-valuemax="100">
+                    {{ protein_percentage }}%
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    
 
-    <!-- Calorie and BMI Calculator Modal -->
     <div class="modal fade" id="calorieModal" tabindex="-1" aria-labelledby="calorieModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="calorieModalLabel">Calorie and BMI Calculator</h5>
+                    <h5 class="modal-title" id="calorieModalLabel">
+                        {% if calculator_entry_exists %}
+                            Edit Calorie and BMI Calculator
+                        {% else %}
+                            Calorie and BMI Calculator
+                        {% endif %}
+                    </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{% url 'calorieTracker:calculate_bmi_calories' %}">
+                    <form 
+                        method="POST" 
+                        action="{% if calculator_entry_exists %}{% url 'calorieTracker:edit_calculator' %}{% else %}{% url 'calorieTracker:calculate_bmi_calories' %}{% endif %}">
                         {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit" class="btn btn-primary w-100">Calculate</button>
+                        
+                        <div class="mb-3 text-start">
+                            <label for="id_weight" class="form-label">Weight (kg)</label>
+                            {{ form.weight }}
+                        </div>
+    
+                        <div class="mb-3 text-start">
+                            <label for="id_height" class="form-label">Height (cm)</label>
+                            {{ form.height }}
+                        </div>
+    
+                        <div class="mb-3 text-start">
+                            <label for="id_age" class="form-label">Age</label>
+                            {{ form.age }}
+                        </div>
+    
+                        <div class="mb-3 text-start">
+                            <label class="form-label d-block">Biological Sex</label>
+                            {{ form.biological_sex }}
+                        </div>
+    
+                        <div class="mb-3 text-start">
+                            <label for="id_body_fat_percentage" class="form-label">Body Fat Percentage (Optional)</label>
+                            {{ form.body_fat_percentage }}
+                        </div>
+    
+                        <div class="mb-3 text-start">
+                            <label for="id_activity_level" class="form-label">Activity Level</label>
+                            {{ form.activity_level }}
+                        </div>
+    
+                        <div class="mb-3 text-start">
+                            <label for="id_goal_weight" class="form-label">Goal Weight (kg)</label>
+                            {{ form.goal_weight }}
+                        </div>
+    
+                        <button type="submit" class="btn btn-primary w-100">
+                            {% if calculator_entry_exists %}
+                                Save Changes
+                            {% else %}
+                                Calculate
+                            {% endif %}
+                        </button>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -106,8 +218,8 @@
             </div>
         </div>
     </div>
-
-
-    {% include 'calorie/widgets/bmi_calculator.html' %}
+    
+    
 </div>
+
 {% endblock %}

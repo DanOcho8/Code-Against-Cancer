@@ -1,4 +1,5 @@
 from django import forms
+from .models import CalorieCalculatorEntry
 
 class AddCalorieEntryForm(forms.Form):
     food_name = forms.CharField(
@@ -25,53 +26,60 @@ class AddCalorieEntryForm(forms.Form):
         widget=forms.NumberInput(attrs={'placeholder': 'Enter protein per gram'})
     )
     
-class CalorieCalculator(forms.Form):
+from django import forms
+
+class CalorieCalculator(forms.ModelForm):
+    class Meta:
+        model = CalorieCalculatorEntry
+        fields = [
+            'weight',
+            'height',
+            'age',
+            'biological_sex',
+            'body_fat_percentage',
+            'activity_level',
+            'goal_weight',
+        ]
+
     weight = forms.DecimalField(
-        max_digits=4,
+        max_digits=5,
         decimal_places=2,
-        label="weight",
-        widget=forms.NumberInput(attrs={'placeholder': 'Enter Your Weight'})
+        label="Weight (kg)",
+        widget=forms.NumberInput(attrs={'placeholder': 'Enter Weight in kg'}),
     )
     height = forms.DecimalField(
-        max_digits=4,
+        max_digits=5,
         decimal_places=2,
-        label="height",
-        widget=forms.NumberInput(attrs={'placeholder': 'Enter Your Height'})
+        label="Height (cm)",
+        widget=forms.NumberInput(attrs={'placeholder': 'Enter Height in cm'}),
     )
     age = forms.IntegerField(
-    label="Age",
-    widget=forms.NumberInput(attrs={'placeholder': 'Enter Your Age'}),
+        label="Age",
+        widget=forms.NumberInput(attrs={'placeholder': 'Enter Your Age'}),
     )
-    
-    SEX_CHOICES = [
-        ('male', 'Male'),
-        ('female', 'Female'),
-    ]
     biological_sex = forms.ChoiceField(
-        choices=SEX_CHOICES,
-        label="Biological Sex",
+        choices=[('male', 'Male'), ('female', 'Female')],
         widget=forms.RadioSelect,
+        label="Biological Sex",
     )
     body_fat_percentage = forms.DecimalField(
         max_digits=5,
         decimal_places=2,
         required=False,
         label="Body Fat Percentage (Optional)",
-        widget=forms.NumberInput(attrs={'placeholder': 'Enter Your Body Fat %'}),
+        widget=forms.NumberInput(attrs={'placeholder': 'Enter Body Fat %'}),
     )
-    ACTIVITY_LEVEL_CHOICES = [
-        ('sedentary', 'Sedentary (Little or no exercise)'),
-        ('light', 'Lightly Active (Light exercise/sports 1-3 days/week)'),
-        ('moderate', 'Moderately Active (Moderate exercise/sports 3-5 days/week)'),
-        ('very_active', 'Very Active (Hard exercise/sports 6-7 days/week)'),
-        ('super_active', 'Super Active (Very hard exercise/physical job)'),
-    ]
     activity_level = forms.ChoiceField(
-        choices=ACTIVITY_LEVEL_CHOICES,
+        choices=[
+            ('sedentary', 'Sedentary (Little or no exercise)'),
+            ('light', 'Lightly Active (Light exercise/sports 1-3 days/week)'),
+            ('moderate', 'Moderately Active (Moderate exercise/sports 3-5 days/week)'),
+            ('very_active', 'Very Active (Hard exercise/sports 6-7 days/week)'),
+            ('super_active', 'Super Active (Very hard exercise/physical job)'),
+        ],
         label="Activity Level",
-        widget=forms.Select,
+        widget=forms.Select(attrs={'class': 'form-select'}),
     )
-    
     goal_weight = forms.DecimalField(
         max_digits=5,
         decimal_places=2,
