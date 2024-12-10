@@ -88,10 +88,10 @@
                             <a class="nav-link" href="{% url 'calorieTracker:calorie_tracker' %}">Calorie Tracker</a>
                         </li>
                         <li class="d-md-none nav-item">
-                            <a class="nav-link" href="">My Profile</a>
+                            <a class="nav-link" href="{% url 'profile' %}">My Profile</a>
                         </li>
                         <li class="d-md-none nav-item">
-                            <a class="nav-link" href="">Manage Profile</a>
+                            <a class="nav-link" href="{% url 'update_profile' %}">Manage Profile</a>
                         </li>
                     {% endif %}
 
