@@ -142,7 +142,60 @@
             text-decoration: underline;
         }
     </style>
-
+    {% if user.is_authenticated %}
+    <aside
+            id="mySidebar"
+            class="sidebar z-2 position-fixed d-none d-md-flex"
+    >
+        <ul class="d-flex flex-column justify-content-center">
+            {#            <li>#}
+            {#                <a href="{% url 'home' %}" class="py-4">#}
+            {#                    <i class="material-icons">home</i>#}
+            {#                    <span class="icon-text">Home</span>#}
+            {#                </a>#}
+            {#            </li>#}
+            <li>
+                <a href="{% url 'searchRecipes' %}" class="py-4">
+                    <i class="material-icons">
+                        restaurant_menu
+                    </i>
+                    <span class="icon-text">Recipes</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'calorieTracker:calorie_tracker' %}" class="py-4">
+                    <i class="material-icons">spa</i>
+                    <span class="icon-text">Calorie Tracker</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'profile' %}" class="py-4">
+                    <i class="material-icons">person</i>
+                    <span class="icon-text">My Profile</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'update_profile' %}" class="py-4">
+                    <i class="material-icons">manage_accounts</i>
+                    <span class="icon-text">Manage Profile</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'thread_list' %}" class="py-4">
+                    <i class="material-icons">group</i>
+                    <span class="icon-text">Forum</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'resources' %}" class="py-4">
+                    <i class="material-icons"> library_books </i>
+                    <span class="icon-text">Resources</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+{% endif %}
+<main>
     <section class="container-fluid p-0" style="background-color: #f8f9fa;">
         <div class="row justify-content-between">
             <!-- Left column with image -->
@@ -308,5 +361,6 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</main>
 
 {% endblock %}
