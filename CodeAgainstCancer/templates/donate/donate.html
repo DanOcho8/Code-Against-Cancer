@@ -7,8 +7,20 @@
 
     <style>
 
-        body {
+        main {
             background-color: #e3f2fd;
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        footer {
+            margin: 0;
+            padding: 0;
         }
 
         .donation-img img {
@@ -24,6 +36,27 @@
             margin: 0;
             padding: 0;
             border: none;
+        }
+
+        .donation-link {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            padding: 10px;
+            margin: 0;
+            background-color: #f9f9f9;
+        }
+
+        .donation-link a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            padding: 5px 10px;
+            transition: color 0.3s;
+        }
+
+        .donation-link a:hover {
+            color: #007bff;
         }
 
         .donation-column {
@@ -133,7 +166,7 @@
     </section>
 
     <!-- 2nd Section -->
-    <section class="container-fluid py-5" style="border-radius: 15px; overflow: hidden;">
+    <section class="container-fluid py-5" style="border-radius: 15px; overflow: hidden; background-color: #e3f2fd;">
         <div class="row container mx-auto d-flex align-items-center justify-content-between">
             <!-- Text Section -->
             <div class="col-lg-6 d-flex flex-column align-items-center justify-content-center text-left px-4">
@@ -190,7 +223,7 @@
             <!-- Card 2 -->
             <div class="col-md-6 col-lg-4">
                 <div class="donation-card">
-                    <h3 style="text-align: center; margin-bottom: 20px;">Advancing Cancer Research</h3>
+                    <h3 style="text-align: center; margin-bottom: 20px;">Advance Cancer Research</h3>
                     <ul>
                         <li>Supports cutting-edge research to develop innovative treatments and therapies tailored to
                             specific cancer types.
@@ -229,7 +262,7 @@
 
     <!-- Contributors Section -->
     <h3 class="text-center mt-5">Contributors</h3>
-    <hr style="border-top: 1px solid #ddd;">
+    <hr style="border: none; height: 1px; background: linear-gradient(to right, transparent, #646464, transparent); margin: 0 auto; margin-top: 15px; margin-bottom: 20px; width: 80%;">
     <p class="text-muted small mb-0" style="text-align: center;">Thank you for your incredible generosity!</p>
 
     <!-- Debugging Output
@@ -240,7 +273,7 @@
     <h3 class="text-center mt-4 mb-4">We've amassed a total of <strong
             style="color: #28a745">${{ total_amount }}</strong> towards cancer research!</h3>
 
-    <div class="container my-4">
+    <div class="container my-4" style = "background-color: #e3f2fd; display: flex;">
         <div class="row justify-content-center">
             {% for donor in donors %}
                 <div class="col-md-6 col-lg-4 mb-4 d-flex justify-content-center">
@@ -254,7 +287,7 @@
                                 <strong>${{ donor.amount }}</strong>
                             </p>
                             <p class="card-text text-muted">
-                                {{ donor.message }}
+                                &quot;{{ donor.message }}&quot;
                             </p>
                         </div>
                     </div>
@@ -265,8 +298,15 @@
         </div>
     </div>
 
-    </section>
-
+    <div class="donation-container">
+        <h2 class="text-center my-3" style="padding-bottom: 20px;">Support Other Organizations!</h2>
+        <div class="donation-link">
+            <a href="https://secure2.wish.org/site/SPageServer?pagename=donate_today&ft=SPEA&fi=23_124&chid=100-000&pf=true&level1=15&level2=25&level3=50&level4=100&level5=500&level6=1000&presel=level4&Campaign_ID=MNOO%25fy%25&Appeal_ID=%25fy%25ON-XXX-SRCH&Package_ID=OT-NT-FY23MWSRCHB&Subtype=DEV-Multimedia%20Online&utm_medium=paidsearch&utm_source=google&utm_campaign=mw-ads-google-search-brand-intent-d2d-0723&s_src=ads-google-d2d&s_subsrc=mw-ads-google-search-brand-intent-d2d-0723&gad_source=1&gclid=CjwKCAiA6t-6BhA3EiwAltRFGAphIq3n0uP9_rer_VH6ZwrFe2sIBkgiTdCWw5HpRDpuHfYOj16VvxoC4mEQAvD_BwE&gclsrc=aw.ds">Make-A-Wish</a>
+            <a href="https://donate.pinkfund.org/campaign/real-help-now/c354440">The Pink Fund</a>
+            <a href="https://give.bcrf.org/give/31404/?utm_source=google&utm_medium=cpc&utm_term=Donate%20to%20breast%20cancer&utm_campaign={Campaign}&utm_adgroup={AdGroup}&utm_content={AdGroup}&gad_source=1&gclid=CjwKCAiA6t-6BhA3EiwAltRFGG28Sjcnrl-THz7vJQmlB8uLISFWGG2nAKxTzpjdFUnlkUpm9BrMMBoCsv8QAvD_BwE#!/donation/checkout">National Breast Cancer Association</a>
+            <a href="https://donate.cancer.org/?campaign=search&utm_source=google&utm_medium=cpc&utm_campaignid=21603275924&utm_adgroupid=169792393161&utm_keyword=donate%20to%20acs&gad_source=1&gclid=CjwKCAiA6t-6BhA3EiwAltRFGIZAxcQ6HvOjBhUoNQT6pBSsBs-nkyNHlGWb25-CXT4k_3gZKZhw4hoC3qYQAvD_BwE">American Cancer Society</a>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 {% endblock %}
