@@ -291,7 +291,14 @@ CSP_IMG_SRC = (
     "*",
     "data:",
 )  # Allow images from the same origin, any external domain, and data: URIs
-CSP_CONNECT_SRC = ("'self'",)  # Only allow connections from your Django app (for APIs)
+CSP_CONNECT_SRC = (
+    "'self'",
+    "https://maps.googleapis.com",
+    "https://maps.gstatic.com",
+    "https://*.googleapis.com",  # Wildcard for subdomains
+    "https://maps.googleapis.com/$rpc/google.internal.maps.mapsjs.v1.MapsJsInternalService/GetViewportInfo",
+    "https://maps.googleapis.com/mapsjs/gen_204",
+)
 CSP_FRAME_SRC = (
     "'self'",
     "https://www.youtube.com",  # Allow iframes from YouTube
