@@ -275,6 +275,10 @@ CSP_SCRIPT_SRC = (
     "https://cdn.jsdelivr.net",  # Bootstrap scripts (if any in the future)
     "https://code.jquery.com",  # jQuery CDN
     "https://maps.googleapis.com",  # Allow Google Maps scripts
+    "https://maps.gstatic.com",  # Required for Google Maps assets
+    "https://*.googleapis.com",  # Wildcard for other Google Maps API services
+    "https://maps.googleapis.com/$rpc/google.internal.maps.mapsjs.v1.MapsJsInternalService/GetViewportInfo",
+    "https://maps.googleapis.com/mapsjs/gen_204",
     "'unsafe-inline'",  # TODO: we should remove this and also remove inline scripts
 )
 CSP_FONT_SRC = (
