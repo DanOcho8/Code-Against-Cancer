@@ -724,7 +724,7 @@ ul.forums a:hover {
 
 /* Individual Thread Item */
 .thread-item {
-  width: 60%;
+  width: 100%;
   background: linear-gradient(135deg, #333, #444);
   border-radius: 10px;
   padding: 20px;
@@ -796,6 +796,29 @@ ul.forums a:hover {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.forum.thread-detail h1 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #36788e;
+  text-shadow: 0 0 10px #36788e, 0 0 20px #3495b5;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.forum.thread-detail .posts-section h2 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #36788e;
+  text-align: left;
+  margin: 0 auto;
+}
+
+.forum {
+  max-width: 1000px;
+  margin: 0 auto;
 }
 /* end of recipe page styles  */
 

@@ -8,20 +8,20 @@
     background-color: #1a1a1a;
   }
 </style>
-<div class="thread-detail" style="text-align: center; margin-top: 20px; color: white;">
+<div class="forum thread-detail container" style="color: white;">
   <!-- Thread Title -->
-  <h1 style="font-size: 36px; font-weight: bold; margin-bottom: 30px; color: #36788e; text-shadow: 0 0 10px #36788e, 0 0 20px #3495b5;">
+<h1>
     {{ object.title }}
   </h1>
 
-  <div class="posts-section" style="text-align: left; width: 60%; margin: 0 auto">
-    <h2 style="font-size: 28px; font-weight: bold; margin-bottom: 20px; color: #36788e;">
+  <div class="posts-section">
+  <h2>
       Posts:
     </h2>
 
     {% if first_post %}
     <div class="post-item" style="background-color: #f8f8f8; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 100%;">
-      <div class="" style="margin-right: 15px;">
+      <div class="" style="">
         {% if first_post.author.userprofile.profile_pic %}
             <img src="{{ first_post.author.userprofile.profile_pic.url }}" alt="{{ first_post.author.username }}'s Profile Picture" style="border-radius: 50%; width: 50px; height: 50px; object-fit: cover;">
         {% else %}
@@ -180,10 +180,10 @@
     {% endif %}
   </div>
 
-  <hr style="width: 60%; margin: 40px auto" />
+  <hr style="margin: 40px auto" />
 
   <!-- Add New Post Section -->
-  <div class="add-post" style="color: #36788e; width: 60%; margin: 0 auto; text-align: left; margin-top:-20px; padding-bottom: 60px;">
+  <div class="add-post" style="color: #36788e; margin: 0 auto; text-align: left; margin-top:-20px; padding-bottom: 60px;">
     <h3 style="font-size: 24px; font-weight: bold; margin-bottom: 20px">Add New Post</h3>
     <form method="post" action="{% url 'create_post' pk=object.pk %}">
       {% csrf_token %}
